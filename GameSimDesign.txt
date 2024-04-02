@@ -1,0 +1,79 @@
+GAME SIM
+Ice will be separated into 27 zones
+
+Corner       Behind-Net     Corner
+Faceoff-cir  Crease         Faceoff-cir
+             HashMarks
+Point        Centre-Blue    Point
+BlueFaceoff  NeutralMid     BlueFaceoff
+             CentreIce
+BlueFaceoff  NeutralMid     BlueFaceoff
+Point        Centre-Blue    Point
+             HashMarks
+Faceoff-cir  Crease         Faceoff-cir
+Corner       Behind-Net     Corner
+
+Players and the puck will move from zone to zone
+There will be probabilities based on the players and zone involved and to where the puck will go from each zone that it is in
+
+Stats will be largely used individiually to resolve conflicts
+
+Player Stats
+Athletic
+- Speed (to resolve races)
+- Endurance (how their stats flag over the course of the game)
+
+Offensive
+- Puck Control (to resolve dekes)
+- Short Shooting (Zones close to the net)
+- Long Shooting (Zones far from the net)
+- Passing
+
+Defensive
+- Shot Blocking (to oppose Long Shooting)
+- Stick-Checking (to oppose puck control and passing)
+
+Goalie Stats
+- Pads
+- Glove
+- Blocker
+- Stick
+- Passing
+
+Game will consist of 3 20 minute periods
+The game is take up by "PuckActions"
+
+Each PuckAction can take a different number of seconds, ranging from 3-10 seconds.
+So a game will have a minimum of 360 PuckActions and a maximum of 1200
+
+Puck Action is resolved as follows
+1. Check Zone
+2. Check Possession
+3. Decide Possessor ActionActtempt
+4. Evaluate Attempt Success
+5. Move Puck
+6. Move All Other Players
+7. Check for Penalties (move to 6, or 4?, or 5?)
+
+
+All AttemptSuccess will be 
+Likelihood of Player A Winning: (Player A stat + 100) / (Player A stat + 100) + (Player B stat + 100) 
+Tweak the "100" up to make individual stats matter less, change it down to make individual stats matter more
+
+Player who wins the faceoff gains puck control
+
+Defensive Zone options
+- Pass
+- Carry
+- Clear
+- Ice
+
+Neural Zone options
+- Pass
+- Carry
+- Ice/Dump
+
+Offensive Zone Options
+- Pass
+- Shoot
+- Deke
