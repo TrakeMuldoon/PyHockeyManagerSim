@@ -1,0 +1,18 @@
+Hockey Management Simulator
+
+Game States
+
+- Mgment Mode
+- Game Sim Mode
+
+Game Sim Mode
+Game will simulate using top down "Play Board" style
+Ability to 
+- Simulate Game
+- Change Coaching Strategy
+
+Mgment Mode will be a spreadsheet style with the ability to
+- Trade
+- Scout
+
+
