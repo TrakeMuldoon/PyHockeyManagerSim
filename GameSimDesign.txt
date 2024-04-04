@@ -47,26 +47,45 @@ Each PuckAction can take a different number of seconds, ranging from 3-10 second
 So a game will have a minimum of 360 PuckActions and a maximum of 1200
 
 Puck Action is resolved as follows
-1. Check Zone
-2. Check Possession
-3. Decide Possessor ActionActtempt
-4. Evaluate Attempt Success
+1. Check Possession
+2. Determine Zone for Possessor
+3. Look up PlayerActions and weights and determine PlayerAction
+4. Look up PlayerActionOptions and weights and determine PlayerOption
+5. Determine opposition for Option
+6. Determine ActionSuccess or failure
+6. Look up PlayerActionOptionOutcome weights based on success or failure
 5. Move Puck
 6. Move All Other Players
 7. Check for Penalties (move to 6, or 4?, or 5?)
 
 
 All AttemptSuccess will be 
-Likelihood of Player A Winning: (Player A stat + 100) / (Player A stat + 100) + (Player B stat + 100) 
+Likelihood of Possessor Winning: (Possessor stat + 100) / (Possessor stat + 100) + (Defender stat + 100) 
 Tweak the "100" up to make individual stats matter less, change it down to make individual stats matter more
 
 Player who wins the faceoff gains puck control
 
+If no one has control of the puck, a "race" is created.
+Race:
+  Players calculate how many zones they need to pass through to get the puck
+  Players at the lowest number of zones away all gain a value of random (0-1) * (100 + SPEED)
+  Ties or close ties are broken by Puck Control (?) or PC + Stick Checking (?)
+  Highest Value gains control
+
+Controlled Puck:
 Defensive Zone options
+Percentage choice of each depending on STRATEGY
 - Pass
+  Percentage choice based on STRATEGY
+  Forward, Lateral ( including current zone), Backwards
+- Breakout (if available)
+  Attempt to forward pass with a higher probabilty of leaving the zone, and lower probability of completed pass
+  Forward
 - Carry
+  Percentage choice based on STRATEGY
+  Forward, Lateral (including current zone), backwards
 - Clear
-- Ice
+  Very High probabilty of leaving the zone, probability of icing , depending on factors
 
 Neural Zone options
 - Pass
@@ -77,3 +96,21 @@ Offensive Zone Options
 - Pass
 - Shoot
 - Deke
+
+
+Coaching STRATEGY:
+Aggressive
+Neutral
+Conservative
+
+
+Enums/Pivots
+ZONE: 1 of 16
+STRATEGY
+PLAYER_ACTION
+PLAYER_ACTION_OPTIONS
+PLAYER_ACTION_OUTCOMES (would be for all PLAYER_ACTION_OPTIONS, including some PLAYER_ACTIONs without options)
+OUTCOMES dictate the following required information 
+  ZONE: Puck Location
+  PLAYER: Puck Controller (null means No Controller)
+
