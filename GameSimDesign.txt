@@ -78,19 +78,36 @@ Percentage choice of each depending on STRATEGY
 - Pass
   Percentage choice based on STRATEGY
   Forward, Lateral ( including current zone), Backwards
+  OUTCOMES
+  Passed, missed (lost control), interception
 - Breakout (if available)
   Attempt to forward pass with a higher probabilty of leaving the zone, and lower probability of completed pass
-  Forward
+  OUTCOMES
+  Forward Pass, Clear Zone (opposition control), Clear Zone (No possessor), interception
 - Carry
   Percentage choice based on STRATEGY
   Forward, Lateral (including current zone), backwards
+  OUTCOMES
+  Move Zone, Lose Control (no possessor), interception
 - Clear
   Very High probabilty of leaving the zone, probability of icing , depending on factors
+  OUTCOMES - push puck past blueline
+  Clear Zone (No controller), Clear Zone (opposition), Icing, Interception
 
 Neural Zone options
-- Pass
+  - Pass
+    Percentage choice based on STRATEGY
+      Forward, Lateral ( including current zone), Backwards
+      OUTCOMES
+      Passed, missed (lost control), interception
 - Carry
+  Percentage choice based on STRATEGY
+  Forward, Lateral (including current zone), backwards
+   Move Zone, Lose Control (no possessor), interception, offside
 - Ice/Dump
+  Very High probabilty of leaving the zone, probability of icing , depending on factors
+  OUTCOMES - push puck into corner
+  Clear Zone (No controller), Clear Zone (opposition), Icing, Interception
 
 Offensive Zone Options
 - Pass
@@ -114,3 +131,7 @@ OUTCOMES dictate the following required information
   ZONE: Puck Location
   PLAYER: Puck Controller (null means No Controller)
 
+
+ENDURANCE
+- every 30 seconds of ice time, stats go down by 1
+- every 30 seconds of rest-time, stats go up by Stat:Endurance / 100 * 0.1
