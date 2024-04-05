@@ -1,5 +1,6 @@
 from random import random
 from GameSim.PlayerNameGenerator import PlayerNameGenerator
+from GameSim.Positions import Positions
 import math
 
 class Player:
@@ -18,6 +19,8 @@ class Player:
         self.first_name = PlayerNameGenerator.random_first_name()
         self.last_name = PlayerNameGenerator.random_last_name()
 
+        self.position = Positions(int(random() * 5) + 2)
+
     def generate_random_NHL_stat(self):
         stat = random() * 28
         stat = self.round_sig(stat, 3)
@@ -28,11 +31,11 @@ class Player:
         return round(x, sig - int(math.floor(math.log10(abs(x)))) - 1)
 
     def print_stats(self):
-        name = f"{self.first_name} {self.last_name}"
+        name = f"{self.first_name} {self.last_name} ({str(self.position)[10:]})"
         player = f"SPD:{self.speed}\tEND:{self.endurance}"
         offense = f"WRST:{self.short_shooting}\tSLAP:{self.long_shooting}\tPC:{self.puck_control:<9}PASS:{self.passing}"
         defence = f"BLK:{self.shot_blocking}\tSCHK:{self.stick_checking}"
-        print(f"{name:<20}>>\t{player}\t|\t{offense}\t|\t{defence}")
+        print(f"{name:<40}>>\t{player}\t|\t{offense}\t|\t{defence}")
 
 '''
 Athletic
