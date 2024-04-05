@@ -1,0 +1,27 @@
+RANDOM PLAYER GENERATION
+
+RANDOM GOALIE GENERATION
+
+RANDOM TEAM GENERATION
+
+SIMPLE SIMULATOR
+    - Puck Moves Randomly
+    - Players Act Randomly
+    - Players Succeed Randomly
+    - Players move Randomly
+
+ADD Players Move with purpose based on position
+
+ADD Opposition to action
+
+ADD PlayerAction and ActionOption probabilities (general)
+
+ADD PlayerAction and ActionOption probabilities weighted by Coaching Stragegy
+
+ADD Endurance and Line-changes
+
+ADD PlayerPositions and modified stats generation
+
+ADD positional modifiers for situation and general
+
+ADD Penalties

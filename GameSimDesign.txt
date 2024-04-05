@@ -13,6 +13,17 @@ Point        Centre-Blue    Point
 Faceoff-cir  Crease         Faceoff-cir
 Corner       Behind-Net     Corner
 
+
+Positions:
+    (G) Goalie
+    (LD) Left Defence
+    (RD) Right Defence
+    (LW) Left Winger
+    (C) Centre
+    (RW) Right Winger
+    (X) Extra Player
+
+
 Players and the puck will move from zone to zone
 There will be probabilities based on the players and zone involved and to where the puck will go from each zone that it is in
 
