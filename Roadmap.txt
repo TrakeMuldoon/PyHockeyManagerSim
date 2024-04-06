@@ -62,4 +62,7 @@ ADD Strategic line changing
 
 ADD pulling goalie
 
+ADD EndGame desperation actions
+
 ADD injuries
+

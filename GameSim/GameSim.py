@@ -1,7 +1,11 @@
 from random import random
+from GameSim.Goalie import Goalie
+from GameSim.Lines import OffensiveLine
+from GameSim.Lines import DefensiveLine
 
 class GameSim:
-    SECONDS_IN_PERIOD = 60 * 20
+    SECONDS_IN_PERIOD = 60 * 20 # 1200
+
     def __init__(self, home_team, away_team):
         self.home_team = home_team
         self.away_team = away_team
@@ -10,6 +14,14 @@ class GameSim:
         self.away_score = 0
 
         self.events = 0
+
+        self.home_offense = OffensiveLine()
+        self.home_defence = DefensiveLine()
+        self.home_goalie : Goalie = None
+
+        self.away_offense = OffensiveLine()
+        self.away_defence = DefensiveLine()
+        self.away_goalie : Goalie = None
 
     def simulate_game(self, with_print_statements=True, playoffs=False):
         self.simulate_period(1)
@@ -45,10 +57,10 @@ class GameSim:
             #  move all other players
             # check for penalties
             self.print_game_time(period_num, seconds_passed)
-            seconds_passed += int(random() * 4) + 2
+            seconds_passed += int(random() * 4) + 3
 
             if seconds_passed > next_line_change_seconds:
-                print("LINECHANGE")
+                print("LINE CHANGE")
                 self.put_new_players_on_ice()
                 next_line_change_seconds += 59
 
@@ -62,7 +74,7 @@ class GameSim:
 
         per = "1st" if period == 1 else "2nd" if period == 2 else "3rd"
 
-        print(f"{min_left}:{sec_left:00} left. {min_passed}:{sec_passed:00} passed in the {per} period. {self.events}")
+        print(f"{min_left:02}:{sec_left:02} left. {min_passed:02}:{sec_passed:02} passed in the {per} period. {self.events}")
 
     def game_one_liner(self):
         pass
