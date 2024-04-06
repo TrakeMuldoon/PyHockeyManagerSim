@@ -1,0 +1,192 @@
+New York	NY	USA
+Los Angeles	CA	USA
+Chicago	IL	USA
+Houston	TX	USA
+Phoenix	AZ	USA
+Philadelphia	PA	USA
+San Antonio	TX	USA
+San Diego	CA	USA
+Dallas	TX	USA
+Austin	TX	USA
+Jacksonville	FL	USA
+San Jose	CA	USA
+Fort Worth	TX	USA
+Columbus	OH	USA
+Charlotte	NC	USA
+Indianapolis	IN	USA
+San Francisco	CA	USA
+Seattle	WA	USA
+Denver	CO	USA
+Oklahoma City	OK	USA
+Nashville	TN	USA
+El Paso	TX	USA
+Washington	DC	USA
+Las Vegas	NV	USA
+Boston	MA	USA
+Portland	OR	USA
+Louisville	KY	USA
+Memphis	TN	USA
+Detroit	MI	USA
+Baltimore	MD	USA
+Milwaukee	WI	USA
+Albuquerque	NM	USA
+Tucson	AZ	USA
+Fresno	CA	USA
+Sacramento	CA	USA
+Mesa	AZ	USA
+Kansas City	MO	USA
+Atlanta	GA	USA
+Colorado Springs	CO	USA
+Omaha	NE	USA
+Raleigh	NC	USA
+Virginia Beach	VA	USA
+Long Beach	CA	USA
+Miami	FL	USA
+Oakland	CA	USA
+Minneapolis	MN	USA
+Tulsa	OK	USA
+Bakersfield	CA	USA
+Tampa	FL	USA
+Wichita	KS	USA
+Arlington	TX	USA
+Aurora	CO	USA
+New Orleans	LA	USA
+Cleveland	OH	USA
+Anaheim	CA	USA
+Honolulu	HI	USA
+Henderson	NV	USA
+Stockton	CA	USA
+Riverside	CA	USA
+Lexington	KY	USA
+Corpus Christi	TX	USA
+Orlando	FL	USA
+Irvine	CA	USA
+Cincinnati	OH	USA
+Santa Ana	CA	USA
+Newark	NJ	USA
+Saint Paul	MN	USA
+Pittsburgh	PA	USA
+Greensboro	NC	USA
+Lincoln	NE	USA
+Durham	NC	USA
+Plano	TX	USA
+Anchorage	AK	USA
+Jersey City	NJ	USA
+St. Louis	MO	USA
+Chandler	AZ	USA
+North Las Vegas	NV	USA
+Chula Vista	CA	USA
+Buffalo	NY	USA
+Gilbert	AZ	USA
+Reno	NV	USA
+Madison	WI	USA
+Fort Wayne	IN	USA
+Toledo	OH	USA
+Lubbock	TX	USA
+St. Petersburg	FL	USA
+Laredo	TX	USA
+Irving	TX	USA
+Chesapeake	VA	USA
+Glendale	AZ	USA
+Winston-Salem	NC	USA
+Scottsdale	AZ	USA
+Garland	TX	USA
+Boise	ID	USA
+Norfolk	VA	USA
+Port St. Lucie	FL	USA
+Spokane	WA	USA
+Richmond	VA	USA
+Fremont	CA	USA
+Huntsville	AL	USA
+Tacoma	WA	USA
+Baton Rouge	LA	USA
+Santa Clarita	CA	USA
+San Bernardino	CA	USA
+Hialeah	FL	USA
+Frisco	TX	USA
+Modesto	CA	USA
+Cape Coral	FL	USA
+Fontana	CA	USA
+Moreno Valley	CA	USA
+Des Moines	IA	USA
+Rochester	NY	USA
+Fayetteville	NC	USA
+Yonkers	NY	USA
+McKinney	TX	USA
+Worcester	MA	USA
+Salt Lake City	UT	USA
+Little Rock	AR	USA
+Columbus	GA	USA
+Augusta	GA	USA
+Sioux Falls	SD	USA
+Grand Prairie	TX	USA
+Tallahassee	FL	USA
+Amarillo	TX	USA
+Oxnard  CA  USA
+Calgary	AB	CAN
+Edmonton	AB	CAN
+Red Deer	AB	CAN
+Vancouver	BC	CAN
+Surrey	BC	CAN
+Burnaby	BC	CAN
+Richmond	BC	CAN
+Abbotsford	BC	CAN
+Winnipeg	MB	CAN
+Moncton	NB	CAN
+St. John's NL	CAN
+Toronto	ON	CAN
+Ottawa	ON	CAN
+Mississauga	ON	CAN
+Brampton	ON	CAN
+Hamilton	ON	CAN
+London	ON	CAN
+Markham	ON	CAN
+Vaughan	ON	CAN
+Kitchener	ON	CAN
+Windsor	ON	CAN
+Richmond Hill	ON	CAN
+Burlington	ON	CAN
+Montreal	QC	CAN
+Québec	QC	CAN
+Laval	QC	CAN
+Gatineau	QC	CAN
+Longueuil	QC	CAN
+Saskatoon	SK	CAN
+Regina	SK	CAN
+Mexico City	M	MEX
+Tijuana	M	MEX
+Ecatepec	M	MEX
+León	M	MEX
+Puebla	M	MEX
+Ciudad Juárez	M	MEX
+Guadalajara	M	MEX
+Zapopan	M	MEX
+Monterrey	M	MEX
+Nezahualcóyotl	M	MEX
+Chihuahua	M	MEX
+Mérida	M	MEX
+Naucalpan	M	MEX
+Toluca	M	MEX
+Cancún	M	MEX
+Saltillo	M	MEX
+Aguascalientes	M	MEX
+Hermosillo	M	MEX
+Mexicali	M	MEX
+San Luis Potosí	M	MEX
+Culiacán	M	MEX
+Querétaro	M	MEX
+Morelia	M	MEX
+Chimalhuacán	M	MEX
+Reynosa	M	MEX
+Torreón	M	MEX
+Tlalnepantla	M	MEX
+Acapulco	M	MEX
+Tlaquepaque	M	MEX
+Guadalupe	M	MEX
+Durango	M	MEX
+Tuxtla Gutiérrez	M	MEX
+Cuautitlán Izcalli	M	MEX
+Veracruz	M	MEX
+Ciudad Apodaca	M	MEX
+Ciudad López Mateos	M	MEX
+Matamoros	M	MEX
