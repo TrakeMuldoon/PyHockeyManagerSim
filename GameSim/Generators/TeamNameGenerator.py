@@ -35,7 +35,7 @@ class TeamNameGenerator:
             city_name = empty_team.location.split("\t")[0]
 
             team_index = random() * len(TeamNameGenerator._generator.team_names)
-            team_index = int(index)
+            team_index = int(team_index)
             team_mascot = TeamNameGenerator._generator.team_names[team_index]
 
             full_name = f"{city_name} {team_mascot}"
