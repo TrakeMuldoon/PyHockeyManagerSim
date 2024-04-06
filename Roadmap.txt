@@ -12,13 +12,22 @@ SIMPLE SIMULATOR
     - Players Succeed Randomly
     - Players move Randomly
 
+ADD Pygame Visualization
+    Player Location Heads (Home/Away helmets?)
+    Puck Location
+    Score Tracking
+
 ADD Players Move with purpose based on position
+
+ADD Team Colours (Helmet Colours) / Player Numbers
 
 ADD Opposition to action
 
 ADD PlayerAction and ActionOption probabilities (general)
 
 ADD PlayerAction and ActionOption probabilities weighted by Coaching Stragegy
+
+ADD Descriptive commentators
 
 ADD Endurance and rotational Line-changes
 
