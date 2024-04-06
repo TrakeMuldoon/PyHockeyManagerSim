@@ -29,7 +29,7 @@ ADD PlayerAction and ActionOption probabilities weighted by Coaching Stragegy
 
 ADD Descriptive commentators
 
-ADD Endurance and rotational Line-changes
+ADD Endurance and rotational Line-changes, and "lines"
 
 Change Player Generation to use a generator
 
