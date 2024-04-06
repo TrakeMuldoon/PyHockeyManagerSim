@@ -1,7 +1,8 @@
-from GameSim.PlayerNameGenerator import PlayerNameGenerator
+from GameSim.Generators.PlayerNameGenerator import PlayerNameGenerator
 from random import random
 from GameSim.Player import Positions
 import math
+
 
 class Goalie:
     def __init__(self):

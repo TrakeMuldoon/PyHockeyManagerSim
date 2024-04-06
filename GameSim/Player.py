@@ -1,7 +1,8 @@
 from random import random
-from GameSim.PlayerNameGenerator import PlayerNameGenerator
+from GameSim.Generators.PlayerNameGenerator import PlayerNameGenerator
 from GameSim.Positions import Positions
 import math
+
 
 class Player:
     def __init__(self):
@@ -36,6 +37,7 @@ class Player:
         offense = f"WRST:{self.short_shooting}\tSLAP:{self.long_shooting}\tPC:{self.puck_control:<9}PASS:{self.passing}"
         defence = f"BLK:{self.shot_blocking}\tSCHK:{self.stick_checking}"
         print(f"{name:<40}>>\t{player}\t|\t{offense}\t|\t{defence}")
+
 
 '''
 Athletic

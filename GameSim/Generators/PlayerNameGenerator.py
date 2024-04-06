@@ -3,8 +3,8 @@ from random import random
 
 class _inner_generator:
     script_dir = os.path.dirname(__file__)  # <-- absolute dir the script is in
-    ln_path = "..\\Reference\\LastNames.txt"
-    fn_path = "..\\Reference\\FirstNames.txt"
+    ln_path = "../../Reference/LastNames.txt"
+    fn_path = "../../Reference/FirstNames.txt"
     full_fn_path = os.path.join(script_dir, fn_path)
     full_ln_path = os.path.join(script_dir, ln_path)
 
