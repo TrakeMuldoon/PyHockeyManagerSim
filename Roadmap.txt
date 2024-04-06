@@ -3,9 +3,9 @@ RANDOM PLAYER GENERATION
 RANDOM GOALIE GENERATION
 
 RANDOM TEAM GENERATION
-done
-Assign Players to TEAM
 
+Assign Players to TEAM
+done
 SIMPLE SIMULATOR
     - Puck Moves Randomly
     - Players Act Randomly
