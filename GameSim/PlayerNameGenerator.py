@@ -1,7 +1,7 @@
 import os
 from random import random
 
-class _innerGenerator:
+class _inner_generator:
     script_dir = os.path.dirname(__file__)  # <-- absolute dir the script is in
     ln_path = "..\\Reference\\LastNames.txt"
     fn_path = "..\\Reference\\FirstNames.txt"
@@ -18,7 +18,7 @@ class _innerGenerator:
 
 
 class PlayerNameGenerator:
-    _generator = _innerGenerator()
+    _generator = _inner_generator()
 
     @staticmethod
     def random_last_name():

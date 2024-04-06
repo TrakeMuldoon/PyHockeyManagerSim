@@ -3,6 +3,8 @@ RANDOM PLAYER GENERATION
 RANDOM GOALIE GENERATION
 
 RANDOM TEAM GENERATION
+done
+Assign Players to TEAM
 
 SIMPLE SIMULATOR
     - Puck Moves Randomly
@@ -18,10 +20,35 @@ ADD PlayerAction and ActionOption probabilities (general)
 
 ADD PlayerAction and ActionOption probabilities weighted by Coaching Stragegy
 
-ADD Endurance and Line-changes
+ADD Endurance and rotational Line-changes
 
-ADD PlayerPositions and modified stats generation
+ADD modified stats generation based on position
 
 ADD positional modifiers for situation and general
 
 ADD Penalties
+
+Ensure games take < 0.05 second per game (without print statements)
+    OR 1344 games in < 60 seconds
+
+PHASE 2
+NHL Schedule
+    (7 * 4) + (8 * 3) + (16 * 2) = 28 + 24 + 32 = 84 games per team per season
+    84 * 16 = (84 * 10) + (84 * 5) + 84 = 840 + 420 + 84 = 1260 + 84 = 1344 games total
+
+SIMULATE SEASON
+Schedule generation
+- Look up how this is done professionally
+-- https://stackoverflow.com/questions/1037057/how-to-automatically-generate-a-sports-league-schedule
+
+simulate all games
+
+Track Goals and Assists
+
+Set Lines
+
+ADD Strategic line changing
+
+ADD pulling goalie
+
+ADD injuries
