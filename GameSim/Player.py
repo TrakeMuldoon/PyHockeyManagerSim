@@ -34,9 +34,9 @@ class Player:
     def print_stats(self):
         name = f"{self.first_name} {self.last_name} ({str(self.position)[10:]})"
         player = f"SPD:{self.speed}\tEND:{self.endurance}"
-        offense = f"WRST:{self.short_shooting}\tSLAP:{self.long_shooting}\tPC:{self.puck_control:<9}PASS:{self.passing}"
+        offence = f"WRST:{self.short_shooting}\tSLAP:{self.long_shooting}\tPC:{self.puck_control:<9}PASS:{self.passing}"
         defence = f"BLK:{self.shot_blocking}\tSCHK:{self.stick_checking}"
-        print(f"{name:<40}>>\t{player}\t|\t{offense}\t|\t{defence}")
+        print(f"{name:<40}>>\t{player}\t|\t{offence}\t|\t{defence}")
 
 
 '''

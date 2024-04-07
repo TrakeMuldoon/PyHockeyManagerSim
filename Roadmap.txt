@@ -34,6 +34,7 @@ ADD Endurance and rotational Line-changes, and "lines"
 Change Player Generation to use a generator
 
 ADD modified stats generation based on position
+Move player selection out of GameSim
 
 ADD positional modifiers for situation and general
 

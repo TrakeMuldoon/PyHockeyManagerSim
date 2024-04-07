@@ -15,11 +15,11 @@ class GameSim:
 
         self.events = 0
 
-        self.home_offense = OffensiveLine()
+        self.home_offence = OffensiveLine()
         self.home_defence = DefensiveLine()
         self.home_goalie : Goalie = None
 
-        self.away_offense = OffensiveLine()
+        self.away_offence = OffensiveLine()
         self.away_defence = DefensiveLine()
         self.away_goalie : Goalie = None
 
@@ -41,7 +41,9 @@ class GameSim:
         next_line_change_seconds = 60
 
         # select 5 players and a goalie
-        self.put_goalie_on_ice()
+        self.home_goalie = self.select_goalie_from_team(self.home_team)
+        self.away_goalie = self.select_goalie_from_team(self.away_team)
+
         self.put_new_players_on_ice()
 
         # do opening faceoff
@@ -54,7 +56,7 @@ class GameSim:
                 # check zone
                 # check options
                 # evaluate resolutions
-            #  move all other players
+            # move all other players
             # check for penalties
             self.print_game_time(period_num, seconds_passed)
             seconds_passed += int(random() * 4) + 3
@@ -79,11 +81,30 @@ class GameSim:
     def game_one_liner(self):
         pass
 
-    def put_goalie_on_ice(self):
-        pass
-
     def put_new_players_on_ice(self):
-        pass
+        self.home_offence = self.home_team.next_offence()
+        self.home_defence = self.home_team.next_defence()
+        self.away_offence = self.away_team.next_offence()
+        self.away_defence = self.away_team.next_defence()
+        #self.print_players_on_ice()
+
+    def print_players_on_ice(self):
+        hd = self.home_defence
+        ho = self.home_offence
+        print(f"HOME\t\t{self.home_goalie.last_name}")
+        print(f"\t\t{hd.left_defence.last_name}\t\t{hd.right_defence.last_name}")
+        print(f"\t{ho.left_winger.last_name}\t{ho.centre.last_name}\t{ho.right_winger.last_name}")
+
+        ad = self.away_defence
+        ao = self.away_offence
+        print(f"AWAY\t\t{self.away_goalie.last_name}")
+        print(f"\t\t{ad.left_defence.last_name}\t\t{ad.right_defence.last_name}")
+        print(f"\t{ao.left_winger.last_name}\t{ao.centre.last_name}\t{ao.right_winger.last_name}")
+
+    @staticmethod
+    def select_goalie_from_team(team):
+        index = int(random() * len(team.goalies))
+        return team.goalies[index]
 
     def simulate_shootout(self):
         pass

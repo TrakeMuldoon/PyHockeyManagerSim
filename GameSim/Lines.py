@@ -7,6 +7,7 @@ class OffensiveLine:
 
         self.line_average_player = None
 
+
 class DefensiveLine:
     def __init__(self):
         self.left_defence = None
