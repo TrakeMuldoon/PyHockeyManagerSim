@@ -2,6 +2,7 @@ from random import random
 from GameSim.Goalie import Goalie
 from GameSim.Lines import OffensiveLine
 from GameSim.Lines import DefensiveLine
+from GameSim.Zones import Zones
 
 class GameSim:
     SECONDS_IN_PERIOD = 60 * 20 # 1200
@@ -22,6 +23,8 @@ class GameSim:
         self.away_offence = OffensiveLine()
         self.away_defence = DefensiveLine()
         self.away_goalie : Goalie = None
+
+        self.puck_zone : Zones = Zones.CENTRE_ICE
 
     def simulate_game(self, with_print_statements=True, playoffs=False):
         self.simulate_period(1)
