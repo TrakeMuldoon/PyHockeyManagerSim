@@ -1,4 +1,5 @@
 from random import random
+from GameSim.GameTeam import GameTeam
 from GameSim.Goalie import Goalie
 from GameSim.Player import Player
 from GameSim.Lines import OffensiveLine
@@ -9,19 +10,13 @@ class GameSim:
     SECONDS_IN_PERIOD = 60 * 20 # 1200
 
     def __init__(self, home_team, away_team):
-        self.home_team = home_team
-        self.away_team = away_team
+        self.home_team = GameTeam(home_team)
+        self.away_team = GameTeam(away_team)
 
         self.home_score = 0
         self.away_score = 0
 
         self.events = 0
-
-        self.home_offence = OffensiveLine()
-        self.home_defence = DefensiveLine()
-
-        self.away_offence = OffensiveLine()
-        self.away_defence = DefensiveLine()
 
         self.puck_zone : Zones = Zones.CENTRE_ICE
         self.face_off = True
@@ -45,10 +40,10 @@ class GameSim:
         next_line_change_seconds = 60
 
         # select 5 players and a goalie
-        self.home_team.select_goalie_from_team()
-        self.away_team.select_goalie_from_team()
+        self.home_team.put_new_players_on_ice()
+        self.away_team.put_new_players_on_ice()
+        self.print_players_on_ice()
 
-        self.put_new_players_on_ice()
 
         # do opening faceoff
         while seconds_passed < GameSim.SECONDS_IN_PERIOD:
@@ -59,8 +54,10 @@ class GameSim:
 
             if seconds_passed > next_line_change_seconds:
                 print("LINE CHANGE")
-                self.put_new_players_on_ice()
-                next_line_change_seconds += 59
+                if self.face_off:
+                    self.home_team.put_new_players_on_ice()
+                    self.away_team.put_new_players_on_ice()
+                    next_line_change_seconds += 59
 
     def simulate_next_event(self):
         if self.face_off:
@@ -95,25 +92,12 @@ class GameSim:
     def game_one_liner(self):
         pass
 
-    def put_new_players_on_ice(self):
-        self.home_offence = self.home_team.next_offence()
-        self.home_defence = self.home_team.next_defence()
-        self.away_offence = self.away_team.next_offence()
-        self.away_defence = self.away_team.next_defence()
-        #self.print_players_on_ice()
-
     def print_players_on_ice(self):
-        hd = self.home_defence
-        ho = self.home_offence
-        print(f"HOME\t\t{self.home_goalie.last_name}")
-        print(f"\t\t{hd.left_defence.last_name}\t\t{hd.right_defence.last_name}")
-        print(f"\t{ho.left_winger.last_name}\t{ho.centre.last_name}\t{ho.right_winger.last_name}")
+        print("HOME", "")
+        self.home_team.print_players_on_ice()
 
-        ad = self.away_defence
-        ao = self.away_offence
-        print(f"AWAY\t\t{self.away_goalie.last_name}")
-        print(f"\t\t{ad.left_defence.last_name}\t\t{ad.right_defence.last_name}")
-        print(f"\t{ao.left_winger.last_name}\t{ao.centre.last_name}\t{ao.right_winger.last_name}")
+        print("AWAY","")
+        self.away_team.print_players_on_ice()
 
     def simulate_shootout(self):
         pass

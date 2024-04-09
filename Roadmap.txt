@@ -57,7 +57,9 @@ simulate all games
 
 Track Goals and Assists
 
-Set Lines
+SET Lines
+
+CHANGE ON THE FLY
 
 ADD Strategic line changing
 
@@ -65,5 +67,9 @@ ADD pulling goalie
 
 ADD EndGame desperation actions
 
+ADD ability to dress only certain players
+
 ADD injuries
+
+
 

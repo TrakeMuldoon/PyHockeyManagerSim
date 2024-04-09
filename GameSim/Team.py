@@ -10,9 +10,6 @@ class Team:
         self.players = []
         self.goalies = []
 
-        self.active_offensive_line : OffensiveLine = None
-        self.active_defensive_line : DefensiveLine = None
-        self.active_goalie : Goalie = None
 
     def print_team(self):
         print(f"{self.team_name} from {self.location}")
@@ -24,23 +21,6 @@ class Team:
             print("\t", end='')
             goalie.print_stats()
 
-    def next_offence(self):
-        num_players = len(self.players) # TODO: optimize this to set "len" at the beginning of the game.
-        index = int(random() * num_players)
-        line = OffensiveLine()
-        line.left_winger = self.players[index]
-        line.centre = self.players[(index + 1) % num_players]
-        line.right_winger = self.players[(index + 2) % num_players]
-        return line
-
-    def next_defence(self):
-        num_players = len(self.players) # TODO: optimize this to set "len" at the beginning of the game.
-        index = int(random() * num_players)
-        line = DefensiveLine()
-        line.left_defence = self.players[index]
-        line.right_defence = self.players[(index + 1) % num_players]
-        return line
-
     def select_goalie_from_team(self):
         index = int(random() * len(self.goalies))
-        self.active_goalie = self.goalies[index]
+        return self.goalies[index]
