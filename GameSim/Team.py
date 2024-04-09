@@ -1,6 +1,7 @@
 from random import random
 from GameSim.Lines import OffensiveLine
 from GameSim.Lines import DefensiveLine
+from GameSim.Goalie import Goalie
 
 class Team:
     def __init__(self):
@@ -8,6 +9,10 @@ class Team:
         self.team_name = None
         self.players = []
         self.goalies = []
+
+        self.active_offensive_line : OffensiveLine = None
+        self.active_defensive_line : DefensiveLine = None
+        self.active_goalie : Goalie = None
 
     def print_team(self):
         print(f"{self.team_name} from {self.location}")
@@ -35,3 +40,7 @@ class Team:
         line.left_defence = self.players[index]
         line.right_defence = self.players[(index + 1) % num_players]
         return line
+
+    def select_goalie_from_team(self):
+        index = int(random() * len(self.goalies))
+        self.active_goalie = self.goalies[index]

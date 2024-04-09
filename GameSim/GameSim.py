@@ -1,5 +1,6 @@
 from random import random
 from GameSim.Goalie import Goalie
+from GameSim.Player import Player
 from GameSim.Lines import OffensiveLine
 from GameSim.Lines import DefensiveLine
 from GameSim.Zones import Zones
@@ -18,13 +19,13 @@ class GameSim:
 
         self.home_offence = OffensiveLine()
         self.home_defence = DefensiveLine()
-        self.home_goalie : Goalie = None
 
         self.away_offence = OffensiveLine()
         self.away_defence = DefensiveLine()
-        self.away_goalie : Goalie = None
 
         self.puck_zone : Zones = Zones.CENTRE_ICE
+        self.face_off = True
+        self.puck_possessor : Player = None
 
     def simulate_game(self, with_print_statements=True, playoffs=False):
         self.simulate_period(1)
@@ -44,23 +45,15 @@ class GameSim:
         next_line_change_seconds = 60
 
         # select 5 players and a goalie
-        self.home_goalie = self.select_goalie_from_team(self.home_team)
-        self.away_goalie = self.select_goalie_from_team(self.away_team)
+        self.home_team.select_goalie_from_team()
+        self.away_team.select_goalie_from_team()
 
         self.put_new_players_on_ice()
 
         # do opening faceoff
         while seconds_passed < GameSim.SECONDS_IN_PERIOD:
             self.events += 1
-            # evaluate situation
-            # check possession
-                # no possession: race
-
-                # check zone
-                # check options
-                # evaluate resolutions
-            # move all other players
-            # check for penalties
+            self.simulate_next_event()
             self.print_game_time(period_num, seconds_passed)
             seconds_passed += int(random() * 4) + 3
 
@@ -68,6 +61,24 @@ class GameSim:
                 print("LINE CHANGE")
                 self.put_new_players_on_ice()
                 next_line_change_seconds += 59
+
+    def simulate_next_event(self):
+        if self.face_off:
+            # resolve faceoff
+            excep = 1 / 0
+
+        elif self.puck_possessor is None:
+            # resolve race
+            excep = 1 / 0
+
+        else:
+            # resolve possessed zone action
+            # check zone
+            # check options
+            # evaluate resolutions
+            execp = 1 / 0
+        # move all other players
+        # check for penalties
 
     def print_game_time(self, period, seconds_passed):
         total_seconds_left = GameSim.SECONDS_IN_PERIOD - seconds_passed
@@ -103,11 +114,6 @@ class GameSim:
         print(f"AWAY\t\t{self.away_goalie.last_name}")
         print(f"\t\t{ad.left_defence.last_name}\t\t{ad.right_defence.last_name}")
         print(f"\t{ao.left_winger.last_name}\t{ao.centre.last_name}\t{ao.right_winger.last_name}")
-
-    @staticmethod
-    def select_goalie_from_team(team):
-        index = int(random() * len(team.goalies))
-        return team.goalies[index]
 
     def simulate_shootout(self):
         pass
