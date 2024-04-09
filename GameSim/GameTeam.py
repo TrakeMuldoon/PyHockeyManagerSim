@@ -8,6 +8,7 @@ class GameTeam:
     def __init__(self, team : Team):
         self.dressed_goalies = team.goalies
         self.dressed_players = team.players
+        self.num_dressed_players = len(self.dressed_goalies)
 
         self.active_offence = OffensiveLine()
         self.active_defence = DefensiveLine()
@@ -29,18 +30,16 @@ class GameTeam:
         print(f"\t{of.left_winger.last_name}\t{of.centre.last_name}\t{of.right_winger.last_name}")
 
     def next_offence(self):
-        num_players = len(self.dressed_players)  # TODO: optimize this to set "len" at the beginning of the game.
-        index = int(random() * num_players)
+        index = int(random() * self.num_dressed_players)
         line = OffensiveLine()
         line.left_winger = self.dressed_players[index]
-        line.centre = self.dressed_players[(index + 1) % num_players]
-        line.right_winger = self.dressed_players[(index + 2) % num_players]
+        line.centre = self.dressed_players[(index + 1) % self.num_dressed_players]
+        line.right_winger = self.dressed_players[(index + 2) % self.num_dressed_players]
         return line
 
     def next_defence(self):
-        num_players = len(self.dressed_players)  # TODO: optimize this to set "len" at the beginning of the game.
-        index = int(random() * num_players)
+        index = int(random() * self.num_dressed_players)
         line = DefensiveLine()
         line.left_defence = self.dressed_players[index]
-        line.right_defence = self.dressed_players[(index + 1) % num_players]
+        line.right_defence = self.dressed_players[(index + 1) % self.num_dressed_players]
         return line
