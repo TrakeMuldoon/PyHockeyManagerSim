@@ -41,9 +41,10 @@ class GameSim:
 
         # select 5 players and a goalie
         self.home_team.put_new_players_on_ice()
+        self.home_team.set_new_period_zones(True)
         self.away_team.put_new_players_on_ice()
+        self.away_team.set_new_period_zones(False)
         self.print_players_on_ice()
-
 
         # do opening faceoff
         while seconds_passed < GameSim.SECONDS_IN_PERIOD:

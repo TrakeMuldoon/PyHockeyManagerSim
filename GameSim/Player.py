@@ -1,6 +1,7 @@
 from random import random
 from GameSim.Generators.PlayerNameGenerator import PlayerNameGenerator
 from GameSim.Positions import Positions
+from GameSim.Zones import Zones
 import math
 
 
@@ -22,12 +23,15 @@ class Player:
 
         self.position = Positions(int(random() * 5) + 2)
 
+        self.zone: Zones = Zones.CENTRE_ICE
+
     def generate_random_NHL_stat(self):
         stat = random() * 28
         stat = self.round_sig(stat, 3)
         stat += 70
         return stat
 
+    @staticmethod
     def round_sig(self, x, sig=2):
         return round(x, sig - int(math.floor(math.log10(abs(x)))) - 1)
 
