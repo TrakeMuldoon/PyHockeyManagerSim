@@ -43,6 +43,9 @@ ADD Penalties
 Ensure games take < 0.05 second per game (without print statements)
     OR 1344 games in < 60 seconds
 
+Optimize OpposedSkill Check calculation with a cachetable
+https://docs.python.org/3/library/functools.html
+
 PHASE 2
 NHL Schedule
     (7 * 4) + (8 * 3) + (16 * 2) = 28 + 24 + 32 = 84 games per team per season
@@ -71,5 +74,8 @@ ADD ability to dress only certain players
 
 ADD injuries
 
+Add Player Salaries, Money
 
+Add Stadiums, ticket prices/desirablility
 
+Add Stadium SECTIONS
