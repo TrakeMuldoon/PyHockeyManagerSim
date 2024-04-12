@@ -1,3 +1,3 @@
 ruff check
 ruff format
-mypy GameExecution.py
+mypy GameExecution.py --check-untyped-defs

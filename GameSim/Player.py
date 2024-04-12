@@ -26,7 +26,7 @@ class Player:
         self.zone: Zones = Zones.CENTRE_ICE
 
     @staticmethod
-    def generate_random_NHL_stat(self):
+    def generate_random_NHL_stat():
         stat = random() * 28
         stat = int(100 * stat)
         stat = stat / 100

@@ -1,16 +1,19 @@
+from GameSim.Player import Player
+
+
 class OffensiveLine:
     def __init__(self):
-        self.left_winger = None
-        self.right_winger = None
-        self.centre = None
-        self.extra_player = None
+        self.left_winger: Player = None  # type: ignore
+        self.right_winger: Player = None  # type: ignore
+        self.centre: Player = None  # type: ignore
+        self.extra_player: Player = None  # type: ignore
 
-        self.line_average_player = None
+        self.line_average_player: Player = None  # type: ignore
 
 
 class DefensiveLine:
     def __init__(self):
-        self.left_defence = None
-        self.right_defence = None
+        self.left_defence: Player = None  # type: ignore
+        self.right_defence: Player = None  # type: ignore
 
-        self.line_average_player = None
+        self.line_average_player: Player = None  # type: ignore
