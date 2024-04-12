@@ -1,8 +1,7 @@
-from GameSim.Team import Team
-from GameSim.Goalie import Goalie
 from random import random
-from GameSim.Lines import OffensiveLine
-from GameSim.Lines import DefensiveLine
+from GameSim.Goalie import Goalie
+from GameSim.Lines import DefensiveLine, OffensiveLine
+from GameSim.Team import Team
 from GameSim.Zones import Zones
 
 

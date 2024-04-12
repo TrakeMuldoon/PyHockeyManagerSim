@@ -1,8 +1,8 @@
+import math
 from random import random
 from GameSim.Generators.PlayerNameGenerator import PlayerNameGenerator
 from GameSim.Positions import Positions
 from GameSim.Zones import Zones
-import math
 
 
 class Player:

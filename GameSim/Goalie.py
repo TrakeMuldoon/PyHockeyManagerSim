@@ -1,7 +1,7 @@
-from GameSim.Generators.PlayerNameGenerator import PlayerNameGenerator
-from random import random
-from GameSim.Player import Positions
 import math
+from random import random
+from GameSim.Generators.PlayerNameGenerator import PlayerNameGenerator
+from GameSim.Player import Positions
 
 
 class Goalie:

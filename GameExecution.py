@@ -1,5 +1,5 @@
-from GameSim.Generators.TeamGenerator import TeamGenerator
 from GameSim.GameSim import GameSim
+from GameSim.Generators.TeamGenerator import TeamGenerator
 
 if __name__ == "__main__":
     home_team = TeamGenerator.generate_random_team()
