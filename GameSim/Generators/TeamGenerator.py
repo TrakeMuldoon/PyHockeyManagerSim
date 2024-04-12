@@ -1,6 +1,6 @@
 from GameSim.Generators.TeamNameGenerator import TeamNameGenerator
-from GameSim.Goalie import Goalie
-from GameSim.Player import Player
+from GameSim.SupportClasses.Goalie import Goalie
+from GameSim.SupportClasses.Player import Player
 from GameSim.Team import Team
 
 

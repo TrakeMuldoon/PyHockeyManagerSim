@@ -1,4 +1,4 @@
-from GameSim.Player import Player
+from GameSim.SupportClasses.Player import Player
 
 
 class OffensiveLine:
