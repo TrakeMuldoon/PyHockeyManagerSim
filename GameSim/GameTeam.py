@@ -27,9 +27,7 @@ class GameTeam:
         of = self.active_offence
         de = self.active_defence
         print(f"\t\t{self.goalie.last_name}")
-        print(
-            f"\t\t{self.short_player(de.left_defence)}\t\t{self.short_player(de.right_defence)}"
-        )
+        print(f"\t\t{self.short_player(de.left_defence)}\t\t{self.short_player(de.right_defence)}")
         print(
             f"\t{self.short_player(of.left_winger)}\t{self.short_player(of.centre)}\t{self.short_player(of.right_winger)}"
         )
@@ -50,9 +48,7 @@ class GameTeam:
         index = int(random() * self.num_dressed_players)
         line = DefensiveLine()
         line.left_defence = self.dressed_players[index]
-        line.right_defence = self.dressed_players[
-            (index + 1) % self.num_dressed_players
-        ]
+        line.right_defence = self.dressed_players[(index + 1) % self.num_dressed_players]
         return line
 
     def set_new_period_zones(self, top: bool):
