@@ -44,7 +44,7 @@ class Player:
         print(f"{name:<40}>>\t{player}\t|\t{offence}\t|\t{defence}")
 
 
-'''
+"""
 Athletic
 - Speed (to resolve races)
 - Endurance (how their stats flag over the course of the game)
@@ -59,5 +59,4 @@ Defensive
 - Shot Blocking (to oppose Long Shooting)
 - Stick-Checking (to oppose puck control and passing)
 
-'''
-
+"""

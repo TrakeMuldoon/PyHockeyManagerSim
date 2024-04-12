@@ -33,13 +33,3 @@ class Goalie:
         low = f"PADS:{self.pads}\tSTK:{self.stick}"
         high = f"GLV:{self.glove}\tBLKR:{self.blocker}\tPASS:{self.passing}"
         print(f"{name:<40}>>\t{low}\t|\t{high}")
-
-    '''
-Goalie Stats
-- Pads
-- Glove
-- Blocker
-- Stick
-- Passing
-    '''
-

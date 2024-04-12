@@ -8,15 +8,14 @@ class Team:
         self.players = []
         self.goalies = []
 
-
     def print_team(self):
         print(f"{self.team_name} from {self.location}")
         print("PLAYERS")
         for player in self.players:
-            print("\t", end='')
+            print("\t", end="")
             player.print_stats()
         for goalie in self.goalies:
-            print("\t", end='')
+            print("\t", end="")
             goalie.print_stats()
 
     def select_goalie_from_team(self):

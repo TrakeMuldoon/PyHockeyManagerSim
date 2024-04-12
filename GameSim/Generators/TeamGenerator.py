@@ -3,8 +3,9 @@ from GameSim.Generators.TeamNameGenerator import TeamNameGenerator
 from GameSim.Player import Player
 from GameSim.Goalie import Goalie
 
+
 class TeamGenerator:
-    #_generator = _inner_generator()
+    # _generator = _inner_generator()
 
     @staticmethod
     def generate_random_team():

@@ -1,6 +1,7 @@
 import os
 from random import random
 
+
 class _inner_generator:
     script_dir = os.path.dirname(__file__)  # <-- absolute dir the script is in
     cities_path = "../../Reference/Cities.txt"
@@ -22,7 +23,6 @@ class TeamNameGenerator:
 
     @staticmethod
     def populate_team_information(empty_team):
-
         unique_name = False
         while not unique_name:
             index = random() * len(TeamNameGenerator._generator.city_names)
@@ -43,5 +43,3 @@ class TeamNameGenerator:
             unique_name = full_name not in TeamNameGenerator._teams_created
 
         TeamNameGenerator._teams_created.add(full_name)
-
-

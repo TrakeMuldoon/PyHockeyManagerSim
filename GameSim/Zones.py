@@ -29,7 +29,3 @@ class Zones(Enum):
     BOTTOM_LEFT_CORNER = 31
     BOTTOM_BEHIND_NET = 32
     BOTTOM_RIGHT_CORNER = 33
-
-
-
-

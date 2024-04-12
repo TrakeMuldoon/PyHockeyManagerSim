@@ -14,4 +14,3 @@ class DefensiveLine:
         self.right_defence = None
 
         self.line_average_player = None
-
