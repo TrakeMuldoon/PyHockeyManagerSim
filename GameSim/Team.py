@@ -1,7 +1,5 @@
 from random import random
-from GameSim.Lines import OffensiveLine
-from GameSim.Lines import DefensiveLine
-from GameSim.Goalie import Goalie
+
 
 class Team:
     def __init__(self):
