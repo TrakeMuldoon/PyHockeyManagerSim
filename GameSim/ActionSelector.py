@@ -12,6 +12,7 @@ class ActionSelector:
 
     # def __init__(self, game_sim: GameSim):
     def __init__(self, game_sim):
+        self.game_sim = game_sim
         d_res = game_sim.defensive_resolver
         self.DEFENSIVE_ACTIONS = {
             "FORWARD_PASS": {"weight": 10, "func": d_res.forward_pass},
@@ -39,17 +40,43 @@ class ActionSelector:
             "CARRY": {"weight": 25, "func": o_res.carry},
         }
 
-    def SELECT_RANDOM_DEFENSIVE_ACTIONS(self):
+    def select_action(self):
+        possessor = self.game_sim.puck_possessor
+        zone_table = None
+        if possessor in self.game_sim.north_team.dressed_players:
+            zone_table = self.find_zone_table(
+                self.NORTH_DEFENSIVE_ZONES, self.NORTH_NEUTRAL_ZONES, self.NORTH_OFFENSIVE_ZONES
+            )
+        else:
+            zone_table = self.find_zone_table(
+                self.SOUTH_DEFENSIVE_ZONES, self.SOUTH_NEUTRAL_ZONES, self.SOUTH_OFFENSIVE_ZONES
+            )
+        return self.select_random_action_from_weight_table(zone_table)
+
+    def find_zone_table(self, defence, neutral, offence):
+        puck_zone = self.game_sim.puck_zone
+        target_dict = None
+        if puck_zone.value in defence:
+            target_dict = self.DEFENSIVE_ACTIONS
+        elif puck_zone.value in neutral:
+            target_dict = self.NEUTRAL_ACTIONS
+        elif puck_zone.value in offence:
+            target_dict = self.OFFENSIVE_ACTIONS
+        else:
+            print("UNKNOWN ZONE BAD!")
+        return target_dict
+
+    @staticmethod
+    def select_random_action_from_weight_table(table):
         roll = random() * 100
 
         incremental_weight = 0
 
-        for key in self.DEFENSIVE_ACTIONS:
-            action = self.DEFENSIVE_ACTIONS[key]
+        for key in table:
+            action = table[key]
             incremental_weight += action["weight"]
             if roll < incremental_weight:
-                # action.func()
-                pass
+                return action["func"]
 
 
 """

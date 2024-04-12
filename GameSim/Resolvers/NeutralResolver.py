@@ -3,16 +3,16 @@ class NeutralResolver:
         pass
 
     def forward_pass(self):
-        pass
+        print("neu forward pass")
 
     def lateral_pass(self):
-        pass
+        print("neu lateral pass")
 
     def backward_pass(self):
-        pass
+        print("neu backward pass")
 
     def carry(self):
-        pass
+        print("neu carry")
 
     def dump(self):
-        pass
+        print("neu dump")

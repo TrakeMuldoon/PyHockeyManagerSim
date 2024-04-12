@@ -12,6 +12,9 @@ SIMPLE SIMULATOR
     - Players Succeed Randomly
     - Players move Randomly
 
+Move Faceoff to resolver
+Move Race to resolver
+
 ADD Pygame Visualization
     Player Location Heads (Home/Away helmets?)
     Puck Location

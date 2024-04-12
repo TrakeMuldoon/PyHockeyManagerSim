@@ -3,19 +3,19 @@ class DefensiveResolver:
         pass
 
     def forward_pass(self):
-        pass
+        print("def forward pass")
 
     def lateral_pass(self):
-        pass
+        print("def lateral pass")
 
     def backward_pass(self):
-        pass
+        print("def backward pass")
 
     def carry(self):
-        pass
+        print("def carry")
 
     def clear(self):
-        pass
+        print("def clear")
 
     def dump(self):
-        pass
+        print("def dump")

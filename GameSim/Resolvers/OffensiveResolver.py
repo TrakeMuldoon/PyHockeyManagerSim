@@ -3,13 +3,13 @@ class OffensiveResolver:
         pass
 
     def outside_pass(self):
-        pass
+        print("off outside pass")
 
     def central_pass(self):
-        pass
+        print("off central pass")
 
     def shoot(self):
-        pass
+        print("off shoot")
 
     def carry(self):
-        pass
+        print("off carry")

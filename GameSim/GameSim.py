@@ -16,6 +16,7 @@ class GameSim:
     def __init__(self, home_team, away_team, log_level=0):
         self.home_team = GameTeam(home_team)
         self.away_team = GameTeam(away_team)
+        self.north_team = home_team
 
         self.home_score = 0
         self.away_score = 0
@@ -33,11 +34,15 @@ class GameSim:
         self.action_selector = ActionSelector(self)
 
     def simulate_game(self, with_print_statements=True, playoffs=False):
+        self.north_team = self.home_team
         self.simulate_period(1)
+        self.north_team = self.away_team
         self.simulate_period(2)
+        self.north_team = self.home_team
         self.simulate_period(3)
 
         if self.home_score == self.away_score:
+            self.north_team = self.away_team
             self.simulate_period(4, True)
 
             if self.home_score == self.away_score:
@@ -126,10 +131,12 @@ class GameSim:
         self.is_face_off = False
 
     def resolve_puck_controlled_event(self):
+        action = self.action_selector.select_action()
+        action()
         # check zone
         # check options
         # evaluate resolutions
-        print("puck controlled! REPLACE", end="\t\t")
+        # print("puck controlled! REPLACE", end="\t\t")
 
     ### (A - B + SF) / (2 * SF)(SF=75)
     @staticmethod
@@ -147,6 +154,7 @@ class GameSim:
         return roll < odds
 
     def print_game_time(self, period, seconds_passed):
+        return
         total_seconds_left = GameSim.SECONDS_IN_PERIOD - seconds_passed
         min_left = int(total_seconds_left / 60)
         sec_left = int(total_seconds_left) % 60
