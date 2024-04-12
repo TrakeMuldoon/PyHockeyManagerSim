@@ -27,12 +27,13 @@ class Player:
 
     def generate_random_NHL_stat(self):
         stat = random() * 28
-        stat = self.round_sig(stat, 3)
+        stat = int(100 * stat)
+        stat = stat / 100
         stat += 70
         return stat
 
     @staticmethod
-    def round_sig(self, x, sig=2):
+    def round_sig(x, sig=2):
         return round(x, sig - int(math.floor(math.log10(abs(x)))) - 1)
 
     def print_stats(self):
