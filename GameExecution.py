@@ -1,25 +1,14 @@
-from GameSim.Player import Player
-from GameSim.Goalie import Goalie
-from GameSim.Team import Team
-from GameSim.TeamNameGenerator import TeamNameGenerator
+from GameSim.GameSim import GameSim
+from GameSim.Generators.TeamGenerator import TeamGenerator
 
-if __name__ == '__main__':
-    #for i in range(20):
-    #    p = Player()
-    #    p.print_stats()
+if __name__ == "__main__":
+    home_team = TeamGenerator.generate_random_team()
+    away_team = TeamGenerator.generate_random_team()
+    print(f"HOME TEAM: {home_team.team_name} vs. AWAY TEAM: {away_team.team_name}")
 
-    #for i in range(5):
-    #    g = Goalie()
-    #    g.print_stats()
+    game = GameSim(home_team, away_team)
+    game.simulate_game()
 
-    for i in range(5):
-        t = Team()
-        TeamNameGenerator.populate_team_information(t)
-        for i in range(22):
-            p = Player()
-            t.players.append(p)
-        for i in range(3):
-            g = Goalie()
-            t.goalies.append(g)
-        t.print_team()
-        print()
+    print(
+        f"End of game! {home_team.team_name}:{game.home_score} - {away_team.team_name}:{game.away_score}"
+    )

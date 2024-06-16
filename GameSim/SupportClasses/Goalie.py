@@ -1,7 +1,8 @@
-from GameSim.PlayerNameGenerator import PlayerNameGenerator
-from random import random
-from GameSim.Player import Positions
 import math
+from random import random
+from GameSim.Generators.PlayerNameGenerator import PlayerNameGenerator
+from GameSim.SupportClasses.Player import Positions
+
 
 class Goalie:
     def __init__(self):
@@ -32,13 +33,3 @@ class Goalie:
         low = f"PADS:{self.pads}\tSTK:{self.stick}"
         high = f"GLV:{self.glove}\tBLKR:{self.blocker}\tPASS:{self.passing}"
         print(f"{name:<40}>>\t{low}\t|\t{high}")
-
-    '''
-Goalie Stats
-- Pads
-- Glove
-- Blocker
-- Stick
-- Passing
-    '''
-

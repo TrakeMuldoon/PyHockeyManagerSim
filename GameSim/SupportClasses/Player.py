@@ -1,7 +1,9 @@
-from random import random
-from GameSim.PlayerNameGenerator import PlayerNameGenerator
-from GameSim.Positions import Positions
 import math
+from random import random
+from GameSim.Generators.PlayerNameGenerator import PlayerNameGenerator
+from GameSim.SupportClasses.Positions import Positions
+from GameSim.SupportClasses.Zones import Zones
+
 
 class Player:
     def __init__(self):
@@ -21,23 +23,29 @@ class Player:
 
         self.position = Positions(int(random() * 5) + 2)
 
-    def generate_random_NHL_stat(self):
+        self.zone: Zones = Zones.CENTRE_ICE
+
+    @staticmethod
+    def generate_random_NHL_stat():
         stat = random() * 28
-        stat = self.round_sig(stat, 3)
+        stat = int(100 * stat)
+        stat = stat / 100
         stat += 70
         return stat
 
-    def round_sig(self, x, sig=2):
+    @staticmethod
+    def round_sig(x, sig=2):
         return round(x, sig - int(math.floor(math.log10(abs(x)))) - 1)
 
     def print_stats(self):
         name = f"{self.first_name} {self.last_name} ({str(self.position)[10:]})"
         player = f"SPD:{self.speed}\tEND:{self.endurance}"
-        offense = f"WRST:{self.short_shooting}\tSLAP:{self.long_shooting}\tPC:{self.puck_control:<9}PASS:{self.passing}"
+        offence = f"WRST:{self.short_shooting}\tSLAP:{self.long_shooting}\tPC:{self.puck_control:<9}PASS:{self.passing}"
         defence = f"BLK:{self.shot_blocking}\tSCHK:{self.stick_checking}"
-        print(f"{name:<40}>>\t{player}\t|\t{offense}\t|\t{defence}")
+        print(f"{name:<40}>>\t{player}\t|\t{offence}\t|\t{defence}")
 
-'''
+
+"""
 Athletic
 - Speed (to resolve races)
 - Endurance (how their stats flag over the course of the game)
@@ -52,5 +60,4 @@ Defensive
 - Shot Blocking (to oppose Long Shooting)
 - Stick-Checking (to oppose puck control and passing)
 
-'''
-
+"""

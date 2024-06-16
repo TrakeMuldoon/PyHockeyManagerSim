@@ -12,7 +12,17 @@ SIMPLE SIMULATOR
     - Players Succeed Randomly
     - Players move Randomly
 
+Move Faceoff to resolver
+Move Race to resolver
+
+ADD Pygame Visualization
+    Player Location Heads (Home/Away helmets?)
+    Puck Location
+    Score Tracking
+
 ADD Players Move with purpose based on position
+
+ADD Team Colours (Helmet Colours) / Player Numbers
 
 ADD Opposition to action
 
@@ -20,9 +30,14 @@ ADD PlayerAction and ActionOption probabilities (general)
 
 ADD PlayerAction and ActionOption probabilities weighted by Coaching Stragegy
 
-ADD Endurance and rotational Line-changes
+ADD Descriptive commentators
+
+ADD Endurance and rotational Line-changes, and "lines"
+
+Change Player Generation to use a generator
 
 ADD modified stats generation based on position
+Move player selection out of GameSim
 
 ADD positional modifiers for situation and general
 
@@ -30,6 +45,9 @@ ADD Penalties
 
 Ensure games take < 0.05 second per game (without print statements)
     OR 1344 games in < 60 seconds
+
+Optimize OpposedSkill Check calculation with a cachetable
+https://docs.python.org/3/library/functools.html
 
 PHASE 2
 NHL Schedule
@@ -45,10 +63,22 @@ simulate all games
 
 Track Goals and Assists
 
-Set Lines
+SET Lines
+
+CHANGE ON THE FLY
 
 ADD Strategic line changing
 
 ADD pulling goalie
 
+ADD EndGame desperation actions
+
+ADD ability to dress only certain players
+
 ADD injuries
+
+Add Player Salaries, Money
+
+Add Stadiums, ticket prices/desirablility
+
+Add Stadium SECTIONS
