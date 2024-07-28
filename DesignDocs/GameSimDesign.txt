@@ -146,3 +146,24 @@ OUTCOMES dictate the following required information
 ENDURANCE
 - every 30 seconds of ice time, stats go down by 1
 - every 30 seconds of rest-time, stats go up by Stat:Endurance / 100 * 0.1
+
+"""
+- Pass
+  Percentage choice based on STRATEGY
+  Forward, Lateral ( including current zone), Backwards
+  OUTCOMES
+  Passed, missed (lost control), interception
+- Breakout (if available)
+  Attempt to forward pass with a higher probabilty of leaving the zone, and lower probability of completed pass
+  OUTCOMES
+  Forward Pass, Clear Zone (opposition control), Clear Zone (No possessor), interception
+- Carry
+  Percentage choice based on STRATEGY
+  Forward, Lateral (including current zone), backwards
+  OUTCOMES
+  Move Zone, Lose Control (no possessor), interception
+- Clear
+  Very High probabilty of leaving the zone, probability of icing , depending on factors
+  OUTCOMES - push puck past blueline
+  Clear Zone (No controller), Clear Zone (opposition), Icing, Interception
+"""

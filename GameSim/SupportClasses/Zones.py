@@ -58,4 +58,4 @@ class Zone(Enum):
     RIGHTCEN_DEFENSIVE_ZONES = [5, 6, 8, 9, 11, 12]
 
     def get_reverse_zone(self):
-        return Zone(self.value + 1 - 33)
+        return Zone(33 + 1 - self.value)

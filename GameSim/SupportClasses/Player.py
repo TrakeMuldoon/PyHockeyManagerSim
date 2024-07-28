@@ -12,7 +12,7 @@ class Player:
 
         self.short_shooting: float = self.generate_random_NHL_stat()
         self.long_shooting: float = self.generate_random_NHL_stat()
-        self.puck_controlL: float = self.generate_random_NHL_stat()
+        self.puck_control: float = self.generate_random_NHL_stat()
         self.passing: float = self.generate_random_NHL_stat()
 
         self.shot_blocking: float = self.generate_random_NHL_stat()
