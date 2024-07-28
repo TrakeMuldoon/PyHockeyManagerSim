@@ -6,14 +6,14 @@ from GameSim.Resolvers.DefensiveResolver import DefensiveResolver
 from GameSim.Resolvers.NeutralResolver import NeutralResolver
 from GameSim.Resolvers.OffensiveResolver import OffensiveResolver
 from GameSim.SupportClasses.Player import Player
-from GameSim.SupportClasses.Zones import Zones
+from GameSim.SupportClasses.Zones import Zone
 
 
 class GameSim:
     SECONDS_IN_PERIOD = 1200  # 60 * 20
     SKILL_FACTOR = 75
 
-    def __init__(self, home_team, away_team, log_level=0):
+    def __init__(self, home_team, away_team, log_level=0) -> None:
         self.home_team = GameTeam(home_team)
         self.away_team = GameTeam(away_team)
         self.north_team = home_team
@@ -23,7 +23,7 @@ class GameSim:
 
         self.events = 0
 
-        self.puck_zone: Zones = Zones.CENTRE_ICE
+        self.puck_zone: Zone = Zone.NEU_CEN_FACEOFF
         self.is_face_off = True
         self.puck_possessor: Player = None  # type: ignore
 

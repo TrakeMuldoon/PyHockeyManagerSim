@@ -2,7 +2,7 @@ from random import random
 from GameSim.SupportClasses.Goalie import Goalie
 from GameSim.SupportClasses.Lines import DefensiveLine, OffensiveLine
 from GameSim.SupportClasses.Player import Player
-from GameSim.SupportClasses.Zones import Zones
+from GameSim.SupportClasses.Zones import Zone
 from GameSim.Team import Team
 
 
@@ -57,11 +57,11 @@ class GameTeam:
         return line
 
     def set_new_period_zones(self, top: bool):
-        self.active_offence.left_winger.zone = Zones.NEU_CEN_LEFT
-        self.active_offence.right_winger.zone = Zones.NEU_CEN_RIGHT
-        self.active_offence.centre.zone = Zones.NEU_CEN_FACEOFF
-        self.active_defence.left_defence.zone = Zones.NEU_DEF_LEFT_DOT
-        self.active_defence.right_defence.zone = Zones.NEU_DEF_RIGHT_DOT
+        self.active_offence.left_winger.zone = Zone.NEU_CEN_LEFT
+        self.active_offence.right_winger.zone = Zone.NEU_CEN_RIGHT
+        self.active_offence.centre.zone = Zone.NEU_CEN_FACEOFF
+        self.active_defence.left_defence.zone = Zone.NEU_DEF_LEFT_DOT
+        self.active_defence.right_defence.zone = Zone.NEU_DEF_RIGHT_DOT
         if top:
             self._reverse_player_zones()
 

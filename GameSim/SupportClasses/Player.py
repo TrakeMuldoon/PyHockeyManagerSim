@@ -1,32 +1,32 @@
 import math
 from random import random
 from GameSim.Generators.PlayerNameGenerator import PlayerNameGenerator
-from GameSim.SupportClasses.Positions import Positions
-from GameSim.SupportClasses.Zones import Zones
+from GameSim.SupportClasses.Positions import Position
+from GameSim.SupportClasses.Zones import Zone
 
 
 class Player:
-    def __init__(self):
-        self.speed = self.generate_random_NHL_stat()
-        self.endurance = self.generate_random_NHL_stat()
+    def __init__(self) -> None:
+        self.speed: float = self.generate_random_NHL_stat()
+        self.endurance: float = self.generate_random_NHL_stat()
 
-        self.short_shooting = self.generate_random_NHL_stat()
-        self.long_shooting = self.generate_random_NHL_stat()
-        self.puck_control = self.generate_random_NHL_stat()
-        self.passing = self.generate_random_NHL_stat()
+        self.short_shooting: float = self.generate_random_NHL_stat()
+        self.long_shooting: float = self.generate_random_NHL_stat()
+        self.puck_controlL: float = self.generate_random_NHL_stat()
+        self.passing: float = self.generate_random_NHL_stat()
 
-        self.shot_blocking = self.generate_random_NHL_stat()
-        self.stick_checking = self.generate_random_NHL_stat()
+        self.shot_blocking: float = self.generate_random_NHL_stat()
+        self.stick_checking: float = self.generate_random_NHL_stat()
 
-        self.first_name = PlayerNameGenerator.random_first_name()
-        self.last_name = PlayerNameGenerator.random_last_name()
+        self.first_name: str = PlayerNameGenerator.random_first_name()
+        self.last_name: str = PlayerNameGenerator.random_last_name()
 
-        self.position = Positions(int(random() * 5) + 2)
+        self.position: Position = Position(int(random() * 5) + 2)
 
-        self.zone: Zones = Zones.CENTRE_ICE
+        self.zone: Zone = Zone.NEU_CEN_FACEOFF
 
     @staticmethod
-    def generate_random_NHL_stat():
+    def generate_random_NHL_stat() -> float:
         stat = random() * 28
         stat = int(100 * stat)
         stat = stat / 100

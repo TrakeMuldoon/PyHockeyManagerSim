@@ -1,7 +1,7 @@
 from enum import Enum
 
 
-class Positions(Enum):
+class Position(Enum):
     GOALIE = 1
     LEFT_DEFENCE = 2
     RIGHT_DEFENCE = 3

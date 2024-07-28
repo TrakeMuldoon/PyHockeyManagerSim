@@ -1,7 +1,7 @@
 from enum import Enum
 
 
-class Zones(Enum):
+class Zone(Enum):
     DEF_LEFT_BEHIND_NET = 1
     DEF_CEN_BEHIND_NET = 2
     DEF_RIGHT_BEHIND_NET = 3
@@ -58,4 +58,4 @@ class Zones(Enum):
     RIGHTCEN_DEFENSIVE_ZONES = [5, 6, 8, 9, 11, 12]
 
     def get_reverse_zone(self):
-        return Zones(self.value + 1 - 33)
+        return Zone(self.value + 1 - 33)

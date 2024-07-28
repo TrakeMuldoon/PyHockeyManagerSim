@@ -1,7 +1,7 @@
 import math
 from random import random
 from GameSim.Generators.PlayerNameGenerator import PlayerNameGenerator
-from GameSim.SupportClasses.Player import Positions
+from GameSim.SupportClasses.Player import Position
 
 
 class Goalie:
@@ -17,7 +17,7 @@ class Goalie:
         self.first_name = PlayerNameGenerator.random_first_name()
         self.last_name = PlayerNameGenerator.random_last_name()
 
-        self.position = Positions.GOALIE
+        self.position = Position.GOALIE
 
     def generate_random_NHL_stat(self):
         stat = random() * 28
