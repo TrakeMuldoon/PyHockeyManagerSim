@@ -70,8 +70,8 @@ Puck Action is resolved as follows
 7. Check for Penalties (move to 6, or 4?, or 5?)
 
 
-All AttemptSuccess will be 
-Likelihood of Possessor Winning: (Possessor stat + 100) / (Possessor stat + 100) + (Defender stat + 100) 
+All AttemptSuccess will be
+Likelihood of Possessor Winning: (Possessor stat + 100) / (Possessor stat + 100) + (Defender stat + 100)
 Tweak the "100" up to make individual stats matter less, change it down to make individual stats matter more
 
 Player who wins the faceoff gains puck control
@@ -138,7 +138,7 @@ STRATEGY
 PLAYER_ACTION
 PLAYER_ACTION_OPTIONS
 PLAYER_ACTION_OUTCOMES (would be for all PLAYER_ACTION_OPTIONS, including some PLAYER_ACTIONs without options)
-OUTCOMES dictate the following required information 
+OUTCOMES dictate the following required information
   ZONE: Puck Location
   PLAYER: Puck Controller (null means No Controller)
 
@@ -146,3 +146,24 @@ OUTCOMES dictate the following required information
 ENDURANCE
 - every 30 seconds of ice time, stats go down by 1
 - every 30 seconds of rest-time, stats go up by Stat:Endurance / 100 * 0.1
+
+"""
+- Pass
+  Percentage choice based on STRATEGY
+  Forward, Lateral ( including current zone), Backwards
+  OUTCOMES
+  Passed, missed (lost control), interception
+- Breakout (if available)
+  Attempt to forward pass with a higher probabilty of leaving the zone, and lower probability of completed pass
+  OUTCOMES
+  Forward Pass, Clear Zone (opposition control), Clear Zone (No possessor), interception
+- Carry
+  Percentage choice based on STRATEGY
+  Forward, Lateral (including current zone), backwards
+  OUTCOMES
+  Move Zone, Lose Control (no possessor), interception
+- Clear
+  Very High probabilty of leaving the zone, probability of icing , depending on factors
+  OUTCOMES - push puck past blueline
+  Clear Zone (No controller), Clear Zone (opposition), Icing, Interception
+"""

@@ -1,5 +1,7 @@
 import os
 from random import random
+from typing import Set
+from GameSim.Team import Team
 
 
 class _inner_generator:
@@ -19,10 +21,10 @@ class _inner_generator:
 
 class TeamNameGenerator:
     _generator = _inner_generator()
-    _teams_created = set()
+    _teams_created: Set[str] = set()
 
     @staticmethod
-    def populate_team_information(empty_team):
+    def populate_team_information(empty_team: Team):
         unique_name = False
         while not unique_name:
             index = random() * len(TeamNameGenerator._generator.city_names)

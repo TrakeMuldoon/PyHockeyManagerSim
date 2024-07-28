@@ -1,8 +1,12 @@
 from random import random
 from GameSim.SupportClasses.Goalie import Goalie
 from GameSim.SupportClasses.Lines import DefensiveLine, OffensiveLine
-from GameSim.SupportClasses.Zones import Zones
+from GameSim.SupportClasses.Player import Player
+from GameSim.SupportClasses.Zones import Zone
 from GameSim.Team import Team
+
+
+
 
 
 class GameTeam:
@@ -11,8 +15,8 @@ class GameTeam:
         self.dressed_players = team.players
         self.num_dressed_players = len(self.dressed_players)
 
-        self.active_offence = OffensiveLine()
-        self.active_defence = DefensiveLine()
+        self.active_offence: OffensiveLine = OffensiveLine()
+        self.active_defence: DefensiveLine = DefensiveLine()
         self.goalie: Goalie = self.select_goalie()
 
     def put_new_players_on_ice(self):
@@ -52,15 +56,20 @@ class GameTeam:
         return line
 
     def set_new_period_zones(self, top: bool):
+        self.active_offence.left_winger.zone = Zone.NEU_CEN_LEFT
+        self.active_offence.right_winger.zone = Zone.NEU_CEN_RIGHT
+        self.active_offence.centre.zone = Zone.NEU_CEN_FACEOFF
+        self.active_defence.left_defence.zone = Zone.NEU_DEF_LEFT_DOT
+        self.active_defence.right_defence.zone = Zone.NEU_DEF_RIGHT_DOT
         if top:
-            self.active_offence.left_winger.zone = Zones.TOP_CENTRE_NEUTRAL
-            self.active_offence.right_winger.zone = Zones.TOP_CENTRE_NEUTRAL
-            self.active_offence.centre.zone = Zones.CENTRE_ICE
-            self.active_defence.left_defence.zone = Zones.TOP_RIGHT_NEUTRAL
-            self.active_defence.right_defence.zone = Zones.TOP_LEFT_NEUTRAL
-        else:
-            self.active_offence.left_winger.zone = Zones.BOTTOM_CENTRE_NEUTRAL
-            self.active_offence.right_winger.zone = Zones.BOTTOM_CENTRE_NEUTRAL
-            self.active_offence.centre.zone = Zones.CENTRE_ICE
-            self.active_defence.left_defence.zone = Zones.BOTTOM_LEFT_NEUTRAL
-            self.active_defence.right_defence.zone = Zones.BOTTOM_RIGHT_NEUTRAL
+            self._reverse_player_zones()
+
+    def _reverse_player_zones(self):
+        self._reverse_player_zone(self.active_offence.left_winger)
+        self._reverse_player_zone(self.active_offence.right_winger)
+        self._reverse_player_zone(self.active_offence.centre)
+        self._reverse_player_zone(self.active_defence.left_defence)
+        self._reverse_player_zone(self.active_defence.left_defence)
+
+    def _reverse_player_zone(self, player: Player):
+        player.zone = player.zone.get_reverse_zone()

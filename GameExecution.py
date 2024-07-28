@@ -12,3 +12,4 @@ if __name__ == "__main__":
     print(
         f"End of game! {home_team.team_name}:{game.home_score} - {away_team.team_name}:{game.away_score}"
     )
+    input("done?")

@@ -1,0 +1,24 @@
+FILESPEC:
+{PIVOTNAME}
+{ACTIONSET} (0-n)
+{INSTANCE} (1-n)
+---------------
+DEFINITIONS
+{PIVOT_NAME} = {NAME} # (e.g. "Strategy", "TeamMatchup", "PenaltyState", "Game Situation")
+{NAME} = "[A-Za-z0-9\-_]*"
+{ACTION_SET} = {ACTION_SET_NAME}:{ACTION_PROBABILITIES}
+{ACTION_SET_NAME} = {NAME}
+{ACTION_PROBABILITIES} = {ACTION_PROBABILITIES_100}|{ACTION_PROBABILITIES_DELTA}
+{ACTION_PROBABILITIES_100} = "N(\d+)PB(\d+)PL(\d+)PF(\d+)CB(\d+)CL(\d+)CF(\d+)SS(\d+)SH(\d+)"
+    - numbers must add up to 100
+{ACTION_PROBABILITIES_DELTA} = "N([+-]\d+)PB([+-]\d+)PL([+-]\d+)PF([+-]\d+)CB([+-]\d+)CL([+-]\d+)CF([+-]\d+)SS([+-]\d+)SH([+-]\d+)"
+    - numbers must add up to 0
+{INSTANCE} = {INSTANCE_TITLE}\n{POSITION_RULES}[6]
+{INSTANCE_TITLE} = {PIVOT_NAME}.{NAME} #(e.g. "Strategy.JustShootIt")
+{POSITION_RULES} = \t{POSITION}:\n\t\t{RULELINE} # up to 33
+{POSITION} = (LD|RD|LW|C|RW|EX)
+{RULELINE} = {ZONE_SELECT}:({ACTION_SET_NAME}|{ACTION_PROBABILITIES})
+{ZONE_SELECT} = ({ZONE_VALUE}|{ZONE_NAME}|{ZONE_GROUP})
+{ZONE_VALUE} = 1-33 //The number of the zone the rule targets
+{ZONE_NAME} = {NAME} //The enum name of the zone the rule targets
+{ZONE_GROUP} = {NAME} //The name of a pre-defined zone group

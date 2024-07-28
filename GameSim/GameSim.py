@@ -1,19 +1,20 @@
+from __future__ import annotations
 from random import random
 from typing import Optional
-from GameSim.ActionSelector import ActionSelector
+from GameSim.BehaviourSelectors.BasicActionSelector import BasicActionSelector
 from GameSim.GameTeam import GameTeam
 from GameSim.Resolvers.DefensiveResolver import DefensiveResolver
 from GameSim.Resolvers.NeutralResolver import NeutralResolver
 from GameSim.Resolvers.OffensiveResolver import OffensiveResolver
 from GameSim.SupportClasses.Player import Player
-from GameSim.SupportClasses.Zones import Zones
+from GameSim.SupportClasses.Zones import Zone
 
 
 class GameSim:
     SECONDS_IN_PERIOD = 1200  # 60 * 20
     SKILL_FACTOR = 75
 
-    def __init__(self, home_team, away_team, log_level=0):
+    def __init__(self, home_team, away_team, log_level=0) -> None:
         self.home_team = GameTeam(home_team)
         self.away_team = GameTeam(away_team)
         self.north_team = home_team
@@ -23,7 +24,7 @@ class GameSim:
 
         self.events = 0
 
-        self.puck_zone: Zones = Zones.CENTRE_ICE
+        self.puck_zone: Zone = Zone.NEU_CEN_FACEOFF
         self.is_face_off = True
         self.puck_possessor: Player = None  # type: ignore
 
@@ -31,7 +32,7 @@ class GameSim:
         self.neutral_resolver = NeutralResolver(self)
         self.offensive_resolver = OffensiveResolver(self)
 
-        self.action_selector = ActionSelector(self)
+        self.action_selector = BasicActionSelector(self)
 
     def simulate_game(self, with_print_statements=True, playoffs=False):
         self.north_team = self.home_team
@@ -131,7 +132,7 @@ class GameSim:
         self.is_face_off = False
 
     def resolve_puck_controlled_event(self):
-        action = self.action_selector.select_action()
+        action = self.action_selector.select_possessor_action_func()
         action()
         # check zone
         # check options

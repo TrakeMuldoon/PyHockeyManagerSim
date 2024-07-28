@@ -1,18 +1,19 @@
 from random import random
+from GameSim import GameSim
+from GameSim.BehaviourSelectors.BaseBehaviourSelector import BaseBehaviourSelector
 
 
-class ActionSelector:
-    SOUTH_DEFENSIVE_ZONES = {22, 23, 24, 25, 26, 27, 29, 31, 32, 33}
-    SOUTH_NEUTRAL_ZONES = {13, 14, 15, 17, 19, 20, 21}
-    SOUTH_OFFENSIVE_ZONES = {1, 2, 3, 5, 7, 8, 9, 10, 11, 12}
+class BasicActionSelector(BaseBehaviourSelector):
+    SOUTH_DEFENSIVE_ZONES = {22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33}
+    SOUTH_NEUTRAL_ZONES = {13, 14, 15, 16, 17, 18, 19, 20, 21}
+    SOUTH_OFFENSIVE_ZONES = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12}
 
-    NORTH_DEFENSIVE_ZONES = {1, 2, 3, 5, 7, 8, 9, 10, 11, 12}
-    NORTH_NEUTRAL_ZONES = {13, 14, 15, 17, 19, 20, 21}
-    NORTH_OFFENSIVE_ZONES = {22, 23, 24, 25, 26, 27, 29, 31, 32, 33}
+    NORTH_DEFENSIVE_ZONES = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12}
+    NORTH_NEUTRAL_ZONES = {13, 14, 15, 16, 17, 18, 19, 20, 21}
+    NORTH_OFFENSIVE_ZONES = {22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33}
 
-    # def __init__(self, game_sim: GameSim):
-    def __init__(self, game_sim):
-        self.game_sim = game_sim
+    def __init__(self, game_sim: "GameSim.GameSim"):
+        super().__init__(game_sim)
         d_res = game_sim.defensive_resolver
         self.DEFENSIVE_ACTIONS = {
             "FORWARD_PASS": {"weight": 10, "func": d_res.forward_pass},
@@ -40,20 +41,22 @@ class ActionSelector:
             "CARRY": {"weight": 25, "func": o_res.carry},
         }
 
-    def select_action(self):
+    def select_possessor_action_func(self):
         possessor = self.game_sim.puck_possessor
         zone_table = None
         if possessor in self.game_sim.north_team.dressed_players:
-            zone_table = self.find_zone_table(
+            zone_table = self._find_zone_table(
                 self.NORTH_DEFENSIVE_ZONES, self.NORTH_NEUTRAL_ZONES, self.NORTH_OFFENSIVE_ZONES
             )
         else:
-            zone_table = self.find_zone_table(
+            zone_table = self._find_zone_table(
                 self.SOUTH_DEFENSIVE_ZONES, self.SOUTH_NEUTRAL_ZONES, self.SOUTH_OFFENSIVE_ZONES
             )
-        return self.select_random_action_from_weight_table(zone_table)
+        if not zone_table:
+            raise Exception("what?")
+        return self._select_random_action_from_weight_table(zone_table)
 
-    def find_zone_table(self, defence, neutral, offence):
+    def _find_zone_table(self, defence, neutral, offence):
         puck_zone = self.game_sim.puck_zone
         target_dict = None
         if puck_zone.value in defence:
@@ -67,7 +70,7 @@ class ActionSelector:
         return target_dict
 
     @staticmethod
-    def select_random_action_from_weight_table(table):
+    def _select_random_action_from_weight_table(table):
         roll = random() * 100
 
         incremental_weight = 0
@@ -77,25 +80,3 @@ class ActionSelector:
             incremental_weight += action["weight"]
             if roll < incremental_weight:
                 return action["func"]
-
-
-"""
-- Pass
-  Percentage choice based on STRATEGY
-  Forward, Lateral ( including current zone), Backwards
-  OUTCOMES
-  Passed, missed (lost control), interception
-- Breakout (if available)
-  Attempt to forward pass with a higher probabilty of leaving the zone, and lower probability of completed pass
-  OUTCOMES
-  Forward Pass, Clear Zone (opposition control), Clear Zone (No possessor), interception
-- Carry
-  Percentage choice based on STRATEGY
-  Forward, Lateral (including current zone), backwards
-  OUTCOMES
-  Move Zone, Lose Control (no possessor), interception
-- Clear
-  Very High probabilty of leaving the zone, probability of icing , depending on factors
-  OUTCOMES - push puck past blueline
-  Clear Zone (No controller), Clear Zone (opposition), Icing, Interception
-"""
