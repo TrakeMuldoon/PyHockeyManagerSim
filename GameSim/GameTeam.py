@@ -6,8 +6,7 @@ from GameSim.SupportClasses.Zones import Zone
 from GameSim.Team import Team
 
 
-def _reverse_player_zone(player: Player):
-    player.zone = player.zone.get_reverse_zone()
+
 
 
 class GameTeam:
@@ -66,8 +65,11 @@ class GameTeam:
             self._reverse_player_zones()
 
     def _reverse_player_zones(self):
-        _reverse_player_zone(self.active_offence.left_winger)
-        _reverse_player_zone(self.active_offence.right_winger)
-        _reverse_player_zone(self.active_offence.centre)
-        _reverse_player_zone(self.active_defence.left_defence)
-        _reverse_player_zone(self.active_defence.left_defence)
+        self._reverse_player_zone(self.active_offence.left_winger)
+        self._reverse_player_zone(self.active_offence.right_winger)
+        self._reverse_player_zone(self.active_offence.centre)
+        self._reverse_player_zone(self.active_defence.left_defence)
+        self._reverse_player_zone(self.active_defence.left_defence)
+
+    def _reverse_player_zone(self, player: Player):
+        player.zone = player.zone.get_reverse_zone()
