@@ -1,9 +1,10 @@
 from GameSim import GameSim
+from GameSim.Resolvers.Possessor.PossessorActionResolver import PossessorActionResolver
 
 
-class PossessorActionResolver:
+class DummyResolver(PossessorActionResolver):
     def __init__(self, sim: "GameSim.GameSim"):
-        pass
+        super().__init__(sim)
 
     def forward_pass(self):
         pass

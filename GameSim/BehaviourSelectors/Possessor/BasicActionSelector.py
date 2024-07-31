@@ -1,10 +1,9 @@
 from random import random
 from GameSim import GameSim
-from GameSim.BehaviourSelectors.BaseBehaviourSelector import \
-    BaseBehaviourSelector
+from GameSim.BehaviourSelectors.Possessor.PossessorActionSelector import PossessorActionSelector
 
 
-class BasicActionSelector(BaseBehaviourSelector):
+class BasicActionSelector(PossessorActionSelector):
     SOUTH_DEFENSIVE_ZONES = {22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33}
     SOUTH_NEUTRAL_ZONES = {13, 14, 15, 16, 17, 18, 19, 20, 21}
     SOUTH_OFFENSIVE_ZONES = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12}
@@ -15,31 +14,29 @@ class BasicActionSelector(BaseBehaviourSelector):
 
     def __init__(self, game_sim: "GameSim.GameSim"):
         super().__init__(game_sim)
-        d_res = game_sim.defensive_resolver
+        par = game_sim.possessor_action_resolver
         self.DEFENSIVE_ACTIONS = {
-            "FORWARD_PASS": {"weight": 10, "func": d_res.forward_pass},
-            "LATERAL_PASS": {"weight": 10, "func": d_res.lateral_pass},
-            "BACKWARD_PASS": {"weight": 5, "func": d_res.backward_pass},
-            "CARRY": {"weight": 25, "func": d_res.carry},
-            "CLEAR": {"weight": 25, "func": d_res.clear},
-            "DUMP": {"weight": 25, "func": d_res.dump},
+            "FORWARD_PASS": {"weight": 10, "func": par.forward_pass},
+            "LATERAL_PASS": {"weight": 10, "func": par.lateral_pass},
+            "BACKWARD_PASS": {"weight": 5, "func": par.backward_pass},
+            "CARRY": {"weight": 25, "func": par.carry},
+            "CLEAR": {"weight": 25, "func": par.clear},
+            "DUMP": {"weight": 25, "func": par.dump},
         }
 
-        n_res = game_sim.neutral_resolver
         self.NEUTRAL_ACTIONS = {
-            "FORWARD_PASS": {"weight": 10, "func": n_res.forward_pass},
-            "LATERAL_PASS": {"weight": 15, "func": n_res.lateral_pass},
-            "BACKWARD_PASS": {"weight": 5, "func": n_res.backward_pass},
-            "CARRY": {"weight": 35, "func": n_res.carry},
-            "DUMP": {"weight": 35, "func": n_res.dump},
+            "FORWARD_PASS": {"weight": 10, "func": par.forward_pass},
+            "LATERAL_PASS": {"weight": 15, "func": par.lateral_pass},
+            "BACKWARD_PASS": {"weight": 5, "func": par.backward_pass},
+            "CARRY": {"weight": 35, "func": par.carry},
+            "DUMP": {"weight": 35, "func": par.dump},
         }
 
-        o_res = game_sim.offensive_resolver
         self.OFFENSIVE_ACTIONS = {
-            "OUTSIDE_PASS": {"weight": 25, "func": o_res.outside_pass},
-            "CENTRAL_PASS": {"weight": 25, "func": o_res.central_pass},
-            "SHOOT": {"weight": 25, "func": o_res.shoot},
-            "CARRY": {"weight": 25, "func": o_res.carry},
+            "OUTSIDE_PASS": {"weight": 25, "func": par.outside_pass},
+            "CENTRAL_PASS": {"weight": 25, "func": par.central_pass},
+            "SHOOT": {"weight": 25, "func": par.shoot},
+            "CARRY": {"weight": 25, "func": par.carry},
         }
 
     def select_possessor_action_func(self):

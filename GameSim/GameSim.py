@@ -1,20 +1,21 @@
 from __future__ import annotations
 from random import random
 from typing import Optional
-from GameSim.BehaviourSelectors.Defensive.DefensiveTeamActionSelector import \
-    DefensiveTeamActionSelector
-from GameSim.BehaviourSelectors.Offensive import OffensiveTeamActionSelector
-from GameSim.BehaviourSelectors.Possessor.DictionaryResolver.DictionaryPossessorSelector import \
-    DictionaryPossessorSelector
-from GameSim.BehaviourSelectors.Possessor.PossessorActionSelector import \
-    PossessorActionSelector
+from GameSim.BehaviourSelectors.Defensive.DefensiveTeamActionSelector import (
+    DefensiveTeamActionSelector,
+)
+from GameSim.BehaviourSelectors.Offensive.OffensiveTeamActionSelector import (
+    OffensiveTeamActionSelector,
+)
+from GameSim.BehaviourSelectors.Possessor.DictionaryResolver.DictionaryPossessorSelector import (
+    DictionaryPossessorSelector,
+)
+from GameSim.BehaviourSelectors.Possessor.PossessorActionSelector import PossessorActionSelector
 from GameSim.GameTeam import GameTeam
-from GameSim.Resolvers.Defensive.DefensiveTeamActionResolver import \
-    DefensiveTeamActionResolver
-from GameSim.Resolvers.Offensive.OffensiveTeamActionResolver import \
-    OffensiveTeamActionResolver
-from GameSim.Resolvers.Possessor.PossessorActionResolver import \
-    PossessorActionResolver
+from GameSim.Resolvers.Defensive.DefensiveTeamActionResolver import DefensiveTeamActionResolver
+from GameSim.Resolvers.Offensive.OffensiveTeamActionResolver import OffensiveTeamActionResolver
+from GameSim.Resolvers.Possessor.DummyResolver import DummyResolver
+from GameSim.Resolvers.Possessor.PossessorActionResolver import PossessorActionResolver
 from GameSim.Resolvers.Race.PuckRaceResolver import PuckRaceResolver
 from GameSim.SupportClasses.Player import Player
 from GameSim.SupportClasses.Zones import Zone
@@ -41,13 +42,21 @@ class GameSim:
         self.puck_race_resolver: PuckRaceResolver = PuckRaceResolver(self)
 
         self.possessor_action_selector: PossessorActionSelector = DictionaryPossessorSelector(self)
-        self.possessor_action_resolver: PossessorActionResolver = PossessorActionResolver(self)
+        self.possessor_action_resolver: PossessorActionResolver = DummyResolver(self)
 
-        self.offensive_team_action_selector: OffensiveTeamActionSelector = OffensiveTeamActionSelector(self)
-        self.offensive_team_action_resolver: OffensiveTeamActionResolver = OffensiveTeamActionResolver(self)
+        self.offensive_team_action_selector: OffensiveTeamActionSelector = (
+            OffensiveTeamActionSelector(self)
+        )
+        self.offensive_team_action_resolver: OffensiveTeamActionResolver = (
+            OffensiveTeamActionResolver(self)
+        )
 
-        self.defensive_team_action_selector: DefensiveTeamActionSelector = DefensiveTeamActionSelector(self)
-        self.defensive_team_action_resolver: DefensiveTeamActionResolver = DefensiveTeamActionResolver(self)
+        self.defensive_team_action_selector: DefensiveTeamActionSelector = (
+            DefensiveTeamActionSelector(self)
+        )
+        self.defensive_team_action_resolver: DefensiveTeamActionResolver = (
+            DefensiveTeamActionResolver(self)
+        )
 
     def simulate_game(self, with_print_statements=True, playoffs=False):
         self.north_team = self.home_team
@@ -147,7 +156,7 @@ class GameSim:
         self.is_face_off = False
 
     def resolve_puck_controlled_event(self):
-        action = self.action_selector.select_possessor_action_func()
+        action = self.possessor_action_selector.select_possessor_action_func()
         action()
         # check zone
         # check options
