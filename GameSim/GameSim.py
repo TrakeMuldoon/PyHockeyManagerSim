@@ -1,16 +1,20 @@
 from __future__ import annotations
 from random import random
 from typing import Optional
-
-from GameSim.BehaviourSelectors.Defensive.DefensiveTeamActionSelector import DefensiveTeamActionSelector
+from GameSim.BehaviourSelectors.Defensive.DefensiveTeamActionSelector import \
+    DefensiveTeamActionSelector
 from GameSim.BehaviourSelectors.Offensive import OffensiveTeamActionSelector
 from GameSim.BehaviourSelectors.Possessor.DictionaryResolver.DictionaryPossessorSelector import \
     DictionaryPossessorSelector
-from GameSim.BehaviourSelectors.Possessor.PossessorActionSelector import PossessorActionSelector
+from GameSim.BehaviourSelectors.Possessor.PossessorActionSelector import \
+    PossessorActionSelector
 from GameSim.GameTeam import GameTeam
-from GameSim.Resolvers.Defensive.DefensiveTeamActionResolver import DefensiveTeamActionResolver
-from GameSim.Resolvers.Offensive.OffensiveTeamActionResolver import OffensiveTeamActionResolver
-from GameSim.Resolvers.Possessor.PossessorActionResolver import PossessorActionResolver
+from GameSim.Resolvers.Defensive.DefensiveTeamActionResolver import \
+    DefensiveTeamActionResolver
+from GameSim.Resolvers.Offensive.OffensiveTeamActionResolver import \
+    OffensiveTeamActionResolver
+from GameSim.Resolvers.Possessor.PossessorActionResolver import \
+    PossessorActionResolver
 from GameSim.Resolvers.Race.PuckRaceResolver import PuckRaceResolver
 from GameSim.SupportClasses.Player import Player
 from GameSim.SupportClasses.Zones import Zone

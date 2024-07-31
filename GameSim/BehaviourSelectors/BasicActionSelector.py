@@ -1,6 +1,7 @@
 from random import random
 from GameSim import GameSim
-from GameSim.BehaviourSelectors.BaseBehaviourSelector import BaseBehaviourSelector
+from GameSim.BehaviourSelectors.BaseBehaviourSelector import \
+    BaseBehaviourSelector
 
 
 class BasicActionSelector(BaseBehaviourSelector):

@@ -1,4 +1,5 @@
-from GameSim.BehaviourSelectors.Possessor.PossessorActionSelector import PossessorActionSelector
+from GameSim.BehaviourSelectors.Possessor.PossessorActionSelector import \
+    PossessorActionSelector
 
 
 class DictionaryPossessorSelector(PossessorActionSelector):
