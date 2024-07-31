@@ -2,6 +2,8 @@ from __future__ import annotations
 from random import random
 from typing import Optional
 
+from GameSim.BehaviourSelectors.Defensive.DefensiveTeamActionSelector import DefensiveTeamActionSelector
+from GameSim.BehaviourSelectors.Offensive import OffensiveTeamActionSelector
 from GameSim.BehaviourSelectors.Possessor.DictionaryResolver.DictionaryPossessorSelector import \
     DictionaryPossessorSelector
 from GameSim.BehaviourSelectors.Possessor.PossessorActionSelector import PossessorActionSelector
