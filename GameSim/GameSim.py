@@ -1,11 +1,15 @@
 from __future__ import annotations
 from random import random
 from typing import Optional
-from GameSim.BehaviourSelectors.BasicActionSelector import BasicActionSelector
+
+from GameSim.BehaviourSelectors.Possessor.DictionaryResolver.DictionaryPossessorSelector import \
+    DictionaryPossessorSelector
+from GameSim.BehaviourSelectors.Possessor.PossessorActionSelector import PossessorActionSelector
 from GameSim.GameTeam import GameTeam
-from GameSim.Resolvers.DefensiveResolver import DefensiveResolver
-from GameSim.Resolvers.NeutralResolver import NeutralResolver
-from GameSim.Resolvers.OffensiveResolver import OffensiveResolver
+from GameSim.Resolvers.Defensive.DefensiveTeamActionResolver import DefensiveTeamActionResolver
+from GameSim.Resolvers.Offensive.OffensiveTeamActionResolver import OffensiveTeamActionResolver
+from GameSim.Resolvers.Possessor.PossessorActionResolver import PossessorActionResolver
+from GameSim.Resolvers.Race.PuckRaceResolver import PuckRaceResolver
 from GameSim.SupportClasses.Player import Player
 from GameSim.SupportClasses.Zones import Zone
 
@@ -28,11 +32,16 @@ class GameSim:
         self.is_face_off = True
         self.puck_possessor: Player = None  # type: ignore
 
-        self.defensive_resolver = DefensiveResolver(self)
-        self.neutral_resolver = NeutralResolver(self)
-        self.offensive_resolver = OffensiveResolver(self)
+        self.puck_race_resolver: PuckRaceResolver = PuckRaceResolver(self)
 
-        self.action_selector = BasicActionSelector(self)
+        self.possessor_action_selector: PossessorActionSelector = DictionaryPossessorSelector(self)
+        self.possessor_action_resolver: PossessorActionResolver = PossessorActionResolver(self)
+
+        self.offensive_team_action_selector: OffensiveTeamActionSelector = OffensiveTeamActionSelector(self)
+        self.offensive_team_action_resolver: OffensiveTeamActionResolver = OffensiveTeamActionResolver(self)
+
+        self.defensive_team_action_selector: DefensiveTeamActionSelector = DefensiveTeamActionSelector(self)
+        self.defensive_team_action_resolver: DefensiveTeamActionResolver = DefensiveTeamActionResolver(self)
 
     def simulate_game(self, with_print_statements=True, playoffs=False):
         self.north_team = self.home_team
@@ -137,7 +146,6 @@ class GameSim:
         # check zone
         # check options
         # evaluate resolutions
-        # print("puck controlled! REPLACE", end="\t\t")
 
     ### (A - B + SF) / (2 * SF)(SF=75)
     @staticmethod
