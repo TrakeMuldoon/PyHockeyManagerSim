@@ -3,6 +3,7 @@ from pygame import Surface
 from pygame.font import Font, SysFont
 from GameSim import GameSim
 from GameSim.SupportClasses.Player import Player
+from GameSim.SupportClasses.Zones import Zone
 from Rendering.RenderingHelpers import RenderingHelper
 
 pygame.font.init()
@@ -28,6 +29,13 @@ class IceRenderer:
         self.screen = screen
         self.render_helper = RenderingHelper(zoom_factor)
         self.font = SysFont("Impact", round(22 * zoom_factor))
+
+    def debug_render(self):
+        for zone in range(1,34):
+            p = Player()
+            p.preferred_num = zone
+            p.zone = Zone(zone)
+            self.render_player(p, jersey_num=1)
 
     def render_current_situation(self):
         for player in self.game_sim.home_team.get_active_players():
