@@ -1,11 +1,13 @@
 import math
 from random import random
 from GameSim.Generators.PlayerNameGenerator import PlayerNameGenerator
-from GameSim.SupportClasses.Player import Position
+from GameSim.SupportClasses.Player import Player, Position
+from GameSim.SupportClasses.Zones import Zone
 
 
-class Goalie:
+class Goalie(Player):
     def __init__(self):
+        super().__init__()
         self.pads = self.generate_random_NHL_stat()
         self.stick = self.generate_random_NHL_stat()
 
@@ -14,10 +16,8 @@ class Goalie:
 
         self.passing = self.generate_random_NHL_stat()
 
-        self.first_name = PlayerNameGenerator.random_first_name()
-        self.last_name = PlayerNameGenerator.random_last_name()
-
         self.position = Position.GOALIE
+        self.zone = Zone.DEF_CREASE
 
     def generate_random_NHL_stat(self):
         stat = random() * 28

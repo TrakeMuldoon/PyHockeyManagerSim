@@ -10,6 +10,10 @@ class OffensiveLine:
 
         self.line_average_player: Player = None  # type: ignore
 
+    def get_players(self):
+        potential_players = [self.left_winger, self.right_winger, self.centre, self.extra_player]
+        return [p for p in potential_players if p]
+
 
 class DefensiveLine:
     def __init__(self):
@@ -17,3 +21,7 @@ class DefensiveLine:
         self.right_defence: Player = None  # type: ignore
 
         self.line_average_player: Player = None  # type: ignore
+
+    def get_players(self):
+        potential_players = [self.left_defence, self.right_defence]
+        return [p for p in potential_players if p]
