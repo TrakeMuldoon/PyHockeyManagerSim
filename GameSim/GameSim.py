@@ -7,9 +7,7 @@ from GameSim.BehaviourSelectors.Defensive.DefensiveTeamActionSelector import (
 from GameSim.BehaviourSelectors.Offensive.OffensiveTeamActionSelector import (
     OffensiveTeamActionSelector,
 )
-from GameSim.BehaviourSelectors.Possessor.DictionaryResolver.DictionaryPossessorSelector import (
-    DictionaryPossessorSelector,
-)
+from GameSim.BehaviourSelectors.Possessor.BasicActionSelector import BasicActionSelector
 from GameSim.BehaviourSelectors.Possessor.PossessorActionSelector import PossessorActionSelector
 from GameSim.GameTeam import GameTeam
 from GameSim.Resolvers.Defensive.DefensiveTeamActionResolver import DefensiveTeamActionResolver
@@ -41,22 +39,18 @@ class GameSim:
 
         self.puck_race_resolver: PuckRaceResolver = PuckRaceResolver(self)
 
-        self.possessor_action_selector: PossessorActionSelector = DictionaryPossessorSelector(self)
         self.possessor_action_resolver: PossessorActionResolver = DummyResolver(self)
+        self.possessor_action_selector: PossessorActionSelector = BasicActionSelector(self)
 
-        self.offensive_team_action_selector: OffensiveTeamActionSelector = (
-            OffensiveTeamActionSelector(self)
-        )
-        self.offensive_team_action_resolver: OffensiveTeamActionResolver = (
-            OffensiveTeamActionResolver(self)
-        )
+        otar = OffensiveTeamActionResolver(self)
+        self.offensive_team_action_resolver: OffensiveTeamActionResolver = otar
+        otas = OffensiveTeamActionSelector(self)
+        self.offensive_team_action_selector: OffensiveTeamActionSelector = otas
 
-        self.defensive_team_action_selector: DefensiveTeamActionSelector = (
-            DefensiveTeamActionSelector(self)
-        )
-        self.defensive_team_action_resolver: DefensiveTeamActionResolver = (
-            DefensiveTeamActionResolver(self)
-        )
+        dtar = DefensiveTeamActionResolver(self)
+        self.defensive_team_action_resolver: DefensiveTeamActionResolver = dtar
+        dtas = DefensiveTeamActionSelector(self)
+        self.defensive_team_action_selector: DefensiveTeamActionSelector = dtas
 
     def simulate_game(self, with_print_statements=True, playoffs=False):
         self.north_team = self.home_team
@@ -111,13 +105,14 @@ class GameSim:
 
         elif self.puck_possessor is None:
             # resolve race
-            print("Race! REPLACE", end="\t\t")
+            self.puck_race_resolver.resolve_race()
 
         else:
             # resolve possessed zone action
             self.resolve_puck_controlled_event()
-        # move all other players
-        # check for penalties
+
+        # TODO: move all other players
+        # TODO: check for penalties
 
     def simulate_shootout(self):
         pass
