@@ -11,13 +11,13 @@ clock = pygame.time.Clock()
 running = True
 
 image = pygame.image.load("Assets/RinkNoLines.png")
-image = pygame.transform.smoothscale(image, (400, 800))
+image = pygame.transform.smoothscale(image, (500, 1000))
 
 home_team = TeamGenerator.generate_random_team()
 away_team = TeamGenerator.generate_random_team()
 
 game = GameSim(home_team, away_team)
-game_renderer = IceRenderer(game, screen)
+game_renderer = IceRenderer(game, screen, 1.0)
 
 game.set_up_for_period()
 
