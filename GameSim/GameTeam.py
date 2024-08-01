@@ -6,9 +6,6 @@ from GameSim.SupportClasses.Zones import Zone
 from GameSim.Team import Team
 
 
-
-
-
 class GameTeam:
     def __init__(self, team: Team):
         self.dressed_goalies = team.goalies
