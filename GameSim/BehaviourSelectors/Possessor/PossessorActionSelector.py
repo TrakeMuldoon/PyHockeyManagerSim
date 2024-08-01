@@ -5,5 +5,5 @@ class PossessorActionSelector:
     game_sim: "GameSim.GameSim"
 
     def __init__(self, sim: "GameSim.GameSim"):
-        game_sim = sim
+        self.game_sim = sim
         pass
