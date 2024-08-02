@@ -1,11 +1,12 @@
 from random import random
 from GameSim.SupportClasses.Player import Player
 from GameSim.SupportClasses.Positions import Position
+from GameSim.SupportClasses.Team import Team
 
 
 class Skater(Player):
-    def __init__(self) -> None:
-        super().__init__()
+    def __init__(self, team:Team) -> None:
+        super().__init__(team)
         self.speed: float = self.generate_random_NHL_stat()
         self.endurance: float = self.generate_random_NHL_stat()
 
