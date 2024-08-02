@@ -1,6 +1,5 @@
 from collections import defaultdict
 from typing import List
-
 import pygame
 from pygame import Surface
 from pygame.font import Font, SysFont
@@ -18,7 +17,7 @@ class IceRenderer:
     screen: Surface
 
     # TODO include the jerseys in the zoom_scaling
-    jersey_size = (40,40)
+    jersey_size = (40, 40)
 
     green_jersey = pygame.image.load("Assets/Green.png")
     green_jersey = pygame.transform.smoothscale(green_jersey, size=jersey_size)
@@ -37,7 +36,7 @@ class IceRenderer:
 
     def debug_render(self):
         t = Team()
-        for zone in range(1,34):
+        for zone in range(1, 34):
             p = Player(t)
             t.players.append(p)
             p.preferred_num = zone
@@ -61,7 +60,10 @@ class IceRenderer:
         # players_width = self.jersey_size[0] * len(players)
 
         if len(players) == 1:
-            top_left = (centre[0] - (self.jersey_size[0] / 2),centre[1] - (self.jersey_size[1] / 2))
+            top_left = (
+                centre[0] - (self.jersey_size[0] / 2),
+                centre[1] - (self.jersey_size[1] / 2),
+            )
             self.render_player(players[0], self.green_jersey, top_left)
             return
         if len(players) == 2:
@@ -72,7 +74,7 @@ class IceRenderer:
             self.render_player(players[1], self.green_jersey, tl_2)
             return
         if len(players) == 3:
-            tl_1 = (centre[0] - (self.jersey_size[0] / 2),centre[1] - self.jersey_size[1])
+            tl_1 = (centre[0] - (self.jersey_size[0] / 2), centre[1] - self.jersey_size[1])
             tl_2 = (centre[0] - self.jersey_size[0], centre[1])
             tl_3 = (centre[0], centre[1])
             self.render_player(players[0], self.green_jersey, tl_1)
@@ -87,21 +89,21 @@ class IceRenderer:
             zone_contents[player.zone.value].append(player)
         print(zone_contents)
         return
-        #for player in self.game_sim.home_team.get_active_players():
+        # for player in self.game_sim.home_team.get_active_players():
         #    self.render_player(player, 1)
-        #self.render_player(self.game_sim.home_team.goalie, 1)
-        #print("---")
-        #for player in self.game_sim.away_team.get_active_players():
+        # self.render_player(self.game_sim.home_team.goalie, 1)
+        # print("---")
+        # for player in self.game_sim.away_team.get_active_players():
         #    self.render_player(player, 2)
-        #self.render_player(self.game_sim.away_team.goalie, 2)
-        #print("---------------------")
+        # self.render_player(self.game_sim.away_team.goalie, 2)
+        # print("---------------------")
 
     def render_player(self, player: Player, jersey: Surface, top_left):
         # render jersey
         self.screen.blit(jersey, top_left)
 
         # render number
-        #TODO: Render the number offsets according to the zoom_scaling
+        # TODO: Render the number offsets according to the zoom_scaling
         """
             # draw text
             font = pygame.font.Font(None, 25)

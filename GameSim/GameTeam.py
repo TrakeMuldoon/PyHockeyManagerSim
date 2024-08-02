@@ -1,5 +1,6 @@
 from random import random
 from typing import List
+
 from GameSim.SupportClasses.Goalie import Goalie
 from GameSim.SupportClasses.Lines import DefensiveLine, OffensiveLine
 from GameSim.SupportClasses.Player import Player
@@ -8,7 +9,11 @@ from GameSim.SupportClasses.Zones import Zone
 
 
 class GameTeam:
-    def __init__(self, team: Team):
+    dressed_goalies: List[Goalie]
+    dressed_players: List[Player]
+    goalie: Goalie
+
+    def __init__(self, team: Team) -> None:
         self.dressed_goalies = team.goalies
         self.dressed_players = team.players
         self.num_dressed_players = len(self.dressed_players)
@@ -17,7 +22,7 @@ class GameTeam:
         self.active_defence: DefensiveLine = DefensiveLine()
         self.goalie: Goalie = self.select_goalie()
 
-    def get_active_players(self):
+    def get_active_players(self) -> List[Player]:
         ret = []
         ret.extend(self.active_offence.get_players())
         ret.extend(self.active_defence.get_players())
@@ -27,7 +32,7 @@ class GameTeam:
         self.active_offence = self.next_offence()
         self.active_defence = self.next_defence()
 
-    def select_goalie(self):
+    def select_goalie(self) -> Goalie:
         index = int(random() * len(self.dressed_goalies))
         return self.dressed_goalies[index]
 

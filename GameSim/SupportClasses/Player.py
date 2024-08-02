@@ -15,7 +15,7 @@ class Player:
     zone: Zone
     position: Position
 
-    def __init__(self, team:Team) -> None:
+    def __init__(self, team: Team) -> None:
         self.first_name = PlayerNameGenerator.random_first_name()
         self.last_name = PlayerNameGenerator.random_last_name()
         self.preferred_num = int(random() * 98) + 1
