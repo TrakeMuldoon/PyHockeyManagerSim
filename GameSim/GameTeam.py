@@ -10,16 +10,12 @@ from GameSim.SupportClasses.Zones import Zone
 
 
 class GameTeam(Team):
-    dressed_goalies: List[Goalie]
-    dressed_players: List[Skater]
-    goalie: Goalie
-
     def __init__(self, team: Team) -> None:
         super().__init__()
         self.team_name = team.team_name
 
-        self.dressed_goalies = team.goalies
-        self.dressed_players = team.skaters
+        self.dressed_goalies: List[Goalie] = team.goalies
+        self.dressed_players: List[Skater] = team.skaters
         self.num_dressed_players = len(self.dressed_players)
 
         self.active_offence: OffensiveLine = OffensiveLine()
@@ -47,10 +43,10 @@ class GameTeam(Team):
         index = int(random() * len(self.dressed_goalies))
         return self.dressed_goalies[index]
 
-    def print_skaters_on_ice(self):
+    def print_players_on_ice(self):
         of = self.active_offence
         de = self.active_defence
-        print(f"\t\t{self.goalie.last_name}")
+        print(f"\t\t{self.short_player(self.goalie)}")
         print(f"\t\t{self.short_player(de.left_defence)}\t\t{self.short_player(de.right_defence)}")
         print(
             f"\t{self.short_player(of.left_winger)}\t{self.short_player(of.centre)}\t{self.short_player(of.right_winger)}"
@@ -58,10 +54,11 @@ class GameTeam(Team):
 
     @staticmethod
     def short_player(player):
-        return f"[{player.last_name}|{player.zone.value}]"
+        return f"[{player.last_name}:{player.preferred_num}|{player.zone.value}]"
 
     def next_offence(self):
-        index = int(random() * self.num_dressed_players)
+        #index = int(random() * self.num_dressed_players)
+        index = 1
         line = OffensiveLine()
         line.left_winger = self.dressed_players[index]
         line.centre = self.dressed_players[(index + 1) % self.num_dressed_players]
@@ -69,7 +66,8 @@ class GameTeam(Team):
         return line
 
     def next_defence(self):
-        index = int(random() * self.num_dressed_players)
+        # index = int(random() * self.num_dressed_players)
+        index = 12
         line = DefensiveLine()
         line.left_defence = self.dressed_players[index]
         line.right_defence = self.dressed_players[(index + 1) % self.num_dressed_players]
@@ -92,5 +90,6 @@ class GameTeam(Team):
         self._reverse_player_zone(self.active_defence.left_defence)
         self._reverse_player_zone(self.active_defence.right_defence)
 
-    def _reverse_player_zone(self, player: Player):
+    @staticmethod
+    def _reverse_player_zone( player: Player):
         player.zone = player.zone.get_reverse_zone()

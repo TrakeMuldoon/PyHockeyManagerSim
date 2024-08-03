@@ -6,14 +6,12 @@ from GameSim.SupportClasses.Skater import Skater
 
 
 class Team:
-    location: str
-    team_name: str
-    team_colour: str
-    skaters: List[Skater] = []
-    goalies: List[Goalie] = []
-
     def __init__(self):
-        pass
+        self.location: str = None  # type: ignore
+        self.team_name: str = None  # type: ignore
+        self.team_colour: str = None  # type: ignore
+        self.skaters: List[Skater] = []
+        self.goalies: List[Goalie] = []
 
     def print_team(self):
         print(f"{self.team_name} from {self.location}")

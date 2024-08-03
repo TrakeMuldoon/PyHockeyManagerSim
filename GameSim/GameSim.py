@@ -195,10 +195,10 @@ class GameSim:
 
     def print_players_on_ice(self):
         print("HOME", "")
-        self.home_team.print_skaters_on_ice()
+        self.home_team.print_players_on_ice()
 
         print("AWAY", "")
-        self.away_team.print_skaters_on_ice()
+        self.away_team.print_players_on_ice()
 
     def game_result_one_liner(self):
         pass
