@@ -1,7 +1,7 @@
 import os
 from random import random
 from typing import Set
-from GameSim.Team import Team
+from GameSim.SupportClasses.Team import Team
 
 
 class _inner_generator:

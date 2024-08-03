@@ -52,16 +52,30 @@ class GameSim:
         dtas = DefensiveTeamActionSelector(self)
         self.defensive_team_action_selector: DefensiveTeamActionSelector = dtas
 
+    def set_up_for_period(self):
+        # select 5 players and a goalie
+        self.home_team.put_new_skaters_on_ice()
+        self.home_team.set_new_period_zones(True)
+        self.away_team.put_new_skaters_on_ice()
+        self.away_team.set_new_period_zones(False)
+        self.print_players_on_ice()
+
     def simulate_game(self, with_print_statements=True, playoffs=False):
         self.north_team = self.home_team
+        self.set_up_for_period()
         self.simulate_period(1)
+
         self.north_team = self.away_team
+        self.set_up_for_period()
         self.simulate_period(2)
+
         self.north_team = self.home_team
+        self.set_up_for_period()
         self.simulate_period(3)
 
         if self.home_score == self.away_score:
             self.north_team = self.away_team
+            self.set_up_for_period()
             self.simulate_period(4, True)
 
             if self.home_score == self.away_score:
@@ -74,13 +88,6 @@ class GameSim:
         seconds_passed = 0
         next_line_change_seconds = 60
 
-        # select 5 players and a goalie
-        self.home_team.put_new_players_on_ice()
-        self.home_team.set_new_period_zones(True)
-        self.away_team.put_new_players_on_ice()
-        self.away_team.set_new_period_zones(False)
-        self.print_players_on_ice()
-
         # do opening face_off
         while seconds_passed < GameSim.SECONDS_IN_PERIOD:
             self.events += 1
@@ -91,8 +98,8 @@ class GameSim:
             if seconds_passed > next_line_change_seconds:
                 if self.is_face_off:
                     print("LINE CHANGE")
-                    self.home_team.put_new_players_on_ice()
-                    self.away_team.put_new_players_on_ice()
+                    self.home_team.put_new_skaters_on_ice()
+                    self.away_team.put_new_skaters_on_ice()
                     next_line_change_seconds += 59
 
     def simulate_next_event(self):
