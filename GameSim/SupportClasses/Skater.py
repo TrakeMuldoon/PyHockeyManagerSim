@@ -1,4 +1,5 @@
 from random import random
+
 # from GameSim.SupportClasses.Team import Team
 from GameSim.SupportClasses.Player import Player
 from GameSim.SupportClasses.Positions import Position
