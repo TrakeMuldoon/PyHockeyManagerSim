@@ -1,12 +1,11 @@
 from random import random
 from typing import List
-
 from GameSim.SupportClasses.Goalie import Goalie
 from GameSim.SupportClasses.Skater import Skater
 
 
 class Team:
-    def __init__(self):
+    def __init__(self) -> None:
         self.location: str = None  # type: ignore
         self.team_name: str = None  # type: ignore
         self.team_colour: str = None  # type: ignore

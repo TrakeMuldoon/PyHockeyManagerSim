@@ -1,11 +1,10 @@
 from random import random
 from typing import List
-
-from GameSim.SupportClasses.Team import Team
 from GameSim.SupportClasses.Goalie import Goalie
 from GameSim.SupportClasses.Lines import DefensiveLine, OffensiveLine
-from GameSim.SupportClasses.Skater import Skater
 from GameSim.SupportClasses.Player import Player
+from GameSim.SupportClasses.Skater import Skater
+from GameSim.SupportClasses.Team import Team
 from GameSim.SupportClasses.Zones import Zone
 
 
@@ -57,7 +56,7 @@ class GameTeam(Team):
         return f"[{player.last_name}:{player.preferred_num}|{player.zone.value}]"
 
     def next_offence(self):
-        #index = int(random() * self.num_dressed_players)
+        # index = int(random() * self.num_dressed_players)
         index = 1
         line = OffensiveLine()
         line.left_winger = self.dressed_players[index]
@@ -91,5 +90,5 @@ class GameTeam(Team):
         self._reverse_player_zone(self.active_defence.right_defence)
 
     @staticmethod
-    def _reverse_player_zone( player: Player):
+    def _reverse_player_zone(player: Player):
         player.zone = player.zone.get_reverse_zone()

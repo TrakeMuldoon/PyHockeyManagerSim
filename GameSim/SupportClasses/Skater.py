@@ -1,7 +1,7 @@
 from random import random
 from GameSim.SupportClasses.Player import Player
 from GameSim.SupportClasses.Positions import Position
-from GameSim.SupportClasses import Team
+from GameSim.SupportClasses.Team import Team
 
 
 class Skater(Player):

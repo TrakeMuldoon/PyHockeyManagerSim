@@ -64,11 +64,13 @@ class IceRenderer:
         centre = self.render_helper.get_centre_of_zone(zone.value)
 
         if len(players) == 1:
-            top_lefts = [(centre[0] - (self.jersey_size[0] / 2), centre[1] - (self.jersey_size[1] / 2))]
+            top_lefts = [
+                (centre[0] - (self.jersey_size[0] / 2), centre[1] - (self.jersey_size[1] / 2))
+            ]
         elif len(players) == 2:
             top_lefts = [
                 (centre[0] - self.jersey_size[0], centre[1] - (self.jersey_size[1] / 2)),
-                (centre[0], centre[1] - (self.jersey_size[1] / 2))
+                (centre[0], centre[1] - (self.jersey_size[1] / 2)),
             ]
         elif len(players) == 3:
             top_lefts = [
@@ -83,23 +85,29 @@ class IceRenderer:
             self.render_player(players[i], self._get_player_jersey(players[i]), top_lefts[i])
 
     def render_current_situation(self):
-        print("---------------------")
         zone_contents = defaultdict(list)
 
-        print(self.game_sim.home_team.team_name)
         for player in self.game_sim.home_team.get_players_on_ice():
-            print(f"{player.first_name} {player.last_name} {player.preferred_num}> {player.team.team_name}")
             zone_contents[player.zone].append(player)
 
-        print(self.game_sim.away_team.team_name)
         for player in self.game_sim.away_team.get_players_on_ice():
-            print(f"{player.first_name} {player.last_name} {player.preferred_num}> {player.team.team_name}")
             zone_contents[player.zone].append(player)
 
         for zone in zone_contents.keys():
-            print(f"{zone}:{len(zone_contents[zone])}")
             self.render_players_in_zone(zone, zone_contents[zone])
+
+        self.render_puck_location()
         return
+
+    def render_puck_location(self):
+        if self.game_sim.puck_possessor is None:
+            puck_loc = self.render_helper.get_centre_of_zone(self.game_sim.puck_zone.value)
+            pygame.draw.circle(self.screen, "black", puck_loc, 7)
+            puck_loc = self.render_helper.get_centre_of_zone(self.game_sim.puck_zone.value)
+            pygame.draw.circle(self.screen, "yellow", puck_loc, 6, 1)
+        else:
+            puck_loc = self.render_helper.get_centre_of_zone(self.game_sim.puck_zone.value)
+            pygame.draw.circle(self.screen, "purple", puck_loc, 7)
 
     def render_player(self, player: Player, jersey: Surface, top_left):
         # render jersey
@@ -120,5 +128,3 @@ class IceRenderer:
         else:
             offset = top_left[0] + 9, top_left[1] + 4
         self.screen.blit(text_surface, offset)
-
-        print(f"{player.last_name},{player.zone.value},{player.team.team_name}")

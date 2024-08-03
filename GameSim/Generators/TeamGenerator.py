@@ -5,7 +5,6 @@ from GameSim.SupportClasses.Team import Team
 
 
 class TeamGenerator:
-
     @staticmethod
     def generate_random_team():
         t = Team()
