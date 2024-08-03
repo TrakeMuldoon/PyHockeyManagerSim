@@ -5,6 +5,7 @@ from pygame import Surface
 from pygame.font import Font, SysFont
 from GameSim import GameSim
 from GameSim.SupportClasses.Player import Player
+from GameSim.SupportClasses.Skater import Skater
 from GameSim.SupportClasses.Team import Team
 from GameSim.SupportClasses.Zones import Zone
 from Rendering.RenderingHelpers import RenderingHelper
@@ -37,16 +38,16 @@ class IceRenderer:
     def debug_render(self):
         t = Team()
         for zone in range(1, 34):
-            p = Player(t)
-            t.players.append(p)
+            p = Skater(t)
+            t.skaters.append(p)
             p.preferred_num = zone
 
-            p2 = Player(t)
-            t.players.append(p2)
+            p2 = Skater(t)
+            t.skaters.append(p2)
             p2.preferred_num = zone + 10
 
-            p3 = Player(t)
-            t.players.append(p3)
+            p3 = Skater(t)
+            t.skaters.append(p3)
             p3.preferred_num = zone + 20
 
             p.zone = Zone(zone)
@@ -85,10 +86,14 @@ class IceRenderer:
         print("---------------------")
         zone_contents = defaultdict(list)
 
+        print(self.game_sim.home_team.team_name)
         for player in self.game_sim.home_team.get_players_on_ice():
+            print(f"{player.first_name} {player.last_name} {player.preferred_num}> {player.team.team_name}")
             zone_contents[player.zone].append(player)
 
+        print(self.game_sim.away_team.team_name)
         for player in self.game_sim.away_team.get_players_on_ice():
+            print(f"{player.first_name} {player.last_name} {player.preferred_num}> {player.team.team_name}")
             zone_contents[player.zone].append(player)
 
         for zone in zone_contents.keys():

@@ -9,12 +9,15 @@ from GameSim.SupportClasses.Player import Player
 from GameSim.SupportClasses.Zones import Zone
 
 
-class GameTeam:
+class GameTeam(Team):
     dressed_goalies: List[Goalie]
     dressed_players: List[Skater]
     goalie: Goalie
 
     def __init__(self, team: Team) -> None:
+        super().__init__()
+        self.team_name = team.team_name
+
         self.dressed_goalies = team.goalies
         self.dressed_players = team.skaters
         self.num_dressed_players = len(self.dressed_players)
