@@ -42,7 +42,7 @@ class BasicActionSelector(PossessorActionSelector):
     def select_possessor_action_func(self):
         possessor = self.game_sim.puck_possessor
         zone_table = None
-        if possessor in self.game_sim.north_team.dressed_players:
+        if possessor in self.game_sim.north_team.get_active_skaters():
             zone_table = self._find_zone_table(
                 self.NORTH_DEFENSIVE_ZONES, self.NORTH_NEUTRAL_ZONES, self.NORTH_OFFENSIVE_ZONES
             )

@@ -2,7 +2,6 @@ import math
 from random import random
 from GameSim.Generators.PlayerNameGenerator import PlayerNameGenerator
 from GameSim.SupportClasses.Positions import Position
-from GameSim.SupportClasses.Team import Team
 from GameSim.SupportClasses.Zones import Zone
 
 

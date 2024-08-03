@@ -24,12 +24,12 @@ class GameSim:
     SKILL_FACTOR = 75
 
     def __init__(self, home_team, away_team, log_level=0) -> None:
-        self.home_team = GameTeam(home_team)
-        self.away_team = GameTeam(away_team)
-        self.north_team = home_team
+        self.home_team: GameTeam = GameTeam(home_team)
+        self.away_team: GameTeam = GameTeam(away_team)
+        self.north_team: GameTeam = self.home_team
 
-        self.home_score = 0
-        self.away_score = 0
+        self.home_score: int = 0
+        self.away_score: int = 0
 
         self.events = 0
 

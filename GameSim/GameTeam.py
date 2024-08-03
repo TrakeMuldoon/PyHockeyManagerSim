@@ -4,8 +4,8 @@ from GameSim.SupportClasses.Goalie import Goalie
 from GameSim.SupportClasses.Lines import DefensiveLine, OffensiveLine
 from GameSim.SupportClasses.Player import Player
 from GameSim.SupportClasses.Skater import Skater
-from GameSim.SupportClasses.Team import Team
 from GameSim.SupportClasses.Zones import Zone
+from GameSim.SupportClasses.Team import Team
 
 
 class GameTeam(Team):

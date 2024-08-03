@@ -1,7 +1,7 @@
 import math
 from random import random
 from GameSim.SupportClasses.Player import Player, Position
-from GameSim.SupportClasses.Team import Team
+# from GameSim.SupportClasses.Team import Team
 from GameSim.SupportClasses.Zones import Zone
 
 

@@ -34,8 +34,13 @@ while running:
     # fill the screen with a color to wipe away anything from last frame
     screen.fill("purple")
     screen.blit(image, dest=(0, 0))
+
+    """
+        GAME STUFF
+    """
     # game_renderer.debug_render()
     game_renderer.render_current_situation()
+    game.simulate_next_event()
 
     # flip() the display to put your work on screen
     pygame.display.flip()
