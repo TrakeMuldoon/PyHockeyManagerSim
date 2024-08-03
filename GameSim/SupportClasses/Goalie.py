@@ -1,12 +1,12 @@
 import math
 from random import random
 from GameSim.SupportClasses.Player import Player, Position
-from GameSim.SupportClasses.Team import Team
+from GameSim.SupportClasses import Team
 from GameSim.SupportClasses.Zones import Zone
 
 
 class Goalie(Player):
-    def __init__(self, team: Team):
+    def __init__(self, team: "Team"):
         super().__init__(team)
         self.pads = self.generate_random_NHL_stat()
         self.stick = self.generate_random_NHL_stat()

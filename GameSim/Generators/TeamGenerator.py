@@ -5,7 +5,6 @@ from GameSim.SupportClasses.Team import Team
 
 
 class TeamGenerator:
-    # _generator = _inner_generator()
 
     @staticmethod
     def generate_random_team():
@@ -13,7 +12,7 @@ class TeamGenerator:
         TeamNameGenerator.populate_team_information(t)
         for i in range(22):
             s = Skater(t)
-            t.players.append(s)
+            t.skaters.append(s)
         for i in range(3):
             g = Goalie(t)
             t.goalies.append(g)

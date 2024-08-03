@@ -1,8 +1,8 @@
 import math
 from random import random
 from GameSim.Generators.PlayerNameGenerator import PlayerNameGenerator
+from GameSim.SupportClasses import Team
 from GameSim.SupportClasses.Positions import Position
-from GameSim.SupportClasses.Team import Team
 from GameSim.SupportClasses.Zones import Zone
 
 
@@ -11,11 +11,11 @@ class Player:
     last_name: str = PlayerNameGenerator.random_last_name()
     preferred_num: int = int(random() * 98) + 1
 
-    team: Team
+    team: "Team"
     zone: Zone
     position: Position
 
-    def __init__(self, team: Team) -> None:
+    def __init__(self, team: "Team") -> None:
         self.first_name = PlayerNameGenerator.random_first_name()
         self.last_name = PlayerNameGenerator.random_last_name()
         self.preferred_num = int(random() * 98) + 1

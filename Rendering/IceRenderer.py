@@ -55,48 +55,46 @@ class IceRenderer:
 
             self.render_players_in_zone(p.zone, [p, p2, p3])
 
+    def _get_player_jersey(self, player: Player):
+        # TODO: This is a garbage way to determine what jersey to show
+        return self.green_jersey if player.team.team_colour == "Green" else self.orange_jersey
+
     def render_players_in_zone(self, zone: Zone, players: List[Player]):
         centre = self.render_helper.get_centre_of_zone(zone.value)
-        # players_width = self.jersey_size[0] * len(players)
 
         if len(players) == 1:
-            top_left = (
-                centre[0] - (self.jersey_size[0] / 2),
-                centre[1] - (self.jersey_size[1] / 2),
-            )
-            self.render_player(players[0], self.green_jersey, top_left)
-            return
-        if len(players) == 2:
-            tl_1 = (centre[0] - self.jersey_size[0], centre[1] - (self.jersey_size[1] / 2))
-            tl_2 = (centre[0], centre[1] - (self.jersey_size[1] / 2))
-
-            self.render_player(players[0], self.green_jersey, tl_1)
-            self.render_player(players[1], self.green_jersey, tl_2)
-            return
-        if len(players) == 3:
-            tl_1 = (centre[0] - (self.jersey_size[0] / 2), centre[1] - self.jersey_size[1])
-            tl_2 = (centre[0] - self.jersey_size[0], centre[1])
-            tl_3 = (centre[0], centre[1])
-            self.render_player(players[0], self.green_jersey, tl_1)
-            self.render_player(players[1], self.green_jersey, tl_2)
-            self.render_player(players[2], self.green_jersey, tl_3)
+            top_lefts = [(centre[0] - (self.jersey_size[0] / 2), centre[1] - (self.jersey_size[1] / 2))]
+        elif len(players) == 2:
+            top_lefts = [
+                (centre[0] - self.jersey_size[0], centre[1] - (self.jersey_size[1] / 2)),
+                (centre[0], centre[1] - (self.jersey_size[1] / 2))
+            ]
+        elif len(players) == 3:
+            top_lefts = [
+                (centre[0] - (self.jersey_size[0] / 2), centre[1] - self.jersey_size[1]),
+                (centre[0] - self.jersey_size[0], centre[1]),
+                (centre[0], centre[1]),
+            ]
+        else:
+            # TODO: Not this
+            raise Exception(f"Yeah.... 4 players in a zone is not supported yet. {zone}")
+        for i in range(0, len(players)):
+            self.render_player(players[i], self._get_player_jersey(players[i]), top_lefts[i])
 
     def render_current_situation(self):
-        zone_contents = defaultdict(List)
-        for player in self.game_sim.home_team.get_active_players():
-            zone_contents[player.zone.value].append(player)
-        for player in self.game_sim.away_team.get_active_players():
-            zone_contents[player.zone.value].append(player)
-        print(zone_contents)
+        print("---------------------")
+        zone_contents = defaultdict(list)
+
+        for player in self.game_sim.home_team.get_players_on_ice():
+            zone_contents[player.zone].append(player)
+
+        for player in self.game_sim.away_team.get_players_on_ice():
+            zone_contents[player.zone].append(player)
+
+        for zone in zone_contents.keys():
+            print(f"{zone}:{len(zone_contents[zone])}")
+            self.render_players_in_zone(zone, zone_contents[zone])
         return
-        # for player in self.game_sim.home_team.get_active_players():
-        #    self.render_player(player, 1)
-        # self.render_player(self.game_sim.home_team.goalie, 1)
-        # print("---")
-        # for player in self.game_sim.away_team.get_active_players():
-        #    self.render_player(player, 2)
-        # self.render_player(self.game_sim.away_team.goalie, 2)
-        # print("---------------------")
 
     def render_player(self, player: Player, jersey: Surface, top_left):
         # render jersey
@@ -118,4 +116,4 @@ class IceRenderer:
             offset = top_left[0] + 9, top_left[1] + 4
         self.screen.blit(text_surface, offset)
 
-        print(f"{player.last_name},{player.zone.value}")
+        print(f"{player.last_name},{player.zone.value},{player.team.team_name}")

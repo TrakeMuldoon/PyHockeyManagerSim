@@ -54,9 +54,9 @@ class GameSim:
 
     def set_up_for_period(self):
         # select 5 players and a goalie
-        self.home_team.put_new_players_on_ice()
+        self.home_team.put_new_skaters_on_ice()
         self.home_team.set_new_period_zones(True)
-        self.away_team.put_new_players_on_ice()
+        self.away_team.put_new_skaters_on_ice()
         self.away_team.set_new_period_zones(False)
         self.print_players_on_ice()
 
@@ -98,8 +98,8 @@ class GameSim:
             if seconds_passed > next_line_change_seconds:
                 if self.is_face_off:
                     print("LINE CHANGE")
-                    self.home_team.put_new_players_on_ice()
-                    self.away_team.put_new_players_on_ice()
+                    self.home_team.put_new_skaters_on_ice()
+                    self.away_team.put_new_skaters_on_ice()
                     next_line_change_seconds += 59
 
     def simulate_next_event(self):
@@ -195,10 +195,10 @@ class GameSim:
 
     def print_players_on_ice(self):
         print("HOME", "")
-        self.home_team.print_players_on_ice()
+        self.home_team.print_skaters_on_ice()
 
         print("AWAY", "")
-        self.away_team.print_players_on_ice()
+        self.away_team.print_skaters_on_ice()
 
     def game_result_one_liner(self):
         pass
