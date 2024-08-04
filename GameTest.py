@@ -23,6 +23,7 @@ game = GameSim(home_team, away_team)
 game_renderer = IceRenderer(game, screen, 1.0)
 
 game.set_up_for_period()
+game_over = False
 
 while running:
     # poll for events
@@ -40,7 +41,12 @@ while running:
     """
     # game_renderer.debug_render()
     game_renderer.render_current_situation()
-    game.simulate_next_event()
+    result_string = "Final score"
+    if not game_over:
+        result_string = game.simulate_next_event()
+
+    if result_string.startswith("Final score"):
+        game_over = True
 
     # flip() the display to put your work on screen
     pygame.display.flip()
