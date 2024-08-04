@@ -4,7 +4,7 @@ from GameSim.BehaviourSelectors.Possessor.PossessorActionSelector import Possess
 
 
 class RandomActionSelector(PossessorActionSelector):
-    def __init__(self, sim: "GameSim.GameSim"):
+    def __init__(self, sim: "GameSim"):
         super().__init__(sim)
         self.action_table = {
             "PASS_BACK": 12,

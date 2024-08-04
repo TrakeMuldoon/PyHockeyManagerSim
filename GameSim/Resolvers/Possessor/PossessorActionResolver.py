@@ -1,5 +1,6 @@
 from typing import List
 from GameSim import GameSim
+from GameSim.ActionResult import ActionResult
 
 
 class PossessorActionResolver:
@@ -13,8 +14,8 @@ class PossessorActionResolver:
                 return False
         return True
 
-    def get_supported_actions(self):
+    def get_supported_actions(self) -> List[str]:
         raise Exception("Implement this for yourself, Bub.")
 
-    def resolve_action(self):
+    def resolve_action(self, action: str) -> ActionResult:
         raise Exception("Implement this for yourself, Pal.")

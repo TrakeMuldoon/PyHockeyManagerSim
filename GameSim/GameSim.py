@@ -1,6 +1,6 @@
 from __future__ import annotations
 from random import random
-from typing import Optional
+from typing import Optional, Iterator
 from GameSim.ActionResult import ActionResult
 from GameSim.BehaviourSelectors.Defensive.DefensiveTeamActionSelector import (
     DefensiveTeamActionSelector,
@@ -8,7 +8,6 @@ from GameSim.BehaviourSelectors.Defensive.DefensiveTeamActionSelector import (
 from GameSim.BehaviourSelectors.Offensive.OffensiveTeamActionSelector import (
     OffensiveTeamActionSelector,
 )
-from GameSim.BehaviourSelectors.Possessor.BasicActionSelector import BasicActionSelector
 from GameSim.BehaviourSelectors.Possessor.PossessorActionSelector import PossessorActionSelector
 from GameSim.BehaviourSelectors.Possessor.RandomActionSelector import RandomActionSelector
 from GameSim.GameTeam import GameTeam
@@ -229,7 +228,7 @@ class GameSim:
 
         return f"Final Score: {home_score_text} and {away_score_text}, {win_text}"
 
-    def yield_simulate_game(self) -> str:
+    def yield_simulate_game(self) -> Iterator[str]:
         periods = [1, 2, 3]
         for period in periods:
             self.setup_standard_period(period)
@@ -248,15 +247,15 @@ class GameSim:
 
     def setup_standard_period(self, period_num: int):
         # reset clock
-        self.period_time_left: int = 1200
+        self.period_time_left = 1200
 
         # Flip team on North Side
         self.north_team = self.home_team if self.north_team == self.away_team else self.away_team
 
         # Set up opening face-off
-        self.puck_zone: Zone = Zone.NEU_CEN_FACEOFF
+        self.puck_zone = Zone.NEU_CEN_FACEOFF
         self.is_face_off = True
-        self.puck_possessor: Player = None  # type: ignore
+        self.puck_possessor = None  # type: ignore
 
         # refresh players energy
         # TODO: ENERGY
