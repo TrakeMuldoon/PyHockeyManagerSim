@@ -1,6 +1,6 @@
 from __future__ import annotations
 from random import random
-from typing import Optional, Iterator
+from typing import Iterator, Optional
 from GameSim.ActionResult import ActionResult
 from GameSim.BehaviourSelectors.Defensive.DefensiveTeamActionSelector import (
     DefensiveTeamActionSelector,
@@ -8,8 +8,11 @@ from GameSim.BehaviourSelectors.Defensive.DefensiveTeamActionSelector import (
 from GameSim.BehaviourSelectors.Offensive.OffensiveTeamActionSelector import (
     OffensiveTeamActionSelector,
 )
+from GameSim.BehaviourSelectors.Offensive.RandomOTASelector import RandomOTASelector
 from GameSim.BehaviourSelectors.Possessor.PossessorActionSelector import PossessorActionSelector
-from GameSim.BehaviourSelectors.Possessor.RandomActionSelector import RandomActionSelector
+from GameSim.BehaviourSelectors.Possessor.RandomPossessorActionSelector import (
+    RandomPossessorActionSelector,
+)
 from GameSim.GameTeam import GameTeam
 from GameSim.Resolvers.Defensive.DefensiveTeamActionResolver import DefensiveTeamActionResolver
 from GameSim.Resolvers.Offensive.OffensiveTeamActionResolver import OffensiveTeamActionResolver
@@ -41,7 +44,9 @@ class GameSim:
 
         self.puck_race_resolver: PuckRaceResolver = PuckRaceResolver(self)
 
-        self.possessor_action_selector: PossessorActionSelector = RandomActionSelector(self)
+        self.possessor_action_selector: PossessorActionSelector = RandomPossessorActionSelector(
+            self
+        )
         self.possessor_action_resolver: PossessorActionResolver = DummyResolver(self)
         if not self.possessor_action_resolver.does_support_action_list(
             self.possessor_action_selector.get_output_actions()
@@ -50,19 +55,17 @@ class GameSim:
                 "Possessor Action Resolver doesn't support all possible actions from Action Selector"
             )
 
-        self.offensive_team_action_resolver: OffensiveTeamActionResolver = (
-            OffensiveTeamActionResolver(self)
-        )
-        self.offensive_team_action_selector: OffensiveTeamActionSelector = (
-            OffensiveTeamActionSelector(self)
-        )
+        # This is formatted this way because the formatter settings stuck
+        # TODO: Fix formatter settings
+        otar = OffensiveTeamActionResolver(self)
+        rotas = RandomOTASelector(self)
+        self.offensive_team_action_resolver: OffensiveTeamActionResolver = otar
+        self.offensive_team_action_selector: OffensiveTeamActionSelector = rotas
 
-        self.defensive_team_action_resolver: DefensiveTeamActionResolver = (
-            DefensiveTeamActionResolver(self)
-        )
-        self.defensive_team_action_selector: DefensiveTeamActionSelector = (
-            DefensiveTeamActionSelector(self)
-        )
+        dtar = DefensiveTeamActionResolver(self)
+        dtas = DefensiveTeamActionSelector(self)
+        self.defensive_team_action_resolver: DefensiveTeamActionResolver = dtar
+        self.defensive_team_action_selector: DefensiveTeamActionSelector = dtas
 
     def set_up_for_period(self):
         # select 5 players and a goalie
@@ -220,7 +223,7 @@ class GameSim:
         home_score_text = f"{self.home_team.team_name}:{self.home_score}"
         away_score_text = f"{self.away_team.team_name}:{self.away_score}"
         if self.home_score == self.away_score:
-            win_text = f"Game ends in a draw"
+            win_text = f"Game ends in a draw {self.home_score} to {self.away_score}"
         elif self.home_score > self.away_score:
             win_text = f"{self.home_team.team_name} wins!"
         else:
@@ -232,10 +235,11 @@ class GameSim:
         periods = [1, 2, 3]
         for period in periods:
             self.setup_standard_period(period)
+
             while self.period_time_left > 0:
                 # increment timer
                 self.events += 1
-                seconds_passed = int(random() * 4) + 3
+                seconds_passed = int(random() * 3) + 3
                 self.period_time_left -= seconds_passed
                 # simulate next event
                 self.simulate_next_event()
@@ -243,7 +247,7 @@ class GameSim:
                 # TODO: PENALTY
                 yield f"{self.events}: {self.period_time_left}"
         # TODO: handle ties, and extra periods
-        return self.game_result_one_liner()
+        yield self.game_result_one_liner()
 
     def setup_standard_period(self, period_num: int):
         # reset clock

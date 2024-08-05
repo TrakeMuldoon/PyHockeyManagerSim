@@ -24,6 +24,7 @@ game_renderer = IceRenderer(game, screen, 1.0)
 
 game.set_up_for_period()
 game_over = False
+game_event_generator = game.yield_simulate_game()
 
 while running:
     # poll for events
@@ -41,12 +42,14 @@ while running:
     """
     # game_renderer.debug_render()
     game_renderer.render_current_situation()
-    result_string = "Final score"
+    result_string = "Final Score"
     if not game_over:
-        result_string = game.simulate_next_event()
+        # result_string = game.simulate_next_event()
+        result_string = next(game_event_generator)
 
-    if result_string.startswith("Final score"):
+    if result_string.startswith("Final Score"):
         game_over = True
+    print(result_string)
 
     # flip() the display to put your work on screen
     pygame.display.flip()
