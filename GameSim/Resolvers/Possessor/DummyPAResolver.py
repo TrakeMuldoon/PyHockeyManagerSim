@@ -1,8 +1,9 @@
 from GameSim import GameSim
 from GameSim.Resolvers.Possessor.PossessorActionResolver import PossessorActionResolver
+from GameSim.SupportClasses.Player import Player
 
 
-class DummyResolver(PossessorActionResolver):
+class DummyPAResolver(PossessorActionResolver):
     def __init__(self, sim: "GameSim.GameSim"):
         super().__init__(sim)
         # faster to lookup than a series of if-statements
@@ -19,19 +20,9 @@ class DummyResolver(PossessorActionResolver):
         }
 
     def get_supported_actions(self):
-        return [
-            "PASS_BACK",
-            "PASS_LATERAL",
-            "PASS_FORWARD",
-            "CARRY_BACK",
-            "CARRY_LATERAL",
-            "CARRY_FORWARD",
-            "SHOOT_LIGHT",
-            "SHOOT_HARD",
-            "HOLD",
-        ]
+        return list(self.action_dict.keys())
 
-    def resolve_action(self, action: str):
+    def resolve_action(self, action: str, player: Player):
         action_func = self.action_dict[action]
         action_func()
 

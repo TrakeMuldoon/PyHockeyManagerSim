@@ -13,7 +13,7 @@ class WeightedDictionary:
             raise Exception(f"Weights must add to 100. {incremental_weight}")
 
     def get_weighted_random_value(self) -> str:
-        rand = (random() * 100) + 1
+        rand = random() * 100
         incremental = 0
         for key in self.dictionary.keys():
             incremental += self.dictionary[key]

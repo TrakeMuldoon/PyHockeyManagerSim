@@ -9,14 +9,14 @@ class RandomOTASelector(OffensiveTeamActionSelector):
     def __init__(self, sim: "GameSim"):
         super().__init__(sim)
         weights = [
-            ("Move_N", 12.5),
-            ("Move_NE", 12.5),
-            ("Move_E", 12.5),
-            ("Move_SE", 12.5),
-            ("Move_S", 12.5),
-            ("Move_SW", 12.5),
-            ("Move_W", 12.5),
-            ("Move_NW", 12.5),
+            ("Move_UpLeft", 12.5),
+            ("Move_UpIce", 12.5),
+            ("Move_UpRight", 12.5),
+            ("Move_Left", 12.5),
+            ("Move_Right", 12.5),
+            ("Move_BackLeft", 12.5),
+            ("Move_Back", 12.5),
+            ("Move_BackRight", 12.5),
         ]
         self.actions_dict: WeightedDictionary = WeightedDictionary(weights)
 

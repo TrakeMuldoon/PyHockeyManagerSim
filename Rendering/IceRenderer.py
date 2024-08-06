@@ -78,9 +78,16 @@ class IceRenderer:
                 (centre[0] - self.jersey_size[0], centre[1]),
                 (centre[0], centre[1]),
             ]
+        elif len(players) == 4:
+            top_lefts = [
+                (centre[0], centre[1]),
+                (centre[0] - self.jersey_size[0], centre[1]),
+                (centre[0] - self.jersey_size[0], centre[1] - self.jersey_size[1]),
+                (centre[0], centre[1] - self.jersey_size[1]),
+            ]
         else:
             # TODO: Not this
-            raise Exception(f"Yeah.... 4 players in a zone is not supported yet. {zone}")
+            raise Exception(f"Yeah.... 5 players in a zone is not supported yet. {zone}")
         for i in range(0, len(players)):
             self.render_player(players[i], self._get_player_jersey(players[i]), top_lefts[i])
 

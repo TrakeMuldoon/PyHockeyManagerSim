@@ -15,8 +15,9 @@ from GameSim.BehaviourSelectors.Possessor.RandomPossessorActionSelector import (
 )
 from GameSim.GameTeam import GameTeam
 from GameSim.Resolvers.Defensive.DefensiveTeamActionResolver import DefensiveTeamActionResolver
+from GameSim.Resolvers.Offensive.BasicOTAResolver import BasicOTAResolver
 from GameSim.Resolvers.Offensive.OffensiveTeamActionResolver import OffensiveTeamActionResolver
-from GameSim.Resolvers.Possessor.DummyResolver import DummyResolver
+from GameSim.Resolvers.Possessor.DummyPAResolver import DummyPAResolver
 from GameSim.Resolvers.Possessor.PossessorActionResolver import PossessorActionResolver
 from GameSim.Resolvers.Race.PuckRaceResolver import PuckRaceResolver
 from GameSim.SupportClasses.Player import Player
@@ -44,24 +45,22 @@ class GameSim:
 
         self.puck_race_resolver: PuckRaceResolver = PuckRaceResolver(self)
 
-        self.possessor_action_selector: PossessorActionSelector = RandomPossessorActionSelector(
-            self
+        rpas = RandomPossessorActionSelector(self)
+        self.possessor_action_selector: PossessorActionSelector = rpas
+        self.possessor_action_resolver: PossessorActionResolver = DummyPAResolver(self)
+
+        self.validate_selector_resolver(
+            self.possessor_action_selector, self.possessor_action_resolver
         )
-        self.possessor_action_resolver: PossessorActionResolver = DummyResolver(self)
-        if not self.possessor_action_resolver.does_support_action_list(
-            self.possessor_action_selector.get_output_actions()
-        ):
-            raise Exception(
-                "Possessor Action Resolver doesn't support all possible actions from Action Selector"
-            )
 
-        # This is formatted this way because the formatter settings stuck
+        self.offensive_team_action_selector: OffensiveTeamActionSelector = RandomOTASelector(self)
+        self.offensive_team_action_resolver: OffensiveTeamActionResolver = BasicOTAResolver(self)
+        self.validate_selector_resolver(
+            self.offensive_team_action_selector, self.offensive_team_action_resolver
+        )
+
+        # This is formatted this way because the formatter settings suck
         # TODO: Fix formatter settings
-        otar = OffensiveTeamActionResolver(self)
-        rotas = RandomOTASelector(self)
-        self.offensive_team_action_resolver: OffensiveTeamActionResolver = otar
-        self.offensive_team_action_selector: OffensiveTeamActionSelector = rotas
-
         dtar = DefensiveTeamActionResolver(self)
         dtas = DefensiveTeamActionSelector(self)
         self.defensive_team_action_resolver: DefensiveTeamActionResolver = dtar
@@ -179,7 +178,7 @@ class GameSim:
 
     def resolve_puck_controlled_event(self) -> ActionResult:
         action = self.possessor_action_selector.select_action()
-        action_result = self.possessor_action_resolver.resolve_action(action)
+        action_result = self.possessor_action_resolver.resolve_action(action, self.puck_possessor)
         return action_result
 
     ### (A - B + SF) / (2 * SF)(SF=75)
@@ -243,7 +242,24 @@ class GameSim:
                 self.period_time_left -= seconds_passed
                 # simulate next event
                 self.simulate_next_event()
+
+                possessor_team_name = self.puck_possessor.team.team_name
+                if self.home_team.team_name == possessor_team_name:
+                    off_team = self.home_team
+                    def_team = self.away_team
+                else:
+                    off_team = self.away_team
+                    def_team = self.home_team
+
                 # TODO: move all other players
+                for off_p in off_team.get_players_on_ice():
+                    if off_p != self.puck_possessor:
+                        action = self.offensive_team_action_selector.select_action()
+                        self.offensive_team_action_resolver.resolve_action(action, off_p)
+                #                for def_p in def_team.get_players_on_ice():
+                #                    action = self.defensive_team_action_selector.select_action()
+                #                    self.defensive_team_action_resolver.resolve_action(action, def_p)
+
                 # TODO: PENALTY
                 yield f"{self.events}: {self.period_time_left}"
         # TODO: handle ties, and extra periods
@@ -273,3 +289,12 @@ class GameSim:
         self.home_team.set_new_period_zones(self.home_team == self.north_team)
         self.away_team.put_new_skaters_on_ice(period_num)
         self.away_team.set_new_period_zones(self.away_team == self.north_team)
+
+    @staticmethod
+    def validate_selector_resolver(possessor_action_selector, possessor_action_resolver):
+        pas_output_actions = possessor_action_selector.get_output_actions()
+        if not possessor_action_resolver.does_support_action_list(pas_output_actions):
+            raise Exception(
+                "Possessor Action Resolver doesn't support all possible actions from Action Selector"
+            )
+        return True
