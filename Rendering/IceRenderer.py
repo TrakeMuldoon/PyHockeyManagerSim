@@ -1,7 +1,7 @@
 from collections import defaultdict
-from typing import List
+from typing import List, Tuple
 import pygame
-from pygame import Surface
+from pygame import Surface, Color
 from pygame.font import Font, SysFont
 from GameSim import GameSim
 from GameSim.SupportClasses.Player import Player
@@ -28,6 +28,8 @@ class IceRenderer:
 
     render_helper: RenderingHelper
     font: Font
+
+    player_locations = defaultdict()
 
     def __init__(self, game: "GameSim.GameSim", screen: Surface, zoom_factor: float):
         self.game_sim = game
@@ -117,6 +119,8 @@ class IceRenderer:
             pygame.draw.circle(self.screen, "purple", puck_loc, 7)
 
     def render_player(self, player: Player, jersey: Surface, top_left):
+        self._render_player_motion(player, top_left)
+
         # render jersey
         self.screen.blit(jersey, top_left)
 
@@ -135,3 +139,13 @@ class IceRenderer:
         else:
             offset = top_left[0] + 9, top_left[1] + 4
         self.screen.blit(text_surface, offset)
+
+    def _render_player_motion(self, player: Player, new_pos: Tuple[float, float]):
+        new_pos = (new_pos[0] + 10, new_pos[1] + 10)
+        if player not in self.player_locations.keys():
+            self.player_locations[player] = new_pos
+            return
+        prev = self.player_locations[player]
+        if prev != new_pos:
+            pygame.draw.line(self.screen, start_pos=prev, end_pos=new_pos, color=Color("Red"))
+            self.player_locations[player] = new_pos
