@@ -1,8 +1,7 @@
 from collections import defaultdict
-from typing import List, Tuple
+from typing import List
 import pygame
-from pygame import Surface, Color
-from pygame.font import Font, SysFont
+from pygame import Surface
 from GameSim import GameSim
 from GameSim.SupportClasses.Player import Player
 from GameSim.SupportClasses.Skater import Skater
@@ -54,9 +53,7 @@ class IceRenderer:
         jersey_size = Jerseys.default_size()
 
         if len(players) == 1:
-            top_lefts = [
-                (centre[0] - (jersey_size[0] / 2), centre[1] - (jersey_size[1] / 2))
-            ]
+            top_lefts = [(centre[0] - (jersey_size[0] / 2), centre[1] - (jersey_size[1] / 2))]
         elif len(players) == 2:
             top_lefts = [
                 (centre[0] - jersey_size[0], centre[1] - (jersey_size[1] / 2)),

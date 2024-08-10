@@ -1,10 +1,8 @@
 from collections import defaultdict
 from typing import Tuple
-
 import pygame
-from pygame import Surface, Color
+from pygame import Color, Surface
 from pygame.font import Font, SysFont
-
 from GameSim.SupportClasses.Player import Player
 from Rendering.Jerseys import Jerseys
 

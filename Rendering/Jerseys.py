@@ -1,4 +1,4 @@
-from pygame import image, transform, Surface
+from pygame import Surface, image, transform
 
 
 class Jerseys:

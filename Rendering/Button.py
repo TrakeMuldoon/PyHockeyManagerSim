@@ -4,6 +4,7 @@ from pygame.font import Font
 
 pygame.font.init()
 
+
 class Button:
     font = Font(None, 35)
 

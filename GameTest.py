@@ -28,8 +28,8 @@ game.set_up_for_period()
 game_over = False
 game_event_generator = game.yield_simulate_game()
 
-run_button = Button((50, 200, 25), 550, 10, 130, 75, 'Run')
-event_button = Button((70, 160, 185), 550, 100, 130, 75, 'One')
+run_button = Button((50, 200, 25), 550, 10, 130, 75, "Run")
+event_button = Button((70, 160, 185), 550, 100, 130, 75, "One")
 
 while running:
     # poll for events
