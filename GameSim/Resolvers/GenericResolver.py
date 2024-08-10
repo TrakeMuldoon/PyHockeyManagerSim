@@ -1,5 +1,8 @@
 from abc import ABC, abstractmethod
-from typing import List
+from typing import TYPE_CHECKING, List
+
+if TYPE_CHECKING:
+    from GameSim import GameSim
 
 
 class GenericResolver(ABC):

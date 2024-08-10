@@ -18,9 +18,9 @@ class PlayerRenderer:
 
     def render_player(self, player: Player, top_left):
         self._render_player_motion(player, top_left)
-        jersey = Jerseys[player.team.team_colour]
+        jersey_surface: Surface = Jerseys[player.team.team_colour]
         # render jersey
-        self.screen.blit(jersey, top_left)
+        self.screen.blit(jersey_surface, top_left)
 
         # render number
         # TODO: Render the number offsets according to the zoom_scaling

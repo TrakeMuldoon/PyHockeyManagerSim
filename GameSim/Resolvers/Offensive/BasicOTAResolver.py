@@ -22,8 +22,8 @@ class BasicOTAResolver(OffensiveTeamActionResolver):
         return list(self.actions_dict)
 
     def resolve_action(self, action: str, player: Player) -> None:
-        action = self.actions_dict[action]
-        action(player)
+        action_func = self.actions_dict[action]
+        action_func(player)
 
     def _try_up(self, zone_num: int) -> int:
         if zone_num < 30:

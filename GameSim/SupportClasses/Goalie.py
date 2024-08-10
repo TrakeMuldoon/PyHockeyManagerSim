@@ -1,9 +1,11 @@
 import math
 from random import random
+from typing import TYPE_CHECKING
 from GameSim.SupportClasses.Player import Player, Position
-
-# from GameSim.SupportClasses.Team import Team
 from GameSim.SupportClasses.Zones import Zone
+
+if TYPE_CHECKING:
+    from GameSim.SupportClasses.Team import Team
 
 
 class Goalie(Player):

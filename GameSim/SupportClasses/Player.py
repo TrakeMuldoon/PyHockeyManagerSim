@@ -1,8 +1,12 @@
 import math
 from random import random
+from typing import TYPE_CHECKING
 from GameSim.Generators.PlayerNameGenerator import PlayerNameGenerator
 from GameSim.SupportClasses.Positions import Position
 from GameSim.SupportClasses.Zones import Zone
+
+if TYPE_CHECKING:
+    from GameSim.SupportClasses.Team import Team
 
 
 class Player:
