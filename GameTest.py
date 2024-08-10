@@ -2,7 +2,9 @@
 import pygame
 from GameSim.GameSim import GameSim
 from GameSim.Generators.TeamGenerator import TeamGenerator
+from Rendering.Button import Button
 from Rendering.IceRenderer import IceRenderer
+from Rendering.Jerseys import Jerseys
 
 # pygame setup
 pygame.init()
@@ -26,6 +28,9 @@ game.set_up_for_period()
 game_over = False
 game_event_generator = game.yield_simulate_game()
 
+run_button = Button((50, 200, 25), 550, 10, 130, 75, 'Run')
+event_button = Button((70, 160, 185), 550, 100, 130, 75, 'One')
+
 while running:
     # poll for events
     # pygame.QUIT event means the user clicked X to close your window
@@ -36,6 +41,8 @@ while running:
     # fill the screen with a color to wipe away anything from last frame
     screen.fill("purple")
     screen.blit(image, dest=(0, 0))
+    run_button.draw(screen)
+    event_button.draw(screen)
 
     """
         GAME STUFF
