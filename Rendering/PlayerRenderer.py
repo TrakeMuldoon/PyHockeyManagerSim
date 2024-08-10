@@ -1,7 +1,7 @@
 from collections import defaultdict
 from typing import Tuple
 import pygame
-from pygame import Color, Surface
+from pygame import Color, Surface, transform, image
 from pygame.font import Font, SysFont
 from GameSim.SupportClasses.Player import Player
 from Rendering.Jerseys import Jerseys
@@ -16,11 +16,22 @@ class PlayerRenderer:
         self.zoom_factor = zoom_factor
         self.font = SysFont("Impact", round(22 * zoom_factor))
 
+        # self.incrementor = 1
+
+
     def render_player(self, player: Player, top_left):
         self._render_player_motion(player, top_left)
         jersey_surface: Surface = Jerseys[player.team.team_colour]
         # render jersey
         self.screen.blit(jersey_surface, top_left)
+
+        # self.incrementor += 18
+        # if self.incrementor > 255:
+        #     self.incrementor = 0
+        # targ = Jerseys.get(self.incrementor, self.incrementor, self.incrementor)
+        #
+        # self.screen.blit(targ, (top_left[0] + 20, top_left[1] + 20))
+        # return
 
         # render number
         # TODO: Render the number offsets according to the zoom_scaling
