@@ -52,35 +52,35 @@ class BasicOTAResolver(OffensiveTeamActionResolver):
     def move_up_left(self, player: Player) -> None:
         new_zone_num = self._try_up(player.zone.value)
         new_zone_num = self._try_left(new_zone_num)
-        player.zone = Zone(new_zone_num)
+        player.player_move(Zone(new_zone_num))
 
     def move_up(self, player: Player) -> None:
         new_zone_num = self._try_up(player.zone.value)
-        player.zone = Zone(new_zone_num)
+        player.player_move(Zone(new_zone_num))
 
     def move_up_right(self, player: Player) -> None:
         new_zone_num = self._try_up(player.zone.value)
         new_zone_num = self._try_right(new_zone_num)
-        player.zone = Zone(new_zone_num)
+        player.player_move(Zone(new_zone_num))
 
     def move_left(self, player: Player) -> None:
         new_zone_num = self._try_left(player.zone.value)
-        player.zone = Zone(new_zone_num)
+        player.player_move(Zone(new_zone_num))
 
     def move_right(self, player: Player) -> None:
         new_zone_num = self._try_right(player.zone.value)
-        player.zone = Zone(new_zone_num)
+        player.player_move(Zone(new_zone_num))
 
     def move_back_left(self, player: Player) -> None:
         new_zone_num = self._try_back(player.zone.value)
         new_zone_num = self._try_left(new_zone_num)
-        player.zone = Zone(new_zone_num)
+        player.player_move(Zone(new_zone_num))
 
     def move_back(self, player: Player) -> None:
         new_zone_num = self._try_back(player.zone.value)
-        player.zone = Zone(new_zone_num)
+        player.player_move(Zone(new_zone_num))
 
     def move_back_right(self, player: Player) -> None:
         new_zone_num = self._try_back(player.zone.value)
         new_zone_num = self._try_right(new_zone_num)
-        player.zone = Zone(new_zone_num)
+        player.player_move(Zone(new_zone_num))
