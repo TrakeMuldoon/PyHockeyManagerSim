@@ -2,6 +2,8 @@ from random import random
 from typing import List, Tuple
 
 
+# TODO implement class stuff to make it act more like a dictionary
+# TODO Disallow value updating
 class WeightedDictionary:
     def __init__(self, dict_values: List[Tuple[str, float]]) -> None:
         self.dictionary: dict = {}

@@ -55,6 +55,7 @@ class GameTeam(Team):
     def short_player(player):
         return f"[{player.last_name}:{player.preferred_num}|{player.zone.value}]"
 
+    # TODO LINES
     def next_offence(self, line_num: int = 1):
         # index = int(random() * self.num_dressed_players)
         index = (line_num * 3) - 2
@@ -64,6 +65,7 @@ class GameTeam(Team):
         line.right_winger = self.dressed_players[(index + 2) % self.num_dressed_players]
         return line
 
+    # TODO LINES
     def next_defence(self, line_num: int = 1):
         # index = int(random() * self.num_dressed_players)
         index = 15 + (line_num * 2) - 2

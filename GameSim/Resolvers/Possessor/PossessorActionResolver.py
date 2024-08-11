@@ -10,6 +10,7 @@ class PossessorActionResolver(GenericResolver):
     def __init__(self, sim: "GameSim.GameSim"):
         super().__init__(sim)
 
+    # TODO Rename this function to indicate it does not mutate, and returns an Action Result
     @abstractmethod
     def resolve_action(self, action: str, player: Player) -> ActionResult:
         pass

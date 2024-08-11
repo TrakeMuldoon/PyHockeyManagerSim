@@ -21,6 +21,7 @@ class BasicOTAResolver(OffensiveTeamActionResolver):
     def get_supported_actions(self) -> List[str]:
         return list(self.actions_dict)
 
+    # TODO Rename this function to indicate it mutates and returns None
     def resolve_action(self, action: str, player: Player) -> None:
         action_func = self.actions_dict[action]
         action_func(player)
