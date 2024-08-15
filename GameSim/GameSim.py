@@ -5,6 +5,7 @@ from GameSim.ActionResult import ActionResult
 from GameSim.BehaviourSelectors.Defensive.DefensiveTeamActionSelector import (
     DefensiveTeamActionSelector,
 )
+from GameSim.BehaviourSelectors.Defensive.RandomDTASelector import RandomDTASelector
 from GameSim.BehaviourSelectors.Offensive.OffensiveTeamActionSelector import (
     OffensiveTeamActionSelector,
 )
@@ -14,6 +15,7 @@ from GameSim.BehaviourSelectors.Possessor.RandomPossessorActionSelector import (
     RandomPossessorActionSelector,
 )
 from GameSim.GameTeam import GameTeam
+from GameSim.Resolvers.Defensive.BasicDTAResolver import BasicDTAResolver
 from GameSim.Resolvers.Defensive.DefensiveTeamActionResolver import DefensiveTeamActionResolver
 from GameSim.Resolvers.Offensive.BasicOTAResolver import BasicOTAResolver
 from GameSim.Resolvers.Offensive.OffensiveTeamActionResolver import OffensiveTeamActionResolver
@@ -59,12 +61,8 @@ class GameSim:
             self.offensive_team_action_selector, self.offensive_team_action_resolver
         )
 
-        # This is formatted this way because the formatter settings suck
-        # TODO: Fix formatter settings
-        dtar = DefensiveTeamActionResolver(self)
-        dtas = DefensiveTeamActionSelector(self)
-        self.defensive_team_action_resolver: DefensiveTeamActionResolver = dtar
-        self.defensive_team_action_selector: DefensiveTeamActionSelector = dtas
+        self.defensive_team_action_resolver: DefensiveTeamActionResolver = BasicDTAResolver(self)
+        self.defensive_team_action_selector: DefensiveTeamActionSelector = RandomDTASelector(self)
 
     def set_up_for_period(self):
         # select 5 players and a goalie
@@ -256,9 +254,9 @@ class GameSim:
                     if off_p != self.puck_possessor:
                         action = self.offensive_team_action_selector.select_action()
                         self.offensive_team_action_resolver.resolve_action(action, off_p)
-                #                for def_p in def_team.get_players_on_ice():
-                #                    action = self.defensive_team_action_selector.select_action()
-                #                    self.defensive_team_action_resolver.resolve_action(action, def_p)
+                for def_p in def_team.get_players_on_ice():
+                    action = self.defensive_team_action_selector.select_action()
+                    self.defensive_team_action_resolver.resolve_action(action, def_p)
 
                 # TODO: PENALTY
                 yield f"{self.events}: {self.period_time_left}"
