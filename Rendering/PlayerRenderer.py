@@ -19,7 +19,6 @@ class PlayerRenderer:
 
         # self.incrementor = 1
 
-
     def render_player(self, player: Player, top_left):
         self._render_player_motion(player)
         jersey_surface: Surface = Jerseys[player.team.team_colour]
@@ -61,12 +60,11 @@ class PlayerRenderer:
 
         pygame.draw.line(self.screen, start_pos=prev_coords, end_pos=curr_coords, color=Color("Red"))
 
-    # def _render_player_motion(self, player: Player, new_pos: Tuple[float, float]):
-    #     new_pos = (new_pos[0] + 10, new_pos[1] + 10)
-    #     if player not in self.player_locations.keys():
-    #         self.player_locations[player] = new_pos
-    #         return
-    #     prev = self.player_locations[player]
-    #     if prev != new_pos:
-    #         pygame.draw.line(self.screen, start_pos=prev, end_pos=new_pos, color=Color("Red"))
-    #         self.player_locations[player] = new_pos
+        if len(player.position_list) < 3:
+            return
+
+        prev_prev = self.rendering_helper.get_centre_of_zone(player.position_list[end-2].value)
+        pygame.draw.line(self.screen, start_pos=prev_prev, end_pos=prev_coords, color=Color("Red"))
+
+    def draw_gradient_line(self, color_one, color_two, start_point, end_point, segments: int = 3):
+        pass
