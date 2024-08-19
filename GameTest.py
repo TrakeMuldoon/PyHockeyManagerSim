@@ -75,6 +75,7 @@ while running:
     # flip() the display to put your work on screen
     pygame.display.flip()
 
+
     clock.tick(60)  # limits FPS to 60
 
 pygame.quit()

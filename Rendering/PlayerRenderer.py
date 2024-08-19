@@ -1,4 +1,5 @@
 import pygame
+import math
 from pygame import Color, Surface
 from pygame.font import Font, SysFont
 from GameSim.SupportClasses.Player import Player
@@ -18,7 +19,8 @@ class PlayerRenderer:
         # self.incrementor = 1
 
     def render_player(self, player: Player, top_left):
-        self._render_player_motion(player)
+        #self._render_player_motion(player)
+        self._render_player_motion_bezier_double(player, draw_dots=False)
         jersey_surface: Surface = Jerseys[player.team.team_colour]
         # render jersey
         self.screen.blit(jersey_surface, top_left)
@@ -49,7 +51,8 @@ class PlayerRenderer:
         self.screen.blit(text_surface, offset)
 
     def _render_player_motion_bezier_double(
-        self, player: Player, draw_dots: bool = True, draw_line: bool = True, num_segments: int = 5
+        self, player: Player, draw_dots: bool = True, draw_line: bool = True, num_segments: int = 10
+            , start_colour: Color = Color(255, 255, 255), end_colour: Color = Color(0, 0, 0)
     ):
         if len(player.position_list) < 2:
             return
@@ -61,21 +64,45 @@ class PlayerRenderer:
         p2 = zone_centre(player.position_list[end_pos].value)
         last_point = None
 
+        # Debug Draw Circles on the Points
         for p in [p0, p1, p2]:
-            pygame.draw.circle(self.screen, (150, 150, 150), p, 5)
-        iter = 0
-        while iter < 1:
-            t = iter
+            pygame.draw.circle(self.screen, (0, 110, 0), p, 5)
+
+        t = 0.0
+        increase = 1.00 / num_segments
+
+        colour_current = start_colour
+        sc = start_colour
+        ec = end_colour
+        # This cannot be a Color type, because the values can be negative.
+        colour_increment = (
+                                (ec.r - sc.r) * increase * 0.95,
+                                (ec.g - sc.g) * increase * 0.95,
+                                (ec.b - sc.b) * increase * 0.95,
+                            )
+
+        while t < 1:
             px = p0[0] * (1 - t) ** 2 + 2 * (1 - t) * t * p1[0] + p2[0] * t**2
             py = p0[1] * (1 - t) ** 2 + 2 * (1 - t) * t * p1[1] + p2[1] * t**2
             bez_point = (px, py)
             if draw_dots:
-                pygame.draw.rect(self.screen, (255, 255, 0), (px, py, 3, 3))
+                pygame.draw.rect(self.screen, start_colour, (px, py, 3, 3))
             if draw_line:
                 if last_point is not None:
-                    pygame.draw.line(self.screen, (255, 255, 0), last_point, bez_point, 1)
+                    pygame.draw.line(self.screen, colour_current, last_point, bez_point, 1)
                 last_point = bez_point
-            iter += 1.1 / num_segments
+            t += increase
+            if t < 1:
+                colour_current = self._modify_colour(colour_current, colour_increment)
+
+
+    def _modify_colour(self, current: Color, increment):
+        r = math.floor(current.r + increment[0])
+        g = math.floor(current.g + increment[1])
+        b = math.floor(current.b + increment[2])
+        updated = Color(r, g, b)
+        return updated
+
 
     def _render_player_motion(self, player: Player):
         if len(player.position_list) < 2:
