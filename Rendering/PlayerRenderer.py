@@ -51,6 +51,34 @@ class PlayerRenderer:
             offset = top_left[0] + 9, top_left[1] + 4
         self.screen.blit(text_surface, offset)
 
+    def _render_player_motion_bezier_double(self, player: Player
+                                            , draw_dots: Boolean = True
+                                            , draw_line: Boolean = True
+                                            , num_lines: int = 5):
+        if len(player.position_list) < 2:
+            return
+        end_pos = len(player.position_list) - 1
+
+        p0 = player.position_list[end_pos-2]
+        p1 = player.position_list[end_pos-1]
+        p2 = player.position_list[end_pos]
+        lastPoint = None
+
+        for p in [p0, p1, p2]:
+            pygame.draw.circle(screen, (150, 150, 150), p, 5)
+        for t in np.arange(0, 1, 1.1/num_lines):
+            px = p0[0]*(1-t)**2 + 2*(1-t)*t*p1[0] + p2[0]*t**2
+            py = p0[1]*(1-t)**2 + 2*(1-t)*t*p1[1] + p2[1]*t**2
+            bez_point = (px, py)
+            if(draw_dots)
+                pygame.draw.rect(screen, (255, 255, 0), (px, py, 3, 3))
+            if(draw_line)
+                if lastPoint is not None:
+                    pygame.draw.line(screen, (255, 255, 0), lastPoint, point, 1)
+                lastPoint = point 
+            
+
+    
     def _render_player_motion(self, player: Player):
         if len(player.position_list) < 2:
             return
