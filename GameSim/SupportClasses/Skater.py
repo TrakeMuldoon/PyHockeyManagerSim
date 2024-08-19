@@ -1,7 +1,10 @@
 from random import random
+from typing import TYPE_CHECKING
 from GameSim.SupportClasses.Player import Player
 from GameSim.SupportClasses.Positions import Position
-from GameSim.SupportClasses.Team import Team
+
+if TYPE_CHECKING:
+    from GameSim.SupportClasses.Team import Team
 
 
 class Skater(Player):

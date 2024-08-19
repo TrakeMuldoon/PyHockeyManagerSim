@@ -1,33 +1,16 @@
+from abc import ABC, abstractmethod
+from typing import List
 from GameSim import GameSim
+from GameSim.ActionResult import ActionResult
+from GameSim.Resolvers.GenericResolver import GenericResolver
+from GameSim.SupportClasses.Player import Player
 
 
-class PossessorActionResolver:
+class PossessorActionResolver(GenericResolver):
     def __init__(self, sim: "GameSim.GameSim"):
-        pass
+        super().__init__(sim)
 
-    def forward_pass(self):
-        pass
-
-    def lateral_pass(self):
-        pass
-
-    def backward_pass(self):
-        pass
-
-    def carry(self):
-        pass
-
-    def clear(self):
-        pass
-
-    def dump(self):
-        pass
-
-    def outside_pass(self):
-        pass
-
-    def central_pass(self):
-        pass
-
-    def shoot(self):
+    # TODO Rename this function to indicate it does not mutate, and returns an Action Result
+    @abstractmethod
+    def resolve_action(self, action: str, player: Player) -> ActionResult:
         pass

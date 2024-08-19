@@ -34,9 +34,9 @@ class GameTeam(Team):
         ret.append(self.goalie)
         return ret
 
-    def put_new_skaters_on_ice(self):
-        self.active_offence = self.next_offence()
-        self.active_defence = self.next_defence()
+    def put_new_skaters_on_ice(self, line_num: int = 1):
+        self.active_offence = self.next_offence(line_num)
+        self.active_defence = self.next_defence(line_num)
 
     def select_goalie(self) -> Goalie:
         index = int(random() * len(self.dressed_goalies))
@@ -55,18 +55,20 @@ class GameTeam(Team):
     def short_player(player):
         return f"[{player.last_name}:{player.preferred_num}|{player.zone.value}]"
 
-    def next_offence(self):
+    # TODO LINES
+    def next_offence(self, line_num: int = 1):
         # index = int(random() * self.num_dressed_players)
-        index = 1
+        index = (line_num * 3) - 2
         line = OffensiveLine()
         line.left_winger = self.dressed_players[index]
         line.centre = self.dressed_players[(index + 1) % self.num_dressed_players]
         line.right_winger = self.dressed_players[(index + 2) % self.num_dressed_players]
         return line
 
-    def next_defence(self):
+    # TODO LINES
+    def next_defence(self, line_num: int = 1):
         # index = int(random() * self.num_dressed_players)
-        index = 12
+        index = 15 + (line_num * 2) - 2
         line = DefensiveLine()
         line.left_defence = self.dressed_players[index]
         line.right_defence = self.dressed_players[(index + 1) % self.num_dressed_players]
