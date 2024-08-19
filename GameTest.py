@@ -54,12 +54,7 @@ while running:
 
     """ GAME STEP """
     result_string = "Final Score"
-    if (
-            not game_over
-            and (
-                sim_run or next_step
-            )
-    ):
+    if not game_over and (sim_run or next_step):
         # result_string = game.simulate_next_event()
         result_string = next(game_event_generator)
         next_step = False

@@ -1,6 +1,7 @@
 from typing import List
-
-from GameSim.BehaviourSelectors.Defensive.DefensiveTeamActionSelector import DefensiveTeamActionSelector
+from GameSim.BehaviourSelectors.Defensive.DefensiveTeamActionSelector import (
+    DefensiveTeamActionSelector,
+)
 from GameSim.BehaviourSelectors.WeightedDictionary import WeightedDictionary
 
 

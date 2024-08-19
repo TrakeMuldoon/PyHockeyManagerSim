@@ -1,5 +1,5 @@
 import pygame
-from pygame import Surface, Rect
+from pygame import Rect, Surface
 from pygame.font import Font
 
 pygame.font.init()

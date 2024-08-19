@@ -1,7 +1,5 @@
-from collections import defaultdict
-from typing import Tuple
 import pygame
-from pygame import Color, Surface, transform, image
+from pygame import Color, Surface
 from pygame.font import Font, SysFont
 from GameSim.SupportClasses.Player import Player
 from Rendering.Jerseys import Jerseys
@@ -50,48 +48,51 @@ class PlayerRenderer:
             offset = top_left[0] + 9, top_left[1] + 4
         self.screen.blit(text_surface, offset)
 
-    def _render_player_motion_bezier_double(self, player: Player
-                                            , draw_dots: Boolean = True
-                                            , draw_line: Boolean = True
-                                            , num_lines: int = 5):
+    def _render_player_motion_bezier_double(
+        self, player: Player, draw_dots: bool = True, draw_line: bool = True, num_segments: int = 5
+    ):
         if len(player.position_list) < 2:
             return
         end_pos = len(player.position_list) - 1
 
-        p0 = player.position_list[end_pos-2]
-        p1 = player.position_list[end_pos-1]
-        p2 = player.position_list[end_pos]
-        lastPoint = None
+        zone_centre = self.rendering_helper.get_centre_of_zone
+        p0 = zone_centre(player.position_list[end_pos - 2].value)
+        p1 = zone_centre(player.position_list[end_pos - 1].value)
+        p2 = zone_centre(player.position_list[end_pos].value)
+        last_point = None
 
         for p in [p0, p1, p2]:
-            pygame.draw.circle(screen, (150, 150, 150), p, 5)
-        for t in np.arange(0, 1, 1.1/num_lines):
-            px = p0[0]*(1-t)**2 + 2*(1-t)*t*p1[0] + p2[0]*t**2
-            py = p0[1]*(1-t)**2 + 2*(1-t)*t*p1[1] + p2[1]*t**2
+            pygame.draw.circle(self.screen, (150, 150, 150), p, 5)
+        iter = 0
+        while iter < 1:
+            t = iter
+            px = p0[0] * (1 - t) ** 2 + 2 * (1 - t) * t * p1[0] + p2[0] * t**2
+            py = p0[1] * (1 - t) ** 2 + 2 * (1 - t) * t * p1[1] + p2[1] * t**2
             bez_point = (px, py)
-            if(draw_dots)
-                pygame.draw.rect(screen, (255, 255, 0), (px, py, 3, 3))
-            if(draw_line)
-                if lastPoint is not None:
-                    pygame.draw.line(screen, (255, 255, 0), lastPoint, point, 1)
-                lastPoint = point 
-            
+            if draw_dots:
+                pygame.draw.rect(self.screen, (255, 255, 0), (px, py, 3, 3))
+            if draw_line:
+                if last_point is not None:
+                    pygame.draw.line(self.screen, (255, 255, 0), last_point, bez_point, 1)
+                last_point = bez_point
+            iter += 1.1 / num_segments
 
-    
     def _render_player_motion(self, player: Player):
         if len(player.position_list) < 2:
             return
         end = len(player.position_list) - 1
 
         curr_coords = self.rendering_helper.get_centre_of_zone(player.position_list[end].value)
-        prev_coords = self.rendering_helper.get_centre_of_zone(player.position_list[end-1].value)
+        prev_coords = self.rendering_helper.get_centre_of_zone(player.position_list[end - 1].value)
 
-        pygame.draw.line(self.screen, start_pos=prev_coords, end_pos=curr_coords, color=Color("Red"))
+        pygame.draw.line(
+            self.screen, start_pos=prev_coords, end_pos=curr_coords, color=Color("Red")
+        )
 
         if len(player.position_list) < 3:
             return
 
-        prev_prev = self.rendering_helper.get_centre_of_zone(player.position_list[end-2].value)
+        prev_prev = self.rendering_helper.get_centre_of_zone(player.position_list[end - 2].value)
         pygame.draw.line(self.screen, start_pos=prev_prev, end_pos=prev_coords, color=Color("Red"))
 
     def draw_gradient_line(self, color_one, color_two, start_point, end_point, segments: int = 3):
