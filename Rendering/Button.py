@@ -8,7 +8,8 @@ pygame.font.init()
 class Button:
     font = Font(None, 35)
 
-    def __init__(self, color, x, y, width, height, text):
+    def __init__(self, color, x, y, width, height, text, on_click):
+        self.base_color = color
         self.color = color
         self.x = x
         self.y = y
@@ -17,10 +18,10 @@ class Button:
         self.text = text
         self.text_ren = self.font.render(text, True, (255, 255, 255))
         self.rect = Rect(self.x, self.y, self.width, self.height)
+        self.on_click = on_click
 
     def draw(self, screen: Surface):
         button = pygame.draw.rect(screen, self.color, (self.x, self.y, self.width, self.height), 0)
-
         screen.blit(self.text_ren, (button.x + 5, button.y + 5))
 
     def get_rect(self) -> Rect:

@@ -95,7 +95,6 @@ class PlayerRenderer:
             if t < 1:
                 colour_current = self._modify_colour(colour_current, colour_increment)
 
-
     def _modify_colour(self, current: Color, increment):
         r = math.floor(current.r + increment[0])
         g = math.floor(current.g + increment[1])
