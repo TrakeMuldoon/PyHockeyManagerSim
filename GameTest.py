@@ -1,7 +1,6 @@
 # Example file showing a basic pygame "game loop"
 import math
 from typing import List
-
 import pygame
 from GameSim.GameSim import GameSim
 from GameSim.Generators.TeamGenerator import TeamGenerator
@@ -11,9 +10,7 @@ from Rendering.threshold import Threshold
 
 
 def find_quit(events):
-    quitting = tuple(
-                filter(lambda event: event.type == pygame.QUIT, events)
-            )
+    quitting = tuple(filter(lambda event: event.type == pygame.QUIT, events))
     return not bool(quitting)
 
 
@@ -35,6 +32,7 @@ def draw_looper(screen, value):
     pygame.draw.rect(screen, "black", (799 - loop_len + value, 0, 2, 10), 0)
     value += 1
     return value if value < loop_len else 0
+
 
 def main():
     pygame.init()
@@ -67,13 +65,13 @@ def main():
     next_step = False
 
     buttons = [
-       Button((50, 200, 25), 550, 10, 130, 75, "Run", lambda: print("run")),
-       Button((70, 160, 185), 550, 100, 130, 75, "One", lambda: print("one")),
+        Button((50, 200, 25), 550, 10, 130, 75, "Run", lambda: print("run")),
+        Button((70, 160, 185), 550, 100, 130, 75, "One", lambda: print("one")),
     ]
 
     game_renderer = IceRenderer(game, screen, 1.0)
 
-    draw_timer = Threshold(math.floor(60/1000))
+    draw_timer = Threshold(math.floor(60 / 1000))
     game_timer = Threshold(50)
     previous_ticks = pygame.time.get_ticks()
     elapsed = 0

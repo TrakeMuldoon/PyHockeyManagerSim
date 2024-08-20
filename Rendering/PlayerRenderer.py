@@ -1,5 +1,5 @@
-import pygame
 import math
+import pygame
 from pygame import Color, Surface
 from pygame.font import Font, SysFont
 from GameSim.SupportClasses.Player import Player
@@ -19,7 +19,7 @@ class PlayerRenderer:
         # self.incrementor = 1
 
     def render_player(self, player: Player, top_left):
-        #self._render_player_motion(player)
+        # self._render_player_motion(player)
         self._render_player_motion_bezier_double(player, draw_dots=False)
         jersey_surface: Surface = Jerseys[player.team.team_colour]
         # render jersey
@@ -51,8 +51,13 @@ class PlayerRenderer:
         self.screen.blit(text_surface, offset)
 
     def _render_player_motion_bezier_double(
-        self, player: Player, draw_dots: bool = True, draw_line: bool = True, num_segments: int = 10
-            , start_colour: Color = Color(255, 255, 255), end_colour: Color = Color(0, 0, 0)
+        self,
+        player: Player,
+        draw_dots: bool = True,
+        draw_line: bool = True,
+        num_segments: int = 10,
+        start_colour: Color = Color(255, 255, 255),
+        end_colour: Color = Color(0, 0, 0),
     ):
         if len(player.position_list) < 2:
             return
@@ -76,10 +81,10 @@ class PlayerRenderer:
         ec = end_colour
         # This cannot be a Color type, because the values can be negative.
         colour_increment = (
-                                (ec.r - sc.r) * increase * 0.95,
-                                (ec.g - sc.g) * increase * 0.95,
-                                (ec.b - sc.b) * increase * 0.95,
-                            )
+            (ec.r - sc.r) * increase * 0.95,
+            (ec.g - sc.g) * increase * 0.95,
+            (ec.b - sc.b) * increase * 0.95,
+        )
 
         while t < 1:
             px = p0[0] * (1 - t) ** 2 + 2 * (1 - t) * t * p1[0] + p2[0] * t**2
@@ -101,7 +106,6 @@ class PlayerRenderer:
         b = math.floor(current.b + increment[2])
         updated = Color(r, g, b)
         return updated
-
 
     def _render_player_motion(self, player: Player):
         if len(player.position_list) < 2:
