@@ -58,9 +58,9 @@ class PlayerRenderer:
         player: Player,
         draw_dots: bool = True,
         draw_line: bool = True,
-        num_segments: int = 10,
-        start_colour: Color = Color(255, 255, 255),
-        end_colour: Color = Color(0, 0, 0),
+        num_segments: int = 15,
+        start_colour: Color = Color(245, 245, 245),
+        end_colour: Color = Color(50, 50, 50),
     ):
         if len(player.position_list) < 3:
             return
@@ -68,13 +68,12 @@ class PlayerRenderer:
         point_set = self.generate_point_set(player.position_list)
 
         # Debug Draw Circles on the Points
-        for p in point_set:
-            pygame.draw.circle(self.screen, (0, 110, 0), p, 5)
+        # for p in point_set:
+        #     pygame.draw.circle(self.screen, (0, 110, 0), p, 5)
 
         # Get Bezier Points
         bez_points = self.generate_bezier_points(point_set, num_segments)
 
-        t = 0.0
         sc = start_colour
         ec = end_colour
         colour_delta = ((ec.r - sc.r), (ec.g - sc.g), (ec.b - sc.b))
@@ -83,7 +82,7 @@ class PlayerRenderer:
         last_point = None
         for i, point in enumerate(bez_points):
             if draw_dots:
-                pygame.draw.rect(self.screen, start_colour, (point[0], point[1], 3, 3))
+                pygame.draw.rect(self.screen, current_colour, (point[0], point[1], 3, 3))
             if draw_line:
                 mod = i / (len(bez_points) - 1)
                 current_colour = (
@@ -92,7 +91,7 @@ class PlayerRenderer:
                     start_colour.b + (colour_delta[2] * mod),
                 )
                 if last_point is not None:
-                    pygame.draw.line(self.screen, current_colour, last_point, point, 1)
+                    pygame.draw.line(self.screen, "black", last_point, point, 1)
                 last_point = point
         pass
 
@@ -113,11 +112,9 @@ class PlayerRenderer:
             t = i / num_iterations
             point = None
             if num_points == 3:
-                point = self.bez_3(t, point_list, [1, 1, 1])
-                # point = self.bez_3(t, point_list, [0.15, 1.90, 0.15])
+                point = self.bez_3(t, point_list, [0.4, 1.6, 0.4])
             if num_points == 4:
-                point = self.bez_4(t, point_list, [1, 1, 1, 1])
-                # point = self.bez_4(t, point_list, [0.20, 1.85, 1.85, 0.20])
+                point = self.bez_4(t, point_list, [0.4, 1.6, 1.6, 0.4])
             points.append(point)
 
         return points
@@ -127,50 +124,18 @@ class PlayerRenderer:
         mt = 1 - t
         mt_sq = mt * mt
 
-        fx = [point_set[0][0] * mt_sq,
-              2 * point_set[1][0] * mt * t,
-              point_set[2][0] * t_sq]
-        fy = [point_set[0][1] * mt_sq,
-              2 * point_set[1][1] * mt * t,
-              point_set[2][1] * t_sq]
+        w = [weight_set[0] * mt_sq,
+             2 * weight_set[1] * mt * t,
+             weight_set[2] * t_sq
+            ]
 
-        basis_x = fx[0] + fx[1] + fx[2]
-        basis_y = fy[0] + fy[1] + fy[2]
+        basis = w[0] + w[1] + w[2]
 
-        weighted_value_x = (fx[0] * weight_set[0] + fx[1] * weight_set[1] + fx[2] * weight_set[2]) / basis_x
-        weighted_value_y = (fy[0] * weight_set[0] + fy[1] * weight_set[1] + fy[2] * weight_set[2]) / basis_y
+        weighted_value_x = (w[0] * point_set[0][0] + w[1] * point_set[1][0] + w[2] * point_set[2][0]) / basis
+        weighted_value_y = (w[0] * point_set[0][1] + w[1] * point_set[1][1] + w[2] * point_set[2][1]) / basis
         point = (weighted_value_x, weighted_value_y)
         return point
 
-#     function
-#     RationalBezier(2, t, w[], r[]):
-#     t2 = t * t
-#     mt = 1 - t
-#     mt2 = mt * mt
-#     f = [
-#         r[0] * mt2,
-#         2 * r[1] * mt * t,
-#         r[2] * t2
-#     ]
-#     basis = f[0] + f[1] + f[2]
-#     return (f[0] * w[0] + f[1] * w[1] + f[2] * w[2]) / basis
-#
-#
-# function
-# RationalBezier(3, t, w[], r[]):
-# t2 = t * t
-# t3 = t2 * t
-# mt = 1 - t
-# mt2 = mt * mt
-# mt3 = mt2 * mt
-# f = [
-#     r[0] * mt3,
-#     3 * r[1] * mt2 * t,
-#     3 * r[2] * mt * t2,
-#     r[3] * t3
-# ]
-# basis = f[0] + f[1] + f[2] + f[3]
-# return (f[0] * w[0] + f[1] * w[1] + f[2] * w[2] + f[3] * w[3]) / basis
 
     def bez_4(self, t, point_set, weight_set):
         t_sq = t * t
@@ -179,26 +144,18 @@ class PlayerRenderer:
         mt_sq = mt * mt
         mt_cu = mt_sq * mt
 
-        fx = [point_set[0][0] * mt_cu,
-              3 * point_set[1][0] * mt_sq * t,
-              3 * point_set[2][0] * mt * t_sq,
-              point_set[3][0] * t_cu]
-        fy = [point_set[0][1] * mt_cu,
-              3 * point_set[1][1] * mt_sq * t,
-              3 * point_set[2][1] * mt * t_sq,
-              point_set[3][1] * t_cu]
+        w = [
+            weight_set[0] * mt_cu,
+            3 * weight_set[1] * mt_sq * t,
+            3 * weight_set[2] * mt * t_sq,
+            weight_set[3] * t_cu
+        ]
 
-        basis_x = fx[0] + fx[1] + fx[2] + fx[3]
-        basis_y = fy[0] + fy[1] + fy[2] + fy[3]
+        basis = w[0] + w[1] + w[2] + w[3]
 
-        weighted_value_x = (fx[0] * weight_set[0]
-                            + fx[1] * weight_set[1]
-                            + fx[2] * weight_set[2]
-                            + fx[3] * weight_set[3]) / basis_x
-        weighted_value_y = (fy[0] * weight_set[0]
-                            + fy[1] * weight_set[1]
-                            + fy[2] * weight_set[2]
-                            + fy[3] * weight_set[3]) / basis_y
+        ps = point_set
+        weighted_value_x = (w[0] * ps[0][0] + w[1] * ps[1][0] + w[2] * ps[2][0] + w[3] * ps[3][0]) / basis
+        weighted_value_y = ((w[0] * ps[0][1] + w[1] * ps[1][1] + w[2] * ps[2][1] + w[3] * ps[3][1]) / basis)
         point = (weighted_value_x, weighted_value_y)
         return point
 

@@ -1,5 +1,6 @@
 # Example file showing a basic pygame "game loop"
 import math
+from itertools import cycle
 from typing import List
 import pygame
 from GameSim.GameSim import GameSim
@@ -66,15 +67,16 @@ def main():
 
     time_button_dims = (40, 80)
     buttons = [
+        Button((0,0,255,10) , (780, 1), (20,10), ""),
         Button((255,100,100), (520, 100), time_button_dims, "1", "Black"),
         Button((200, 255, 0), (570, 100), time_button_dims, "Slow", "Black"),
         Button((0, 255, 0), (620, 100), time_button_dims, "Run", "Black"),
         Button((0, 255, 150), (670, 100), time_button_dims, "Fast", "Black"),
-
     ]
 
     game_renderer = IceRenderer(game, screen, 1.0)
 
+    draw_cycle: cycle = cycle((10,20,60,100))
     draw_timer = Threshold(60)
     game_timer = Threshold(60)
     previous_ticks = pygame.time.get_ticks()
@@ -100,6 +102,9 @@ def main():
                     case "Fast":
                         sim_run = True
                         game_timer.threshold = 30
+                    case "":
+                        draw_timer.threshold = next(draw_cycle)
+
 
 
         if game_timer.is_threshold_exceeded(elapsed):
