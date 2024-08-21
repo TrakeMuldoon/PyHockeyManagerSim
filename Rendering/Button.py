@@ -13,6 +13,7 @@ class Button:
         color,
         xy,
         dimensions,
+        name,
         text,
         text_color: Color = Color("White"),
         on_click=None
@@ -23,6 +24,7 @@ class Button:
         self.y = xy[1]
         self.width = dimensions[0]
         self.height = dimensions[1]
+        self.name = name
         self.text = text
         self.text_ren = self.font.render(text, True, text_color)
         self.rect = Rect(self.x, self.y, self.width, self.height)

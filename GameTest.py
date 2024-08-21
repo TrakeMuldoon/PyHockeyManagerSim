@@ -67,11 +67,11 @@ def main():
 
     time_button_dims = (40, 80)
     buttons = [
-        Button((0, 0, 255, 10), (780, 1), (20, 10), ""),
-        Button((255, 100, 100), (520, 100), time_button_dims, "1", "Black"),
-        Button((200, 255, 0), (570, 100), time_button_dims, "Slow", "Black"),
-        Button((0, 255, 0), (620, 100), time_button_dims, "Run", "Black"),
-        Button((0, 255, 150), (670, 100), time_button_dims, "Fast", "Black"),
+        Button((0, 0, 255, 10), (780, 1), (20, 10), "FPS", ""),
+        Button((255, 100, 100), (520, 100), time_button_dims, "OneStep", "1", "Black"),
+        Button((200, 255, 0), (570, 100), time_button_dims, "SlowSpeed", "Slow", "Black"),
+        Button((0, 255, 0), (620, 100), time_button_dims, "RegularSpeed", "Run", "Black"),
+        Button((0, 255, 150), (670, 100), time_button_dims, "FastSpeed", "Fast", "Black"),
     ]
 
     game_renderer = IceRenderer(game, screen, 1.0)
@@ -89,21 +89,21 @@ def main():
         if is_button_up(events):
             pressed_button = find_button_press(buttons)
             if pressed_button:
-                match pressed_button.text:
-                    case "1":
+                match pressed_button.name:
+                    case "FPS":
+                        draw_timer.threshold = next(draw_cycle)
+                    case "OneStep":
                         sim_run = False
                         next_step = True
-                    case "Slow":
+                    case "SlowSpeed":
                         sim_run = True
                         game_timer.threshold = 1000
-                    case "Run":
+                    case "RegularSpeed":
                         sim_run = True
                         game_timer.threshold = 300
-                    case "Fast":
+                    case "FastSpeed":
                         sim_run = True
                         game_timer.threshold = 30
-                    case "":
-                        draw_timer.threshold = next(draw_cycle)
 
         if game_timer.is_threshold_exceeded(elapsed):
             if not game_over and (sim_run or next_step):
