@@ -1,6 +1,5 @@
 import math
 from typing import List
-
 import pygame
 from pygame import Color, Surface
 from pygame.font import Font, SysFont
@@ -124,18 +123,18 @@ class PlayerRenderer:
         mt = 1 - t
         mt_sq = mt * mt
 
-        w = [weight_set[0] * mt_sq,
-             2 * weight_set[1] * mt * t,
-             weight_set[2] * t_sq
-            ]
+        w = [weight_set[0] * mt_sq, 2 * weight_set[1] * mt * t, weight_set[2] * t_sq]
 
         basis = w[0] + w[1] + w[2]
 
-        weighted_value_x = (w[0] * point_set[0][0] + w[1] * point_set[1][0] + w[2] * point_set[2][0]) / basis
-        weighted_value_y = (w[0] * point_set[0][1] + w[1] * point_set[1][1] + w[2] * point_set[2][1]) / basis
+        weighted_value_x = (
+            w[0] * point_set[0][0] + w[1] * point_set[1][0] + w[2] * point_set[2][0]
+        ) / basis
+        weighted_value_y = (
+            w[0] * point_set[0][1] + w[1] * point_set[1][1] + w[2] * point_set[2][1]
+        ) / basis
         point = (weighted_value_x, weighted_value_y)
         return point
-
 
     def bez_4(self, t, point_set, weight_set):
         t_sq = t * t
@@ -148,14 +147,18 @@ class PlayerRenderer:
             weight_set[0] * mt_cu,
             3 * weight_set[1] * mt_sq * t,
             3 * weight_set[2] * mt * t_sq,
-            weight_set[3] * t_cu
+            weight_set[3] * t_cu,
         ]
 
         basis = w[0] + w[1] + w[2] + w[3]
 
         ps = point_set
-        weighted_value_x = (w[0] * ps[0][0] + w[1] * ps[1][0] + w[2] * ps[2][0] + w[3] * ps[3][0]) / basis
-        weighted_value_y = ((w[0] * ps[0][1] + w[1] * ps[1][1] + w[2] * ps[2][1] + w[3] * ps[3][1]) / basis)
+        weighted_value_x = (
+            w[0] * ps[0][0] + w[1] * ps[1][0] + w[2] * ps[2][0] + w[3] * ps[3][0]
+        ) / basis
+        weighted_value_y = (
+            w[0] * ps[0][1] + w[1] * ps[1][1] + w[2] * ps[2][1] + w[3] * ps[3][1]
+        ) / basis
         point = (weighted_value_x, weighted_value_y)
         return point
 

@@ -1,5 +1,5 @@
 import pygame
-from pygame import Rect, Surface, Color
+from pygame import Color, Rect, Surface
 from pygame.font import Font
 
 pygame.font.init()
@@ -8,7 +8,15 @@ pygame.font.init()
 class Button:
     font = Font(None, 35)
 
-    def __init__(self, color, xy, dimensions, text, text_color: Color = Color("White"), on_click=None):
+    def __init__(
+        self,
+        color,
+        xy,
+        dimensions,
+        text,
+        text_color: Color = Color("White"),
+        on_click=None
+    ):
         self.base_color = color
         self.color = color
         self.x = xy[0]
