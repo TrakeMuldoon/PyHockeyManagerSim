@@ -1,5 +1,4 @@
 from abc import abstractmethod
-
 from GameSim import GameSim
 from GameSim.SupportClasses.Player import Player
 

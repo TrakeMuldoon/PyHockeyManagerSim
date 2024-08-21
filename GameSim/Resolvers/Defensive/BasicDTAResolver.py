@@ -1,5 +1,4 @@
 from typing import List
-
 from GameSim.Resolvers.Defensive.DefensiveTeamActionResolver import DefensiveTeamActionResolver
 from GameSim.SupportClasses.Player import Player
 from GameSim.SupportClasses.Zones import Zone

@@ -1,5 +1,4 @@
 from collections import defaultdict
-
 import pygame
 from pygame import Surface, image, transform
 
@@ -27,7 +26,7 @@ class Jerseys:
     def default_size():
         return Jerseys.jersey_size
 
-    #TODO Import this into _cls_item_
+    # TODO Import this into _cls_item_
     @classmethod
     def get(cls, r: int, g: int, b: int):
         trupple = (r, g, b)
