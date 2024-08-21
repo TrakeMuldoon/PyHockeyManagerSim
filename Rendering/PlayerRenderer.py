@@ -91,7 +91,7 @@ class PlayerRenderer:
                     start_colour.b + (colour_delta[2] * mod),
                 )
                 if last_point is not None:
-                    pygame.draw.line(self.screen, "black", last_point, point, 1)
+                    pygame.draw.line(self.screen, current_colour, last_point, point, 1)
                 last_point = point
         pass
 
