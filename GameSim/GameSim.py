@@ -53,15 +53,13 @@ class GameSim:
         self.possessor_action_selector: PossessorActionSelector = RandomPASelector(self)
         self.possessor_action_resolver: PossessorActionResolver = UnopposedPAResolver(self)
         self.validate_selector_resolver(
-            self.possessor_action_selector,
-            self.possessor_action_resolver
+            self.possessor_action_selector, self.possessor_action_resolver
         )
 
         self.offensive_team_action_selector: OffensiveTeamActionSelector = RandomOTASelector(self)
         self.offensive_team_action_resolver: OffensiveTeamActionResolver = BasicOTAResolver(self)
         self.validate_selector_resolver(
-            self.offensive_team_action_selector,
-            self.offensive_team_action_resolver
+            self.offensive_team_action_selector, self.offensive_team_action_resolver
         )
 
         self.defensive_team_action_resolver: DefensiveTeamActionResolver = BasicDTAResolver(self)

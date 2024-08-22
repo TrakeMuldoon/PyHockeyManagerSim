@@ -8,6 +8,7 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from GameSim import GameSim
 
+
 class RandomDTASelector(DefensiveTeamActionSelector):
     def __init__(self, sim: "GameSim.GameSim"):
         super().__init__(sim)
