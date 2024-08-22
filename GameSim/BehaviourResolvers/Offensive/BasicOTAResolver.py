@@ -4,7 +4,10 @@ from GameSim.BehaviourResolvers.Offensive.OffensiveTeamActionResolver import (
 )
 from GameSim.SupportClasses.Player import Player
 from GameSim.SupportClasses.Zones import Zone
+from typing import TYPE_CHECKING
 
+if TYPE_CHECKING:
+    from GameSim import GameSim
 
 class BasicOTAResolver(OffensiveTeamActionResolver):
     def __init__(self, sim: "GameSim.GameSim"):

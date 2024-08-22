@@ -3,10 +3,13 @@ from GameSim.BehaviourSelectors.Defensive.DefensiveTeamActionSelector import (
     DefensiveTeamActionSelector,
 )
 from GameSim.BehaviourSelectors.WeightedDictionary import WeightedDictionary
+from typing import TYPE_CHECKING
 
+if TYPE_CHECKING:
+    from GameSim import GameSim
 
 class RandomDTASelector(DefensiveTeamActionSelector):
-    def __init__(self, sim: "GameSim"):
+    def __init__(self, sim: "GameSim.GameSim"):
         super().__init__(sim)
         weights = [
             ("Move_UpLeft", 12.5),
