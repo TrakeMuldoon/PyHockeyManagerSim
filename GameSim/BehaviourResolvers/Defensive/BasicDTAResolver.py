@@ -1,10 +1,12 @@
 from typing import List
-from GameSim.Resolvers.Offensive.OffensiveTeamActionResolver import OffensiveTeamActionResolver
+from GameSim.BehaviourResolvers.Defensive.DefensiveTeamActionResolver import (
+    DefensiveTeamActionResolver,
+)
 from GameSim.SupportClasses.Player import Player
 from GameSim.SupportClasses.Zones import Zone
 
 
-class BasicOTAResolver(OffensiveTeamActionResolver):
+class BasicDTAResolver(DefensiveTeamActionResolver):
     def __init__(self, sim: "GameSim.GameSim"):
         super().__init__(sim)
         self.actions_dict = {

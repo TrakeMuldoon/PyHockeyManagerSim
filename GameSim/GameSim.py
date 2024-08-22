@@ -2,6 +2,18 @@ from __future__ import annotations
 from random import random
 from typing import Iterator, Optional
 from GameSim.ActionResult import ActionResult
+from GameSim.BehaviourResolvers.Defensive.BasicDTAResolver import BasicDTAResolver
+from GameSim.BehaviourResolvers.Defensive.DefensiveTeamActionResolver import (
+    DefensiveTeamActionResolver,
+)
+from GameSim.BehaviourResolvers.Offensive.BasicOTAResolver import BasicOTAResolver
+from GameSim.BehaviourResolvers.Offensive.OffensiveTeamActionResolver import (
+    OffensiveTeamActionResolver,
+)
+from GameSim.BehaviourResolvers.Possessor.DummyPAResolver import DummyPAResolver
+from GameSim.BehaviourResolvers.Possessor.PossessorActionResolver import PossessorActionResolver
+from GameSim.BehaviourResolvers.Possessor.UnopposedPAResolver import UnopposedPAResolver
+from GameSim.BehaviourResolvers.Race.PuckRaceResolver import PuckRaceResolver
 from GameSim.BehaviourSelectors.Defensive.DefensiveTeamActionSelector import (
     DefensiveTeamActionSelector,
 )
@@ -11,17 +23,8 @@ from GameSim.BehaviourSelectors.Offensive.OffensiveTeamActionSelector import (
 )
 from GameSim.BehaviourSelectors.Offensive.RandomOTASelector import RandomOTASelector
 from GameSim.BehaviourSelectors.Possessor.PossessorActionSelector import PossessorActionSelector
-from GameSim.BehaviourSelectors.Possessor.RandomPossessorActionSelector import (
-    RandomPossessorActionSelector,
-)
+from GameSim.BehaviourSelectors.Possessor.RandomPASelector import RandomPASelector
 from GameSim.GameTeam import GameTeam
-from GameSim.Resolvers.Defensive.BasicDTAResolver import BasicDTAResolver
-from GameSim.Resolvers.Defensive.DefensiveTeamActionResolver import DefensiveTeamActionResolver
-from GameSim.Resolvers.Offensive.BasicOTAResolver import BasicOTAResolver
-from GameSim.Resolvers.Offensive.OffensiveTeamActionResolver import OffensiveTeamActionResolver
-from GameSim.Resolvers.Possessor.DummyPAResolver import DummyPAResolver
-from GameSim.Resolvers.Possessor.PossessorActionResolver import PossessorActionResolver
-from GameSim.Resolvers.Race.PuckRaceResolver import PuckRaceResolver
 from GameSim.SupportClasses.Player import Player
 from GameSim.SupportClasses.Zones import Zone
 
@@ -47,22 +50,26 @@ class GameSim:
 
         self.puck_race_resolver: PuckRaceResolver = PuckRaceResolver(self)
 
-        rpas = RandomPossessorActionSelector(self)
-        self.possessor_action_selector: PossessorActionSelector = rpas
-        self.possessor_action_resolver: PossessorActionResolver = DummyPAResolver(self)
-
+        self.possessor_action_selector: PossessorActionSelector = RandomPASelector(self)
+        self.possessor_action_resolver: PossessorActionResolver = UnopposedPAResolver(self)
         self.validate_selector_resolver(
-            self.possessor_action_selector, self.possessor_action_resolver
+            self.possessor_action_selector,
+            self.possessor_action_resolver
         )
 
         self.offensive_team_action_selector: OffensiveTeamActionSelector = RandomOTASelector(self)
         self.offensive_team_action_resolver: OffensiveTeamActionResolver = BasicOTAResolver(self)
         self.validate_selector_resolver(
-            self.offensive_team_action_selector, self.offensive_team_action_resolver
+            self.offensive_team_action_selector,
+            self.offensive_team_action_resolver
         )
 
         self.defensive_team_action_resolver: DefensiveTeamActionResolver = BasicDTAResolver(self)
         self.defensive_team_action_selector: DefensiveTeamActionSelector = RandomDTASelector(self)
+        # self.validate_selector_resolver(
+        #     self.defensive_team_action_resolver,
+        #     self.defensive_team_action_selector
+        # )
 
     def set_up_for_period(self):
         # select 5 players and a goalie

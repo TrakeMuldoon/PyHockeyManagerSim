@@ -1,5 +1,5 @@
 from GameSim import GameSim
-from GameSim.Resolvers.Possessor.PossessorActionResolver import PossessorActionResolver
+from GameSim.BehaviourResolvers.Possessor.PossessorActionResolver import PossessorActionResolver
 from GameSim.SupportClasses.Player import Player
 
 

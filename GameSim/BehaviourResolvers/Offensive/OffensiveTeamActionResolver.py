@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 from GameSim import GameSim
-from GameSim.Resolvers.GenericResolver import GenericResolver
+from GameSim.BehaviourResolvers.GenericResolver import GenericResolver
 from GameSim.SupportClasses.Player import Player
 
 

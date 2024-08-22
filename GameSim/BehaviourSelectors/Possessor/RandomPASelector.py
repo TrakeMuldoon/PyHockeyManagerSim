@@ -3,7 +3,7 @@ from GameSim.BehaviourSelectors.Possessor.PossessorActionSelector import Possess
 from GameSim.BehaviourSelectors.WeightedDictionary import WeightedDictionary
 
 
-class RandomPossessorActionSelector(PossessorActionSelector):
+class RandomPASelector(PossessorActionSelector):
     def __init__(self, sim: "GameSim"):
         super().__init__(sim)
         weights = [
