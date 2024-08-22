@@ -1,7 +1,6 @@
-from typing import List
+from typing import TYPE_CHECKING, List
 from GameSim.BehaviourSelectors.Possessor.PossessorActionSelector import PossessorActionSelector
 from GameSim.BehaviourSelectors.WeightedDictionary import WeightedDictionary
-from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from GameSim import GameSim

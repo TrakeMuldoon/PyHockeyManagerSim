@@ -79,6 +79,8 @@ class IceRenderer:
             self.player_renderer.render_player(players[i], top_lefts[i])
 
     def render_current_situation(self):
+        self._render_team_boundaries()
+
         zone_contents = defaultdict(list)
 
         for player in self.game_sim.home_team.get_players_on_ice():
@@ -92,6 +94,19 @@ class IceRenderer:
 
         self.render_puck_location()
         return
+
+    def _render_team_boundaries(self):
+        north_colour = self.game_sim.north_team.brand_colour
+        south_colour = self.game_sim.south_team.brand_colour
+
+        # I might do this in the future.
+        # s = pygame.Surface((400, 500))  # the size of your rect
+        # s.set_alpha(20)  # alpha level
+        # s.fill((255, 0, 0))  # this fills the entire surface
+        # self.screen.blit(s, (0, 0))
+
+        pygame.draw.line(self.screen, north_colour, (120, 1), (380, 1), 5)
+        pygame.draw.line(self.screen, south_colour, (120, 995), (380, 995), 5)
 
     def render_puck_location(self):
         if self.game_sim.puck_possessor is None:

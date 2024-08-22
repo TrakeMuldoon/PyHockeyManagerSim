@@ -9,14 +9,7 @@ class Button:
     font = Font(None, 35)
 
     def __init__(
-        self,
-        color,
-        xy,
-        dimensions,
-        name,
-        text,
-        text_color: Color = Color("White"),
-        on_click=None
+        self, color, xy, dimensions, name, text, text_color: Color = Color("White"), on_click=None
     ):
         self.base_color = color
         self.color = color

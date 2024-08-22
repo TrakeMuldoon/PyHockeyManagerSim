@@ -24,7 +24,6 @@ class UnopposedPAResolver(PossessorActionResolver):
 
     def resolve_action(self, action: str, player: Player):
         action_func = self.action_dict[action]
-        self._set_values()
         action_func()
 
     def pass_back(self):

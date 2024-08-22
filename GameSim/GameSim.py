@@ -37,6 +37,10 @@ class GameSim:
         self.home_team: GameTeam = GameTeam(home_team)
         self.away_team: GameTeam = GameTeam(away_team)
         self.north_team: GameTeam = self.away_team
+        self.south_team: GameTeam = self.home_team
+
+        self.offensive_team: GameTeam = None  # type: ignore
+        self.defensive_team: GameTeam = None  # type: ignore
 
         self.home_score: int = 0
         self.away_score: int = 0
@@ -78,6 +82,7 @@ class GameSim:
         self.print_players_on_ice()
 
     def simulate_game(self, with_print_statements=True, playoffs=False):
+        raise Exception("No longer used")
         self.north_team = self.home_team
         self.set_up_for_period()
         self.simulate_period(1)
@@ -101,6 +106,7 @@ class GameSim:
         return self.game_result_one_liner()
 
     def simulate_period(self, period_num, extra_period=False):
+        raise Exception("No Longer Used")
         self.is_face_off = True
         seconds_passed = 0
         next_line_change_seconds = 60
@@ -155,9 +161,13 @@ class GameSim:
         home_wins = self.determine_opposed_action_success(home_val, away_val)
         if home_wins:
             self.face_off_win(self.home_team)
+            self.offensive_team = self.home_team
+            self.defensive_team = self.away_team
             return f"Face off won by {home_centre.last_name} of the {self.home_team.team_name}"
         else:
             self.face_off_win(self.away_team)
+            self.offensive_team = self.away_team
+            self.defensive_team = self.home_team
             return f"Face off won by {away_centre.last_name} of the {self.away_team.team_name}"
 
     def face_off_win(self, team: GameTeam):
@@ -273,7 +283,9 @@ class GameSim:
         self.period_time_left = 1200
 
         # Flip team on North Side
-        self.north_team = self.home_team if self.north_team == self.away_team else self.away_team
+        new_south = self.north_team
+        self.north_team = self.south_team
+        self.south_team = new_south
 
         # Set up opening face-off
         self.puck_zone = Zone.NEU_CEN_FACEOFF

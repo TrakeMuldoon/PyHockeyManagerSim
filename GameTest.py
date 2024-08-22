@@ -48,8 +48,10 @@ def main():
     # TODO: Obviously teams should not be set up this way
     home_team = TeamGenerator.generate_random_team()
     home_team.team_colour = "Orange"
+    home_team.team_brand_colour = (255, 180, 25)
     away_team = TeamGenerator.generate_random_team()
     away_team.team_colour = "Green"
+    away_team.team_brand_colour = (20, 255, 20)
 
     game = GameSim(home_team, away_team)
     game.set_up_for_period()

@@ -8,10 +8,11 @@ from GameSim.SupportClasses.Team import Team
 from GameSim.SupportClasses.Zones import Zone
 
 
-class GameTeam(Team):
+class GameTeam:
     def __init__(self, team: Team) -> None:
         super().__init__()
         self.team_name = team.team_name
+        self.brand_colour = team.team_brand_colour
 
         self.dressed_goalies: List[Goalie] = team.goalies
         self.dressed_players: List[Skater] = team.skaters

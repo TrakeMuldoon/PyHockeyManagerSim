@@ -9,6 +9,7 @@ class Team:
         self.location: str = None  # type: ignore
         self.team_name: str = None  # type: ignore
         self.team_colour: str = None  # type: ignore
+        self.team_brand_colour: Color = None  # type: ignore
         self.skaters: List[Skater] = []
         self.goalies: List[Goalie] = []
 
