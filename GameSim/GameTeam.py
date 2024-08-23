@@ -22,7 +22,7 @@ class GameTeam:
         self.active_defence: DefensiveLine = DefensiveLine()
         self.goalie: Goalie = self.select_goalie()
 
-    def get_active_skaters(self) -> List[Skater]:
+    def get_skaters_on_ice(self) -> List[Skater]:
         ret = []
         ret.extend(self.active_offence.get_skaters())
         ret.extend(self.active_defence.get_skaters())
@@ -75,22 +75,20 @@ class GameTeam:
         line.right_defence = self.dressed_players[(index + 1) % self.num_dressed_players]
         return line
 
-    def set_new_period_zones(self, top: bool):
+    def set_new_period_zones(self):
         self.active_offence.left_winger.zone = Zone.NEU_CEN_LEFT
         self.active_offence.right_winger.zone = Zone.NEU_CEN_RIGHT
         self.active_offence.centre.zone = Zone.NEU_CEN_FACEOFF
         self.active_defence.left_defence.zone = Zone.NEU_DEF_LEFT_DOT
         self.active_defence.right_defence.zone = Zone.NEU_DEF_RIGHT_DOT
-        if top:
-            self._reverse_skater_zones()
-            self._reverse_player_zone(self.goalie)
 
-    def _reverse_skater_zones(self):
+    def reverse_player_zones(self):
         self._reverse_player_zone(self.active_offence.left_winger)
         self._reverse_player_zone(self.active_offence.right_winger)
         self._reverse_player_zone(self.active_offence.centre)
         self._reverse_player_zone(self.active_defence.left_defence)
         self._reverse_player_zone(self.active_defence.right_defence)
+        self._reverse_player_zone(self.goalie)
 
     @staticmethod
     def _reverse_player_zone(player: Player):

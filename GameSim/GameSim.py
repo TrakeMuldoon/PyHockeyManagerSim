@@ -76,9 +76,12 @@ class GameSim:
     def set_up_for_period(self):
         # select 5 players and a goalie
         self.home_team.put_new_skaters_on_ice()
-        self.home_team.set_new_period_zones(True)
+        self.home_team.set_new_period_zones()
+
         self.away_team.put_new_skaters_on_ice()
-        self.away_team.set_new_period_zones(False)
+        self.away_team.set_new_period_zones()
+        self.away_team.reverse_player_zones()
+
         self.print_players_on_ice()
 
     def simulate_game(self, with_print_statements=True, playoffs=False):
@@ -266,11 +269,11 @@ class GameSim:
                     def_team = self.home_team
 
                 # TODO: move all other players
-                for off_p in off_team.get_players_on_ice():
+                for off_p in off_team.get_skaters_on_ice():
                     if off_p != self.puck_possessor:
                         action = self.offensive_team_action_selector.select_action()
                         self.offensive_team_action_resolver.resolve_action(action, off_p)
-                for def_p in def_team.get_players_on_ice():
+                for def_p in def_team.get_skaters_on_ice():
                     action = self.defensive_team_action_selector.select_action()
                     self.defensive_team_action_resolver.resolve_action(action, def_p)
 
@@ -302,9 +305,12 @@ class GameSim:
         # set out lines (check penalties)
         # TODO: PENALTY
         self.home_team.put_new_skaters_on_ice(period_num)
-        self.home_team.set_new_period_zones(self.home_team == self.north_team)
+        self.home_team.set_new_period_zones()
+
         self.away_team.put_new_skaters_on_ice(period_num)
-        self.away_team.set_new_period_zones(self.away_team == self.north_team)
+        self.away_team.set_new_period_zones()
+
+        self.south_team.reverse_player_zones()
 
     @staticmethod
     def validate_selector_resolver(possessor_action_selector, possessor_action_resolver):
