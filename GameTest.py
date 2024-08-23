@@ -58,22 +58,26 @@ def main():
 
     # Simulator Set Up
     game_event_generator = game.yield_simulate_game()
+    next(game_event_generator)
 
     # UI SET UP
     rink_image = pygame.image.load("Assets/RinkNoLines.png")
     rink_image = pygame.transform.smoothscale(rink_image, (500, 1000))
 
     game_over = False
-    sim_run = True
+    sim_run = False
     next_step = False
 
     time_button_dims = (40, 80)
+    start_button = Button((0, 255, 0), (520, 400), (200, 100), "StartGame", "START!", (0, 0, 0))
+
     buttons = [
         Button((0, 0, 255, 10), (780, 1), (20, 10), "FPS", ""),
         Button((255, 100, 100), (520, 100), time_button_dims, "OneStep", "1", "Black"),
         Button((200, 255, 0), (570, 100), time_button_dims, "SlowSpeed", "Slow", "Black"),
         Button((0, 255, 0), (620, 100), time_button_dims, "RegularSpeed", "Run", "Black"),
         Button((0, 255, 150), (670, 100), time_button_dims, "FastSpeed", "Fast", "Black"),
+        start_button,
     ]
 
     game_renderer = IceRenderer(game, screen, 1.0)
@@ -97,15 +101,31 @@ def main():
                     case "OneStep":
                         sim_run = False
                         next_step = True
+                        if start_button:
+                            buttons.remove(start_button)
+                            start_button = None
                     case "SlowSpeed":
                         sim_run = True
                         game_timer.threshold = 1000
+                        if start_button:
+                            buttons.remove(start_button)
+                            start_button = None
                     case "RegularSpeed":
                         sim_run = True
                         game_timer.threshold = 300
+                        if start_button:
+                            buttons.remove(start_button)
+                            start_button = None
                     case "FastSpeed":
                         sim_run = True
                         game_timer.threshold = 30
+                        if start_button:
+                            buttons.remove(start_button)
+                            start_button = None
+                    case "StartGame":
+                        sim_run = True
+                        buttons.remove(start_button)
+                        start_button = None
 
         if game_timer.is_threshold_exceeded(elapsed):
             if not game_over and (sim_run or next_step):

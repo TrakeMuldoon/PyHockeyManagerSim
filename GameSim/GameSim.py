@@ -247,6 +247,7 @@ class GameSim:
         periods = [1, 2, 3]
         for period in periods:
             self.setup_standard_period(period)
+            yield f"Ready for action in period {period}"
 
             while self.period_time_left > 0:
                 # increment timer
