@@ -1,5 +1,7 @@
+from random import Random
 from GameSim import GameSim
 from GameSim.BehaviourResolvers.Possessor.PossessorActionResolver import PossessorActionResolver
+from GameSim.BehaviourSelectors.WeightedDictionary import WeightedDictionary
 from GameSim.SupportClasses.Player import Player
 
 
@@ -18,11 +20,13 @@ class UnopposedPAResolver(PossessorActionResolver):
             "SHOOT_HARD": self.shoot_hard,
             "HOLD": self.hold,
         }
+        self.player: Player = None  # type: ignore
 
     def get_supported_actions(self):
         return list(self.action_dict.keys())
 
     def resolve_action(self, action: str, player: Player):
+        self.player = self.game_sim.puck_possessor
         action_func = self.action_dict[action]
         action_func()
 
@@ -37,16 +41,54 @@ class UnopposedPAResolver(PossessorActionResolver):
         print("pass forward")
         return "pass forward"
 
+    carry_back_options = WeightedDictionary([("BL", 35), ("B", 30), ("BR", 35)])
+
     def carry_back(self):
-        print("carry_back")
+        val = self.carry_back_options.get_weighted_random_value()
+        match val:
+            case "BL":
+                self.move_back_left(self.player)
+            case "B":
+                self.move_back(self.player)
+            case "BR":
+                self.move_back_right(self.player)
+        self.game_sim.puck_zone = self.player.zone
         return "carry_back"
 
+    carry_lateral_options = WeightedDictionary(
+        [("BL", 5), ("BR", 5), ("L", 40), ("R", 40), ("UL", 5), ("UR", 5)]
+    )
+
     def carry_lateral(self):
-        print("carry_lateral")
+        val = self.carry_forward_options.get_weighted_random_value()
+        match val:
+            case "BL":
+                self.move_back_left(self.player)
+            case "BR":
+                self.move_back_right(self.player)
+            case "L":
+                self.move_left(self.player)
+            case "R":
+                self.move_right(self.player)
+            case "UL":
+                self.move_up_left(self.player)
+            case "UR":
+                self.move_up_right(self.player)
+        self.game_sim.puck_zone = self.player.zone
         return "carry_lateral"
 
+    carry_forward_options = WeightedDictionary([("UL", 35), ("U", 30), ("UR", 35)])
+
     def carry_forward(self):
-        print("carry_forward")
+        val = self.carry_forward_options.get_weighted_random_value()
+        match val:
+            case "UL":
+                self.move_up_left(self.player)
+            case "U":
+                self.move_up(self.player)
+            case "UR":
+                self.move_up_right(self.player)
+        self.game_sim.puck_zone = self.player.zone
         return "carry_forward"
 
     def shoot_light(self):

@@ -1,9 +1,10 @@
 from abc import abstractmethod
 from GameSim import GameSim
+from GameSim.BehaviourResolvers.GenericResolver import GenericResolver
 from GameSim.SupportClasses.Player import Player
 
 
-class DefensiveTeamActionResolver:
+class DefensiveTeamActionResolver(GenericResolver):
     def __init__(self, sim: "GameSim.GameSim"):
         pass
 
