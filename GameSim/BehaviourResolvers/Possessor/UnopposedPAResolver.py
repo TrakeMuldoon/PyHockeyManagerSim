@@ -1,8 +1,10 @@
 from random import Random
 from GameSim import GameSim
+from GameSim.ActionResult import ActionResult
 from GameSim.BehaviourResolvers.Possessor.PossessorActionResolver import PossessorActionResolver
 from GameSim.BehaviourSelectors.WeightedDictionary import WeightedDictionary
 from GameSim.SupportClasses.Player import Player
+from GameSim.SupportClasses.Rink import Rink
 
 
 class UnopposedPAResolver(PossessorActionResolver):
@@ -25,21 +27,74 @@ class UnopposedPAResolver(PossessorActionResolver):
     def get_supported_actions(self):
         return list(self.action_dict.keys())
 
-    def resolve_action(self, action: str, player: Player):
+    def resolve_action(self, action: str, player: Player) -> ActionResult:
         self.player = self.game_sim.puck_possessor
         action_func = self.action_dict[action]
-        action_func()
+        res = action_func()
+        return res
 
-    def pass_back(self):
-        return "pass back"
+    def pass_back(self) -> ActionResult:
+        teammates = self.game_sim.offensive_team.get_skaters_on_ice()
+        my_row = Rink.get_row(self.player.zone)
+        down_ice = [t for t in teammates if Rink.get_row(t.zone) < my_row]
+        lateral = [t for t in teammates if t != self.player and Rink.get_row(t.zone) == my_row]
+
+        target_player = None
+        if down_ice:
+            selection = self.rand.randint(0, len(down_ice) - 1)
+            target_player = down_ice[selection]
+        elif lateral:
+            selection = self.rand.randint(0, len(lateral) - 1)
+            target_player = lateral[selection]
+
+        if target_player:
+            self._pass_to(target_player)
+            return ActionResult(f"{self.player.last_name} drops puck to {target_player.last_name}")
+        else:
+            return ActionResult(f"{self.player.last_name} finds no open teammates")
 
     def pass_lateral(self):
-        print("pass lateral")
-        return "pass lateral"
+        teammates = self.game_sim.offensive_team.get_skaters_on_ice()
+        my_row = Rink.get_row(self.player.zone)
+        lateral = [t for t in teammates if t != self.player and Rink.get_row(t.zone) == my_row]
+        close = [t for t in teammates if abs(Rink.get_row(t.zone) - my_row) == 1]
+
+        target_player = None
+        if lateral:
+            selection = self.rand.randint(0, len(lateral) - 1)
+            target_player = lateral[selection]
+        elif close:
+            selection = self.rand.randint(0, len(close) - 1)
+            target_player = close[selection]
+
+        if target_player:
+            self._pass_to(target_player)
+            return ActionResult(f"{self.player.last_name} passes across to {target_player.last_name}")
+        else:
+            return ActionResult(f"{self.player.last_name} finds no nearby teammates")
 
     def pass_forward(self):
-        print("pass forward")
-        return "pass forward"
+        teammates = self.game_sim.offensive_team.get_skaters_on_ice()
+        my_row = Rink.get_row(self.player.zone)
+        lateral = [t for t in teammates if t != self.player and Rink.get_row(t.zone) == my_row]
+        up_ice = [t for t in teammates if Rink.get_row(t.zone) > my_row]
+        target_player = None
+        if up_ice:
+            selection = self.rand.randint(0, len(up_ice) - 1)
+            target_player = up_ice[selection]
+        elif lateral:
+            selection = self.rand.randint(0, len(lateral) - 1)
+            target_player = lateral[selection]
+
+        if target_player:
+            self._pass_to(target_player)
+            return ActionResult(f"{self.player.last_name} passes up to {target_player.last_name}")
+        else:
+            return ActionResult(f"{self.player.last_name} finds no open teammates")
+
+    def _pass_to(self, player: Player):
+        self.game_sim.puck_possessor = player
+        self.game_sim.puck_zone = player.zone
 
     carry_back_options = WeightedDictionary([("BL", 35), ("B", 30), ("BR", 35)])
 
@@ -53,7 +108,7 @@ class UnopposedPAResolver(PossessorActionResolver):
             case "BR":
                 self.move_back_right(self.player)
         self.game_sim.puck_zone = self.player.zone
-        return "carry_back"
+        return ActionResult("carry_back")
 
     carry_lateral_options = WeightedDictionary(
         [("BL", 5), ("BR", 5), ("L", 40), ("R", 40), ("UL", 5), ("UR", 5)]

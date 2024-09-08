@@ -133,29 +133,25 @@ class GameSim:
     def simulate_next_event(self) -> str:
         if self.is_face_off:
             # resolve face_off
-            return self.simulate_face_off(
+            result = self.simulate_face_off(
                 self.home_team.active_offence.centre,
                 self.away_team.active_offence.centre,
             )
-
         elif self.puck_possessor is None:
             # resolve race
-            self.puck_race_resolver.resolve_race()
-
+            result = self.puck_race_resolver.resolve_race()
         else:
             # resolve possessed zone action
             result = self.resolve_puck_controlled_event()
 
-        return "null"
+        return result
 
     # TODO Delete this function?
     def simulate_shootout(self):
-        pass
+        raise NotImplemented("NOT IMP MENTED")
 
     # TODO Delete this function?
     def simulate_face_off(self, home_centre, away_centre) -> str:
-        # home_centre.print_stats()
-        # away_centre.print_stats()
         hc = home_centre
         home_val = (hc.puck_control + hc.stick_checking + hc.passing) / 3
         ac = away_centre
@@ -195,7 +191,10 @@ class GameSim:
     def resolve_puck_controlled_event(self) -> ActionResult:
         action = self.possessor_action_selector.select_action()
         action_result = self.possessor_action_resolver.resolve_action(action, self.puck_possessor)
-        return action_result
+        if type(action_result) is str:
+            return action_result
+        else:
+            return action_result.result_string
 
     ### (A - B + SF) / (2 * SF)(SF=75)
     @staticmethod
@@ -258,7 +257,7 @@ class GameSim:
                 seconds_passed = int(random() * 3) + 3
                 self.period_time_left -= seconds_passed
                 # simulate next event
-                self.simulate_next_event()
+                event_string = self.simulate_next_event()
 
                 possessor_team_name = self.puck_possessor.team.team_name
                 if self.home_team.team_name == possessor_team_name:
@@ -278,7 +277,7 @@ class GameSim:
                     self.defensive_team_action_resolver.resolve_action(action, def_p)
 
                 # TODO: PENALTY
-                yield f"{self.events}: {self.period_time_left}"
+                yield f"{self.events}: {self.period_time_left} > {event_string}"
         # TODO: handle ties, and extra periods
         yield self.game_result_one_liner()
 

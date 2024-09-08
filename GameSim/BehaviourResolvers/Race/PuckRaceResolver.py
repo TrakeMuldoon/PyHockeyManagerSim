@@ -10,3 +10,4 @@ class PuckRaceResolver:
 
     def resolve_race(self):
         print("Race! REPLACE", end="\t\t")
+        return "Race for the Puck! NOT OMPLMENTENTED"

@@ -25,3 +25,7 @@ class Rink:
     def left_ice(zone: Zone):
         col = (zone.value - 1) % Rink._ROW_WIDTH
         return Zone(zone.value - 1) if col > 0 else zone
+
+    @staticmethod
+    def get_row(zone: Zone):
+        return ((zone.value - 1) // Rink._ROW_WIDTH) + 1

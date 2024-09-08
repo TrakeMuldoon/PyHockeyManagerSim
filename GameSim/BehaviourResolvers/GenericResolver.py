@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from random import Random
 from typing import TYPE_CHECKING, List
 from GameSim.SupportClasses.Player import Player
 from GameSim.SupportClasses.Rink import Rink
@@ -9,8 +10,12 @@ if TYPE_CHECKING:
 
 
 class GenericResolver(ABC):
-    def __init__(self, sim: "GameSim.GameSim"):
+    def __init__(self, sim: "GameSim.GameSim", rand_seed: int = None):
         self.game_sim: "GameSim.GameSim" = sim
+        if rand_seed:
+            self.rand = Random(rand_seed)
+        else:
+            self.rand = Random()
 
     def does_support_action_list(self, required_actions: List[str]):
         supported_actions = self.get_supported_actions()
