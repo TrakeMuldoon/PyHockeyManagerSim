@@ -108,7 +108,7 @@ class UnopposedPAResolver(PossessorActionResolver):
             case "BR":
                 self.move_back_right(self.player)
         self.game_sim.puck_zone = self.player.zone
-        return ActionResult("carry_back")
+        return ActionResult(f"{self.player.last_name} drops back")
 
     carry_lateral_options = WeightedDictionary(
         [("BL", 5), ("BR", 5), ("L", 40), ("R", 40), ("UL", 5), ("UR", 5)]
@@ -130,7 +130,7 @@ class UnopposedPAResolver(PossessorActionResolver):
             case "UR":
                 self.move_up_right(self.player)
         self.game_sim.puck_zone = self.player.zone
-        return "carry_lateral"
+        return ActionResult(f"{self.player.last_name} skates to the outside")
 
     carry_forward_options = WeightedDictionary([("UL", 35), ("U", 30), ("UR", 35)])
 
@@ -144,7 +144,7 @@ class UnopposedPAResolver(PossessorActionResolver):
             case "UR":
                 self.move_up_right(self.player)
         self.game_sim.puck_zone = self.player.zone
-        return "carry_forward"
+        return ActionResult(f"{self.player.last_name} drives forward with the puck")
 
     def shoot_light(self):
         print("shoot_light")
