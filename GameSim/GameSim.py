@@ -22,6 +22,8 @@ from GameSim.BehaviourSelectors.Offensive.OffensiveTeamActionSelector import (
     OffensiveTeamActionSelector,
 )
 from GameSim.BehaviourSelectors.Offensive.RandomOTASelector import RandomOTASelector
+from GameSim.BehaviourSelectors.Possessor.DictionaryResolver.DictionaryPossessorSelector import \
+    DictionaryPossessorSelector
 from GameSim.BehaviourSelectors.Possessor.PossessorActionSelector import PossessorActionSelector
 from GameSim.BehaviourSelectors.Possessor.RandomPASelector import RandomPASelector
 from GameSim.GameTeam import GameTeam
@@ -54,7 +56,8 @@ class GameSim:
 
         self.puck_race_resolver: PuckRaceResolver = PuckRaceResolver(self)
 
-        self.possessor_action_selector: PossessorActionSelector = RandomPASelector(self)
+#        self.possessor_action_selector: PossessorActionSelector = RandomPASelector(self)
+        self.possessor_action_selector: PossessorActionSelector = DictionaryPossessorSelector(self)
         self.possessor_action_resolver: PossessorActionResolver = UnopposedPAResolver(self)
         self.validate_selector_resolver(
             self.possessor_action_selector, self.possessor_action_resolver

@@ -10,7 +10,7 @@ class PossessorActionSelector(ABC):
         self.game_sim = sim
 
     @abstractmethod
-    def select_action(self):
+    def select_action(self) -> str:
         pass
 
     @abstractmethod

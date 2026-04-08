@@ -1,23 +1,27 @@
 FILESPEC:
 {PIVOTNAME}
+{DIVIDER}
 {ACTIONSET} (0-n)
+{DIVIDER}
 {INSTANCE} (1-n)
----------------
+-----
 DEFINITIONS
+{COMMENT} = #{\w+} #discarded
 {PIVOT_NAME} = {NAME} # (e.g. "Strategy", "TeamMatchup", "PenaltyState", "Game Situation")
+{DIVIDER} = "_____"
 {NAME} = "[A-Za-z0-9\-_]*"
-{ACTION_SET} = {ACTION_SET_NAME}:{ACTION_PROBABILITIES}
+{ACTION_SET} = {ACTION_SET_NAME}:\t*{ACTION_PROBABILITIES}
 {ACTION_SET_NAME} = {NAME}
 {ACTION_PROBABILITIES} = {ACTION_PROBABILITIES_100}|{ACTION_PROBABILITIES_DELTA}
-{ACTION_PROBABILITIES_100} = "N(\d+)PB(\d+)PL(\d+)PF(\d+)CB(\d+)CL(\d+)CF(\d+)SS(\d+)SH(\d+)"
+{ACTION_PROBABILITIES_100} = "N(\d+) PB(\d+) PL(\d+) PF(\d+) CB(\d+) CL(\d+) CF(\d+) SS(\d+) SH(\d+)"
     - numbers must add up to 100
-{ACTION_PROBABILITIES_DELTA} = "N([+-]\d+)PB([+-]\d+)PL([+-]\d+)PF([+-]\d+)CB([+-]\d+)CL([+-]\d+)CF([+-]\d+)SS([+-]\d+)SH([+-]\d+)"
+{ACTION_PROBABILITIES_DELTA} = "N([+-]\d+) PB([+-]\d+) PL([+-]\d+) PF([+-]\d+) CB([+-]\d+) CL([+-]\d+) CF([+-]\d+) SS([+-]\d+) SH([+-]\d+)"
     - numbers must add up to 0
 {INSTANCE} = {INSTANCE_TITLE}\n{POSITION_RULES}[6]
 {INSTANCE_TITLE} = {PIVOT_NAME}.{NAME} #(e.g. "Strategy.JustShootIt")
-{POSITION_RULES} = \t{POSITION}:\n\t\t{RULELINE} # up to 33
+{POSITION_RULES} = \t{POSITION}\n\t\t{RULELINE} # up to 33
 {POSITION} = (LD|RD|LW|C|RW|EX)
-{RULELINE} = {ZONE_SELECT}:({ACTION_SET_NAME}|{ACTION_PROBABILITIES})
+{RULELINE} = {ZONE_SELECT}:\t*({ACTION_SET_NAME}|{ACTION_PROBABILITIES})
 {ZONE_SELECT} = ({ZONE_VALUE}|{ZONE_NAME}|{ZONE_GROUP})
 {ZONE_VALUE} = 1-33 //The number of the zone the rule targets
 {ZONE_NAME} = {NAME} //The enum name of the zone the rule targets
