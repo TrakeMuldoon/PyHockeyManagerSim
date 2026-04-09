@@ -21,7 +21,7 @@ class Skater(Player):
         self.shot_blocking: float = self.generate_random_NHL_stat()
         self.stick_checking: float = self.generate_random_NHL_stat()
 
-        self.position: Position = Position(int(random() * 5) + 2)
+        self.position: Position = Position.from_id(int(random() * 5) + 2)
 
     def print_stats(self):
         name = f"{self.first_name} {self.last_name} ({str(self.position)[10:]})"

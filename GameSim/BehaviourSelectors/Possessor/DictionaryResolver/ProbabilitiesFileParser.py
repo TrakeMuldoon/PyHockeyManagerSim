@@ -5,6 +5,8 @@ import re
 
 from GameSim.BehaviourSelectors.Possessor.DictionaryResolver.TableSelector import TableSelector
 from GameSim.BehaviourSelectors.WeightedDictionary import WeightedDictionary
+from GameSim.SupportClasses.Positions import Position
+from GameSim.SupportClasses.Zones import Zone
 
 class BaseFileParserState(Enum):
     ROOT = 1
@@ -24,30 +26,63 @@ class ProbabilitiesFileParser:
         STATE = BaseFileParserState.ROOT
         current_position = None
 
-        for line in file:
+        tables = TableSelector("BaseProbabilitiesByPosition")  # tables[Position][Zone] = WeightedDictionary
+
+        for raw_line in file:
+            line = raw_line.strip()
+
+            # skip comments
             if line.startswith("#"):
-                # this is a comment line
                 continue
 
             if STATE == BaseFileParserState.ROOT:
-                if line == '\n': # Empty Line
+                # skip blank lines
+                if not line:
                     continue
 
-                new_pos = re.search("^(LD|RD|LW|RW|C)$", line)
-                if new_pos:
-                    current_position = new_pos.group(1)
-                    STATE = BaseFileParserState.IN_POSITION
-                    continue
+                # detect start of a position block
+                m = re.match(r"^(LD|RD|LW|RW|C|EX)$", line)
+                if not m:
+                    raise Exception(f"Unexpected line in ROOT: {line}")
+
+                short_code = m.group(1)
+                current_position = Position.from_short(short_code)
+                if current_position not in tables:
+                    tables[current_position] = {}
+                STATE = BaseFileParserState.IN_POSITION
+                continue
 
             if STATE == BaseFileParserState.IN_POSITION:
-                if line == '\n': # Empty Line
+                # blank line ends this block
+                if not line:
                     STATE = BaseFileParserState.ROOT
+                    current_position = None
                     continue
 
+                # parse zone selector
+                zone_match = re.match(r"^(\w+):", line)
+                if not zone_match:
+                    raise Exception(f"Expected zone name in position block: {line}")
+                zone_name = zone_match.group(1)
 
-                weights_table: List[Tuple[str, float]] = self.parse_rule_line(line)
-                line_dict = WeightedDictionary(weights_table)
-                # TODO: store line_dict against current_position and zone_select
+                # convert zone alias → list of ints
+                try:
+                    zone_values = getattr(Zone, zone_name).value
+                except AttributeError:
+                    raise Exception(f"Unknown zone alias '{zone_name}'", line)
+                if isinstance(zone_values, int):
+                    zone_values = [zone_values]
+
+                # parse weights
+                weights_table = self.parse_rule_line(line)
+                weighted_dict = WeightedDictionary(weights_table)
+
+                # store under Zone enums
+                for z in zone_values:
+                    zone_enum = Zone(z)
+                    tables[current_position][zone_enum] = weighted_dict
+
+        return tables
 
     def parse_rule_line(self, line: str) -> List[Tuple[str, float]]:
         #{ZONE_SELECT}:\t*({ACTION_SET_NAME}|{ACTION_PROBABILITIES})

@@ -2,6 +2,7 @@
 # PB = Pass Back, PL = Pass Lateral, PF = Pass Forward
 # CB = Carry Back, CL = Carry Lateral, CF = Carry Forward
 # SS = Shoot Soft (shoot low, break out), SH = Shoot Hard (shoot high, ice it)
+
 LD
 DEFENSIVE_ZONES:   N(03) PB(05) PL(05) PF(35) CB(08) CL(05) CF(11) SS(25) SH(03)
 NEUTRAL_ZONES:     N(04) PB(04) PL(08) PF(23) CB(08) CL(04) CF(14) SS(18) SH(17)
