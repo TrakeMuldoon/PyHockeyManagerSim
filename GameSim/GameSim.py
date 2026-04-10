@@ -27,13 +27,15 @@ from GameSim.BehaviourSelectors.Possessor.DictionaryResolver.DictionaryPossessor
 from GameSim.BehaviourSelectors.Possessor.PossessorActionSelector import PossessorActionSelector
 from GameSim.BehaviourSelectors.Possessor.RandomPASelector import RandomPASelector
 from GameSim.GameTeam import GameTeam
+from GameSim.SupportClasses.OpposedActionResult import OpposedActionResult
 from GameSim.SupportClasses.Player import Player
 from GameSim.SupportClasses.Zones import Zone
 
 
 class GameSim:
     SECONDS_IN_PERIOD = 1200  # 60 * 20
-    SKILL_FACTOR = 75
+    SKILL_DIFF_IMPACT = 0.01
+    FACE_OFF_CLEAN_PERCENTAGE = 0.446
 
     def __init__(self, home_team, away_team, log_level=0) -> None:
         self.home_team: GameTeam = GameTeam(home_team)
@@ -160,8 +162,9 @@ class GameSim:
         ac = away_centre
         away_val = (ac.puck_control + ac.stick_checking + ac.passing) / 3
 
-        home_wins = self.determine_opposed_action_success(home_val, away_val)
-        if home_wins:
+        action_result = self.determine_opposed_action_outcome(home_val, away_val, GameSim.FACE_OFF_CLEAN_PERCENTAGE)
+        if action_result.is_win():
+            #TODO: Implement table based on contested or clean for where the puck ends up.
             self.face_off_win(self.home_team)
             self.offensive_team = self.home_team
             self.defensive_team = self.away_team
@@ -181,7 +184,6 @@ class GameSim:
             selected_player = team.active_defence.right_defence
         elif roll < 0.7:
             selected_player = team.active_offence.left_winger
-
         elif roll < 0.9:
             selected_player = team.active_offence.right_winger
         else:
@@ -200,19 +202,40 @@ class GameSim:
             return action_result.result_string
 
     ### (A - B + SF) / (2 * SF)(SF=75)
+    ### Higher "skill factor" means the difference in skills matters less
     @staticmethod
-    def determine_opposed_action_success(active_player_skill_value, opposing_player_skill_value):
+    def determine_opposed_action_outcome(active_player_skill_value, opposing_player_skill_value, clean_win_percentage):
         act = active_player_skill_value
         opp = opposing_player_skill_value
-        numerator = act - opp + GameSim.SKILL_FACTOR
-        denominator = 2 * GameSim.SKILL_FACTOR
-        odds = numerator / denominator
+        skill_difference = act - opp
+        # Stage 1: linear win probability
+        win_prob = 0.5 + skill_difference * GameSim.SKILL_DIFF_IMPACT
+        win_prob = max(0, min(1, win_prob))  # clamp
+
+        clean_win_prob = win_prob * clean_win_percentage
+        contested_win_prob = win_prob * (1 - clean_win_percentage)
+        contested_loss_prob = (1 - win_prob) * (1 - clean_win_percentage)
+        clean_loss_prob = (1 - win_prob) * clean_win_percentage
 
         roll = random()
+        result = GameSim.iterate_against_tuples(roll
+                                                , (clean_win_prob, OpposedActionResult.CLEAN_WIN)
+                                                , (contested_win_prob, OpposedActionResult.CONTESTED_WIN)
+                                                , (contested_loss_prob, OpposedActionResult.CONTESTED_LOSS)
+                                                , (clean_loss_prob, OpposedActionResult.CLEAN_LOSS))
 
-        print(f"{act} vs {opp} : {odds} -> {roll}({roll < odds})")
+        print(f"{act} vs {opp}: {clean_win_prob}, {contested_win_prob} - {contested_loss_prob}, {clean_loss_prob} : roll={roll} -> {result}")
 
-        return roll < odds
+        return result
+
+    @staticmethod
+    def iterate_against_tuples(determinant: int | float, *probability_pairs: tuple[int | float, any]) -> any:
+        current = 0
+        for pair in probability_pairs:
+            current += pair[0]
+            if current > determinant:
+                return pair[1]
+        raise ValueError(f"Determinant {determinant} exceeds total probability range of {current}")
 
     def print_game_time(self, period, seconds_passed):
         return

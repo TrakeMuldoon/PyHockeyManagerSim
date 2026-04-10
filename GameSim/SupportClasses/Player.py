@@ -24,10 +24,7 @@ class Player:
 
     @staticmethod
     def generate_random_NHL_stat() -> float:
-        stat = random() * 28
-        stat = int(100 * stat)
-        stat = stat / 100
-        stat += 70
+        stat = round(random() * 28, 2) + 70
         return stat
 
     @staticmethod
